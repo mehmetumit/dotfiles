@@ -1,0 +1,11 @@
+#!/bin/sh
+script_path="$HOME/.scripts/dwm-scripts/gsigstr"
+case $BUTTON in 
+	1) notify-send -t 2000 "SSID: $(gssid)" "IP: $(gip)";;
+	2) notify-send -t 2000 "Scanning available wifi networks...";  notify-send "$(nmcli -f SSID,BARS device wifi list --rescan yes)";;
+	3) notify-send -t 2000 "Scanning available wifi networks..."; $TERMINAL -e "conn-wifi" ;;
+	4) $TERMINAL -e "vim $script_path" ;;
+esac
+# Calculate wireless signal strength
+gwifi=$(cat /proc/net/wireless | awk 'NR==3{printf "%d", $3*10/7}')
+printf " %2d%%" $gwifi

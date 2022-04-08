@@ -1,0 +1,31 @@
+#!/bin/bash
+errlogfile="$HOME/startup.log"
+# Increase scroll key speed
+xset r rate 300 50
+# Swap capslock and escape
+setxkbmap -option caps:swapescape
+nitrogen --restore & 2>>$errlogfile
+# Useful for unity
+picom --config ~/.config/picom/picom.conf & 2>>$errlogfile
+# Load bell sound
+# use xset -b to disable and xset b to enable
+#xset b
+# pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga bell
+# pactl load-module module-x11-bell sample=bell
+
+# Start kdeconnect
+# /usr/lib/kdeconnectd &
+
+dwmblocks & 2>>$errlogfile
+# Start clipmenu
+clipmenud & 2>>$errlogfile
+# Start tlp
+sudo tlp start
+# Standby HDD
+sudo hdparm -y /dev/sda
+# Start dunst notifications
+dunst & 2>>$errlogfile
+# Change name server
+sudo conf-dns
+# Initialize sound effects
+init-sounds

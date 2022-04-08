@@ -1,0 +1,6 @@
+#!/bin/bash
+
+unity_project_path="$HOME/Programming/UnityProjects"
+selected_project=$(ls $unity_project_path | fzf)
+$HOME/Unity/Hub/Editor/20*/Editor/Unity -projectpath $selected_project
+

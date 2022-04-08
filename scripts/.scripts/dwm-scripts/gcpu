@@ -1,0 +1,13 @@
+#!/bin/sh
+script_path="$HOME/.scripts/dwm-scripts/gcpu"
+case $BUTTON in 
+	1) notify-send "$(gcpucon)" ;;
+	3) $TERMINAL -e htop ;;
+	4) $TERMINAL -e "vim $script_path" ;;
+esac
+# Number of cores determined with nproc command
+cores=8 
+cpu_usage=$(awk -v c="${cores}" '{printf "%d%", ($1*100)/c}'< /proc/loadavg)
+# Get cpu temperature with gsens script
+cpu_temp=$(gsens)
+printf " CPU: %s %s" $cpu_usage $cpu_temp

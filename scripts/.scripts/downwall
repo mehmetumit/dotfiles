@@ -1,0 +1,5 @@
+#!/bin/sh
+
+wall_link=$(curl "$1" | tr '<' '\n' | tr '>' '\n'| grep 'img id=\"wallpaper\"' | awk -F '"' '{print $4}')
+file_name=$(echo $wall_link | awk -F "/" '{print $NF}')
+curl $wall_link > "$HOME/Walpapers/$file_name"

@@ -1,0 +1,12 @@
+#!/bin/sh
+COLOR='\033[1;32m'
+NC='\033[0m'
+# Compile dwm
+printf "${COLOR}# dwm compiling...${NC}\n"
+sudo make -C $HOME/.config/dwm/ install 
+# Compile dwmblocks
+printf "${COLOR}# dwmblocks compiling...${NC}\n"
+sudo make -C $HOME/.config/dwmblocks/ install 
+# Compile dmenu
+printf "${COLOR}# dmenu compiling...${NC}\n"
+sudo make -C $HOME/.config/dmenu/ install

@@ -1,0 +1,2 @@
+#!/bin/sh
+ps ac -o pid,cmd:7,%mem --sort=-%mem | head -n 5

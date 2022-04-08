@@ -1,0 +1,8 @@
+#!/bin/sh
+script_path="$HOME/.scripts/dwm-scripts/gbr"
+case $BUTTON in 
+	1) notify-send "Brightness" ;;
+	4) $TERMINAL -e "vim $script_path" ;;
+esac
+gbr=$(xbacklight -get)
+printf ' %d' $gbr 2>/dev/null

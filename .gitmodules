@@ -1,0 +1,15 @@
+[submodule "dwmblocks/.config/dwmblocks"]
+	path = dwmblocks/.config/dwmblocks
+	url = https://github.com/mehmetumit/dwmblocks.git
+[submodule "scripts/.scripts/colpick"]
+	path = scripts/.scripts/colpick
+	url = https://github.com/mehmetumit/colpick.git
+[submodule "scripts/.scripts/auto_ssh_gen"]
+	path = scripts/.scripts/auto_ssh_gen
+	url = https://github.com/mehmetumit/auto_ssh_gen.git
+[submodule "scripts/.scripts/discordUpdateFixer"]
+	path = scripts/.scripts/discordUpdateFixer
+	url = https://github.com/mehmetumit/discordUpdateFixer.git
+[submodule "ranger/.config/ranger/plugins/ranger_devicons"]
+	path = ranger/.config/ranger/plugins/ranger_devicons
+	url = https://github.com/alexanderjeurissen/ranger_devicons

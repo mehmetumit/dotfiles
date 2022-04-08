@@ -1,0 +1,3 @@
+#!/bin/sh
+
+vim $HOME/.config/dwm/dwmblocks/blocks.h

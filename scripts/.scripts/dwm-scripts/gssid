@@ -1,0 +1,2 @@
+#!/bin/sh
+iwconfig 2>/dev/null | grep -o '".*"' | sed 's/"//g'

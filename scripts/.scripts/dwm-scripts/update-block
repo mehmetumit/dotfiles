@@ -1,0 +1,3 @@
+#!/bin/sh
+rtmin_plus=$((34 + $1))
+kill -$rtmin_plus $(pidof dwmblocks)

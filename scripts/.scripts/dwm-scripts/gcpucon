@@ -1,0 +1,2 @@
+#!/bin/bash
+ps ac -o pid,cmd:7,%cpu --sort=-%cpu | head -n 5

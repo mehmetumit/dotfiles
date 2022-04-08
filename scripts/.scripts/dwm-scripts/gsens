@@ -1,0 +1,3 @@
+#!/bin/sh
+gsens=$(sensors | awk '/Package id/ {printf "%d°C", $4}')
+printf "$gsens"

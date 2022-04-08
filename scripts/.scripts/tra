@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $1 in
+	"en") gtrans="trans -t en+tr \"$2\"";;
+	"tr") gtrans="trans -t tr+en \"$2\"";;
+	*) cat $(which tra);;
+esac
+eval "$gtrans" | head
+

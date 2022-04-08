@@ -1,0 +1,3 @@
+#!/bin/sh
+#Edit dmenu config
+vim ~/.config/dmenu*/config.h

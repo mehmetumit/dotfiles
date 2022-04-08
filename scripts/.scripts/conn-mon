@@ -1,0 +1,5 @@
+#!/bin/sh
+xrandr | grep -w "connected"
+read -p "Type name of output to turn on: " output_name
+xrandr --output $output_name --auto
+

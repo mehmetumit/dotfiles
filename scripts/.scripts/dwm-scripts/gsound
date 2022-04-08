@@ -1,0 +1,25 @@
+#!/bin/sh
+script_path="$HOME/.scripts/dwm-scripts/gsound"
+gvol() {
+	case "$1" in
+		-d)
+			printf "$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{printf "%d\n", $5}' | head -1)"
+		;;
+		*)
+			# 1 -> Built in sound sink, 3 -> bluetooth device sink
+			printf "$(pactl list | awk '/Volume/{print }'|awk -v row=$1 'NR==row{printf "%d\n",$5}' | head -1)"
+		;;
+	esac
+}
+is_muted() {
+	printf "$(pacmd list-sinks | grep -e '* index:' -A 20 | awk '/muted:/{print $2}')"
+}
+
+case $BUTTON in
+	1) notify-send "Built in device volume: $(gvol 1)"; notify-send "Secondary device volume: $(gvol 3)";;
+	3) $TERMINAL -e pulsemixer ;;
+	4) $TERMINAL -e "vim $script_path" ;;
+esac
+gsound=$(gvol -d)
+( [ "$(is_muted)" = 'yes' ] || [ $gsound -eq 0 ] ) && icon="" || icon=""
+printf "%s%3s%%" $icon $gsound

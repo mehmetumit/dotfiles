@@ -1,0 +1,20 @@
+#!/bin/sh
+DESKTOP=$(zenity --width=300\
+           --height=300\
+           --list\
+           --title "dymdm"\
+            --text "Select desktop"\
+	    --column=""\
+            "dwm"\
+            "cinnamon"\
+                )
+
+case $DESKTOP in 
+    (dwm)
+	while true; do
+		dwm >/dev/null 2>&1
+	done
+        exec dwm;;
+    (cinnamon) 
+        exec cinnamon-session;;
+esac

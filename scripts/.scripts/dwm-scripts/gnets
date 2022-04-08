@@ -1,0 +1,22 @@
+#!/bin/sh
+script_path="$HOME/.scripts/dwm-scripts/gnets"
+cache_path="/tmp/gnets"
+case $BUTTON in 
+	1) notify-send "local ip: $(gip)" ;;
+	4) $TERMINAL -e "vim $script_path" ;;
+esac
+#if [ -f "$HOME/.cache/gnets" ]; then
+if [ -f "$cache_path" ]; then
+	prx=$(head -1 $cache_path)
+	ptx=$(tail -1 $cache_path)
+else
+ 	prx=0
+	ptx=0
+fi
+rx=$(cat /sys/class/net/w*/statistics/rx_bytes | awk '{printf "%d", $1/(1024)}')
+tx=$(cat /sys/class/net/w*/statistics/tx_bytes | awk '{printf "%d", $1/(1024)}')
+t_rx=$((rx - prx))
+t_tx=$((tx - ptx))
+echo $rx > $cache_path
+echo $tx >> $cache_path
+printf "%4sKB/s %4sKB/s" $t_rx $t_tx 

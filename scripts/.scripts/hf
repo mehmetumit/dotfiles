@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat ~/.bash_history | fzf | xclip -selection clipboard

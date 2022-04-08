@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# use nmcli -f SSID... for filter output
+printf "Scanning available wifi networks..."
+nmcli dev wifi list --rescan yes
+read -p "SSID: " network_ssid
+nmcli --ask dev wifi connect "$network_ssid"

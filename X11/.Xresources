@@ -1,0 +1,37 @@
+Xcursor.theme: Oxygen 18 White
+! special
+*.foreground:   #ffffff
+*.background:   #000000
+*.cursorColor:  #ffffff
+
+! black
+*.color0:       #202835
+*.color8:       #776e71
+
+! red
+*.color1:       #ef6155
+*.color9:       #ef6155
+
+! green
+*.color2:       #2ae829
+*.color10:      #2edd4b
+
+! yellow
+*.color3:       #fec418
+*.color11:      #fec418
+
+! blue
+*.color4:       #06b6ef
+*.color12:      #06b6ef
+
+! magenta
+*.color5:       #a262de
+*.color13:      #9248d6
+
+! cyan
+*.color6:       #58e3dc
+*.color14:      #48d5ce
+
+! white
+*.color7:       #ffffff
+*.color15:      #e7e9db

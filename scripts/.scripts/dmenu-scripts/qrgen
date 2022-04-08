@@ -1,0 +1,5 @@
+#/bin/sh
+#Dependencies: qrencode, feh, xclip
+clipboard=$(xclip -selection c -o)
+qrencode --foreground=185286 -m 2 -o - -s 15 "$clipboard" | feh -
+

@@ -1,0 +1,170 @@
+#!/bin/sh
+sudo pacman -Syu
+sudo pacman -S base-devel
+sudo pacman -S gnome-disk-utility
+# prime-run -> for run apps with external gpu
+sudo pacman -S nvidia-prime
+sudo pacman -S ttf-linux-libertine ttf-inconsolata noto-fonts
+sudo pacman -S gvim
+sudo pacman -S wget
+sudo pacman -S thunar
+sudo pacman -S firefox
+sudo pacman -S python-pip
+sudo pacman -S xorg xorg-server xorg-xinit xorg-apps
+pip install python3-xlib
+# sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+sudo pacman -S tlp
+sudo pacman -S cronie
+# use this with convert [param] command
+sudo pacman -S imagemagick
+sudo pacman -S nitrogen
+sudo pacman -S file-roller
+sudo pacman -S thunar
+sudo pacman -S tumbler
+sudo pacman -S nemo
+sudo pacman -S ranger
+sudo pacman -S gcc
+sudo pacman -S bluez bluez-utilis blueman
+sudo pacman -S pulseaudio pulseaudio-bluetooth
+sudo pacman -S neofetch
+sudo pacman -S make
+sudo pacman -S grub-customizer
+# pdf reader
+sudo pacman -S zathura
+sudo pacman -S git
+sudo pacman -S sxiv
+sudo pacman -S ntfs-3g
+sudo pacman -S gedit
+sudo pacman -S code
+sudo pacman -S vlc
+sudo pacman -S chromium
+sudo pacman -S qbittorrent
+sudo pacman -S virtualbox
+sudo pacman -S obs
+sudo pacman -S youtube-dl
+sudo pacman -S discord
+sudo pacman -S htop
+sudo pacman -S cmatrix
+sudo pacman -S inetutils
+sudo pacman -S linux-lts linux-lts-headers
+sudo pacman -S libreoffice
+sudo pacman -S thunderbird
+# For neofetch image backend
+sudo pacman -S chafa
+#enable 32 lib
+#sudo vim /etc/pacman.conf
+#test xorg type startx
+#sudo pacman -S xorg-twm xorg-xclock xterm
+sudo pacman -S lib32-virtualgl
+sudo pacman -S bumblebee mesa xf86-video-intel nvidia nvidia-settings lib32-nvidia-utils bbswitch nvidia-utils
+nvidia-modprobe
+sudo gpasswd -a $USER bumblebee
+sudo systemctl enable bumblebeed.service
+#sudo systemctl enable lightdm
+# yay AUR helper
+cd ~/Desktop
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ~
+yay -S visual-studio-code-bin
+sudo pacman -S openvpn
+yay -S openvpn-update-resolv-conf-git
+sudo pacman -S jdk-openjdk
+sudo pacman -S gimp
+# System info gui
+sudo pacman -S hardinfo
+sudo pacman -S playerctl
+sudo pacman -S scrot
+sudo pacman -S picom
+sudo pacman -S cmake
+sudo yay -S nerd-fonts-mononoki
+sudo pacman -S ttf-joypixels
+sudo pacman -S shellcheck
+sudo pacman -S zathura-pdf-poppler
+sudo pacman -S wireless_tools
+sudo pacman -S screenkey
+sudo pacman -S mpv
+pip3 install ueberzug
+sudo pacman -S ueberzug
+sudo pacman -S android-tools
+sudo pacman -S clipmenu
+sudo yay -S scrcpy
+#sudo yay -S unityhub
+sudo pacman -S p7zip
+sudo pacman -S httrack
+# Music player
+sudo pacman -S cmus
+sudo pacman -S qrencode
+sudo pacman -S cpupower
+# For gui image editing
+sudo pacman -S gthumb
+sudo pacman -S tk
+sudo pacman -S dunst
+sudo pacman -S figlet
+sudo pacman -S nmap
+sudo pacman -S smbclient
+sudo yay -S gobuster
+sudo pacman -S tor
+sudo pacman -S net-tools
+sudo pacman -S torbrowser-launcher
+sudo pacman -S impacket
+sudo pacman -S openbsd-netcat
+# Integrated pentesting tool for web applications
+sudo pacman -S zaproxy
+sudo pacman -S php
+sudo pacman -S phpmyadmin
+sudo pacman -S pavucontrol
+sudo pacman -S ffmpegthumbnailer
+sudo pacman -S tmux
+sudo pacman -S ccls
+sudo pacman -S nodejs
+sudo pacman -S npm
+sudo pacman -S gdb
+sudo pacman -S mediainfo
+sudo pacman -S fzf
+sudo pacman -S pulsemixer
+# MySQL fork
+sudo pacman -S mariadb
+sudo pacman -S maven
+echo "Don't forget to download GraalVM to home directory"
+sudo pacman -S yarn
+sudo pacman -S gparted
+# exiftool -> To get metadata of image
+# system resource monitor
+sudo pacman -S btop
+sudo pacman -S docker
+# css preprocessor
+sudo pacman -S sassc
+# code minifier
+sudo pacman -S minify
+sudo pacman -S zsh
+sudo pacman -S fzf
+sudo pacman -S stow
+sudo npm install live-server -g
+# Terminal IRC client
+sudo pacman -S irssi
+# Game manager based on wine
+sudo pacman -S lutris
+# Drag and drop file share
+yay -S dragon-drag-and-drop
+sudo pacman -S whois
+sudo pacman -S speedtest-cli
+sudo pacman -S mutt
+yay -S insomnia-bin
+sudo pacman -S calibre
+yay -S mongodb-bin
+sudo pacman -S qutebrowser
+# Multiple socket connection while downloading
+sudo pacman -S aria2
+sudo pacman -S mono
+sudo pacman -S remmina
+sudo pacman -S freerdp
+# Disk usage analyzer
+sudo pacman -S ncdu
+# VHDL simulator
+sudo pacman -S ghdl
+# View resulting waveforms
+sudo pacman -S gtkwave
+# Language translate in command line
+sudo pacman -S translate-shell

@@ -1,0 +1,18 @@
+#!/bin/sh
+OPERATION=$(zenity --width=300\
+           --height=300\
+           --list\
+           --title "bootmenu"\
+            --text "Select Operation"\
+	    --column=""\
+            "shutdown"\
+            "reboot"\
+                )
+
+case $OPERATION in 
+    (shutdown)
+        shutdown now;;
+    (reboot) 
+        reboot;;
+esac
+
