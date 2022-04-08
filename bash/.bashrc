@@ -77,7 +77,7 @@ bind -m vi-insert 'Control-l: clear-screen'
 alias rm='rm -i'
 alias cp='cp -iv'
 alias cds="cd $HOME/.scripts/"
-alias cdd="cd $HOME/.config/dwm"
+alias cdd="cd $HOME/dotfiles"
 alias cdp="cd $HOME/Programming"
 alias cdw="cd $HOME/Programming/web"
 alias ls='ls -hN --color=auto --group-directories-first'
