@@ -36,7 +36,7 @@ export UC=$COLOR_GREEN # user's color
 export sv="185.225.39.250"
 # Export path after your path to prevent overwritten
 export JAVA_HOME="$HOME/GraalVM"
-export PATH="$HOME/.scripts/:$HOME/.scripts/dmenu-scripts/:$HOME/.scripts/dwm-scripts/:$JAVA_HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.scripts/:$HOME/.scripts/dmenu-scripts/:$HOME/.scripts/dwm-scripts/:$JAVA_HOME/bin:$PATH"
 # Sync multiple bash history in runtime
 #export PROMPT_COMMAND='history -a'
 export EDITOR="vim"
