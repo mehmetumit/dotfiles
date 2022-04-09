@@ -100,7 +100,7 @@ static const char kill_all[] = {"killall startup-script; killall dwm; killall dw
 static const char color_picker[] = {"colpick -n -c "};
 //*************************************************
 //XK_Scroll_Lock -> Don't use Mod3Key use this
-//XK_Pause 
+//XK_Pause
 //XK_Print
 //
 static Key keys[] = {
@@ -123,6 +123,24 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,             XK_Return,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+
+	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
+	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
+	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
+	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 25h" } },
+	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
+	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
+	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
+	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
+	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Up,     moveresizeedge, {.v = "T"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
+
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } }, { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
@@ -156,7 +174,6 @@ static Key keys[] = {
 	{ 0,						XF86XK_AudioPlay, spawn, SHCMD(medpause) },
 	{ 0,						XF86XK_AudioPrev, spawn, SHCMD(medprev) },
 	{ 0,						XF86XK_AudioNext, spawn, SHCMD(mednext) },
-//Super + Shift + e shutdown reboot pop up 
 	{ShiftMask,					XK_Pause ,			spawn, 		SHCMD(brup) },
 	{ControlMask,				XK_Pause , 			spawn, 		SHCMD(brdown) },
 	{0,							XK_Scroll_Lock, 	spawn, 		SHCMD(medpause) },
@@ -167,7 +184,7 @@ static Key keys[] = {
 	{ControlMask|ShiftMask,		XK_Print,			spawn,		SHCMD(sharesshot) },
 	{ControlMask,				XK_Print,			spawn,		SHCMD(focshot) },
 	{MODKEY|ShiftMask,			XK_e,				spawn,		SHCMD(bootmenu) },
-	
+
 };
 
 /* button definitions */
