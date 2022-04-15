@@ -1,0 +1,11 @@
+!URxvt
+URxvt*background: [80]#00001e
+URxvt*depth: 32
+URxvt*scrollBar: false
+URxvt*saveLines: 100000
+URxvt*hold: false
+URxvt*font: xft:SourceCodePro:pixelsize=18:antialias=true:autohint=true
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt*internalBorder: 0

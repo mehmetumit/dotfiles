@@ -52,7 +52,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -75,7 +75,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *termcmd[]  = { "termite", NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
 //***************Custom key actions ***************
 //playerctl package needed
 static const char volup[]   = { "/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1%; update-block 7;"};

@@ -168,3 +168,5 @@ sudo pacman -S ghdl
 sudo pacman -S gtkwave
 # Language translate in command line
 sudo pacman -S translate-shell
+# Markdown server
+pip install grip
