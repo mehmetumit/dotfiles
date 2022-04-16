@@ -4,8 +4,14 @@ URxvt*depth: 32
 URxvt*scrollBar: false
 URxvt*saveLines: 100000
 URxvt*hold: false
-URxvt*font: xft:SourceCodePro:pixelsize=18:antialias=true:autohint=true
-URxvt.perl-ext-common: default,matcher
+URxvt*font: xft:SauceCodePro Nerd Font:size=13:antialias=True:autohint=True:minspace=False
+URxvt.perl-ext-common: selection_to_clipboard
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt*internalBorder: 0
+URxvt*letterSpace: 0
+! Restore Ctrl+Shift+(c|v)
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.iso14755: false
+URxvt.iso14755_52: false

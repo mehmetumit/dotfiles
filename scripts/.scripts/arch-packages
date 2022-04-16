@@ -170,3 +170,4 @@ sudo pacman -S gtkwave
 sudo pacman -S translate-shell
 # Markdown server
 pip install grip
+sudo pacman -S ttf-nerd-fonts-symbols

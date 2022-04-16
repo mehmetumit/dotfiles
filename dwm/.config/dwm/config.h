@@ -5,8 +5,10 @@ static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Font Awesome 5 Free:style=Solid:size=12:autohint=true","Source Code Pro:size=12:antialias=true:autohint=true"};
-static const char dmenufont[]       = "Source Code Pro:size=12:style=Regular:antialias=true:autohint=true";
+//static const char *fonts[]          = { "Font Awesome 5 Free:style=Solid:size=12:autohint=true","Source Code Pro:size=12:antialias=true:autohint=true"};
+static const char *fonts[]          = { "SauceCodePro Nerd Font:size=12:antialias=true:autohint=true"};
+static const char dmenufont[]       = "SauceCodePro Nerd Font:size=12:antialias=true:autohint=true";
+//static const char dmenufont[]       = "Source Code Pro:size=12:style=Regular:antialias=true:autohint=true";
 //background color
 //static const char col_gray1[]       = "#1F3B6A";
 static const char col_gray1[]       = "#2F3136";
@@ -27,6 +29,7 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  border_col },
+	[SchemeTitle]  = { col_gray1, col_gray1,  col_cyan  },
 };
 
 /* tagging */
@@ -75,7 +78,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
+static const char *termcmd[]  = { "$TERMINAL", NULL };
 //***************Custom key actions ***************
 //playerctl package needed
 static const char volup[]   = { "/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1%; update-block 7;"};

@@ -6,10 +6,11 @@ audible_bell = true
 #cell_width_scale = 1.0
 clickable_url = true
 #dynamic_title = true
-font = Source Code Pro 12 
+#font = Source Code Pro 12
+font = SauceCodePro Nerd Font 12
 #font = Font Awesome 5 Free 12
 #fullscreen = true
-icon_name = terminal 
+icon_name = terminal
 #mouse_autohide = false
 #scroll_on_output = false
 #scroll_on_keystroke = true
@@ -36,7 +37,7 @@ cursor_shape = block
 #modify_other_keys = false
 
 # set size hints for the window
-#size_hints = true 
+#size_hints = true
 
 # "off", "left" or "right"
 #scrollbar = off
@@ -84,7 +85,7 @@ color15 = #e7e9db
 
 
 [hints]
-#font = Monospace 9 
+#font = Monospace 9
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080
