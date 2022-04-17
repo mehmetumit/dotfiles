@@ -9,12 +9,12 @@ DESKTOP=$(zenity --width=300\
             "cinnamon"\
                 )
 
-case $DESKTOP in 
+case $DESKTOP in
     (dwm)
 	while true; do
 		dwm >/dev/null 2>&1
 	done
         exec dwm;;
-    (cinnamon) 
+    (cinnamon)
         exec cinnamon-session;;
 esac

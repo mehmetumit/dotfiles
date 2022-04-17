@@ -6,7 +6,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 //static const char *fonts[]          = { "Font Awesome 5 Free:style=Solid:size=12:autohint=true","Source Code Pro:size=12:antialias=true:autohint=true"};
-static const char *fonts[]          = { "SauceCodePro Nerd Font:size=12:antialias=true:autohint=true"};
+//static const char *fonts[]          = { "SauceCodePro Nerd Font:size=12:antialias=true:autohint=true"};
+static const char *fonts[]          = { "SauceCodePro Nerd Font:size=12:antialias=true:autohint=true", "NotoColorEmoji:pixelsize=16:antialias=true:autohint=true"  };
 static const char dmenufont[]       = "SauceCodePro Nerd Font:size=12:antialias=true:autohint=true";
 //static const char dmenufont[]       = "Source Code Pro:size=12:style=Regular:antialias=true:autohint=true";
 //background color
@@ -78,7 +79,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *termcmd[]  = { "$TERMINAL", NULL };
+static const char *termcmd[]  = { "termite", NULL };
 //***************Custom key actions ***************
 //playerctl package needed
 static const char volup[]   = { "/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1%; update-block 7;"};

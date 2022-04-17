@@ -20,6 +20,19 @@ case $BUTTON in
 	3) $TERMINAL -e pulsemixer ;;
 	4) $TERMINAL -e "vim $script_path" ;;
 esac
+
 gsound=$(gvol -d)
-( [ "$(is_muted)" = 'yes' ] || [ $gsound -eq 0 ] ) && icon="" || icon=""
+
+if [ "$(is_muted)" = 'yes' ]; then
+	icon="🔇"
+elif [ $gsound -gt 35 ]; then
+	icon="🔊"
+elif [ $gsound -gt 10 ]; then
+	icon="🔉"
+elif [ $gsound -gt 0 ]; then
+	icon="🔈"
+else
+	icon="🔇"
+fi
+# ( [ "$(is_muted)" = 'yes' ] || [ $gsound -eq 0 ] ) && icon="🔇" || icon="🔊"
 printf "%s%3s%%" $icon $gsound

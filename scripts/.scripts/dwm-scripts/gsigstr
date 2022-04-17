@@ -1,6 +1,6 @@
 #!/bin/sh
 script_path="$HOME/.scripts/dwm-scripts/gsigstr"
-case $BUTTON in 
+case $BUTTON in
 	1) notify-send -t 2000 "SSID: $(gssid)" "IP: $(gip)";;
 	2) notify-send -t 2000 "Scanning available wifi networks...";  notify-send "$(nmcli -f SSID,BARS device wifi list --rescan yes)";;
 	3) notify-send -t 2000 "Scanning available wifi networks..."; $TERMINAL -e "conn-wifi" ;;
@@ -8,4 +8,17 @@ case $BUTTON in
 esac
 # Calculate wireless signal strength
 gwifi=$(cat /proc/net/wireless | awk 'NR==3{printf "%d", $3*10/7}')
-printf " %2d%%" $gwifi
+vpn=$(sed "s/.*/ 🔐/" /sys/class/net/tun*/operstate 2>/dev/null)
+if [ $gwifi -gt 80 ]; then
+	str=""
+elif [ $gwifi -gt 50 ]; then
+	str="直"
+elif [ $gwifi -gt 30 ]; then
+	str="直"
+elif [ $gwifi -gt 0 ]; then
+	str="直"
+else
+	str="睊"
+fi
+#printf " %2d%%$vpn" $gwifi
+printf "$str %2d%%$vpn" $gwifi

@@ -1,12 +1,13 @@
 #!/bin/sh
 script_path="$HOME/.scripts/dwm-scripts/gbat"
-case $BUTTON in 
+case $BUTTON in
 	1) notify-send "Battery" ;;
 	4) $TERMINAL -e "vim $script_path" ;;
 esac
 
 batstat=$(cat /sys/class/power_supply/BAT1/status)
-[ "$batstat" == "Discharging" ] && icon="" || icon=""
+# [ "$batstat" == "Discharging" ] && icon="" || icon=""
+[ "$batstat" == "Discharging" ] && icon="🔋" || icon="🔌"
 gbat=$(cat /sys/class/power_supply/BAT1/capacity)
 # charge_full=$(cat /sys/class/power_supply/BAT1/charge_full)
 # charge_now=$(cat /sys/class/power_supply/BAT1/charge_now)
