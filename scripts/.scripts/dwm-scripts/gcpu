@@ -10,4 +10,4 @@ cores=8
 cpu_usage=$(awk -v c="${cores}" '{printf "%d%", ($1*100)/c}'< /proc/loadavg)
 # Get cpu temperature with gsens script
 cpu_temp=$(gsens)
-printf "🧠 %s %s" $cpu_usage $cpu_temp
+printf "💻 %s %s" $cpu_usage $cpu_temp
