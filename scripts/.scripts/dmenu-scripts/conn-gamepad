@@ -1,0 +1,4 @@
+#!/bin/sh
+bluetoothctl power on
+sudo bluetooth on
+bluetoothctl connect "FF:72:7E:B7:63:25"
