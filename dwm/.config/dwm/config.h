@@ -67,6 +67,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define ALTKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -179,7 +180,9 @@ static Key keys[] = {
 	{ 0,						XF86XK_AudioPrev, spawn, SHCMD(medprev) },
 	{ 0,						XF86XK_AudioNext, spawn, SHCMD(mednext) },
 	{ShiftMask,					XK_Pause ,			spawn, 		SHCMD(brup) },
+	{MODKEY|ALTKEY,				XK_Up,				spawn, 		SHCMD(brup) },
 	{ControlMask,				XK_Pause , 			spawn, 		SHCMD(brdown) },
+	{MODKEY|ALTKEY,				XK_Down , 			spawn, 		SHCMD(brdown) },
 	{0,							XK_Scroll_Lock, 	spawn, 		SHCMD(medpause) },
 	{ShiftMask,					XK_Scroll_Lock, 	spawn, 		SHCMD(mednext) },
 	{ControlMask,				XK_Scroll_Lock, 	spawn, 		SHCMD(medprev) },

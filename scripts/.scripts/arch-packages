@@ -176,3 +176,5 @@ sudo yay -S libxft-bgra
 sudo pacman -Sy gvfs gvfs-gphoto2
 # Android file transfer UI
 sudo pacman -S android-file-transfer
+# Logitech user interface
+sudo pacman -S solaar

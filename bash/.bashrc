@@ -111,7 +111,7 @@ alias th='thunar'
 alias sth='sudo thunar'
 alias sshot='cd $HOME/Screenshots'
 alias yt='yt-dlp --add-metadata -ic' # Download video link
-alias yta='yt-dlp --add-metadata -xic' # Download only audio
+alias yta='yt-dlp --audio-format mp3 --add-metadata -xic' # Download only audio
 # reload bashrc settings
 alias sbr="source $HOME/.bashrc"
 alias htb='sudo openvpn ~/ovpn/htb.ovpn'
