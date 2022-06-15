@@ -178,3 +178,4 @@ sudo pacman -Sy gvfs gvfs-gphoto2
 sudo pacman -S android-file-transfer
 # Logitech user interface
 sudo pacman -S solaar
+sudo pacman -S plantuml
