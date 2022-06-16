@@ -3,6 +3,8 @@
 dimensions=$(xdpyinfo | grep dimensions | awk '{printf $2}')
 filename=$(date "+%Y-%m-%d@%H:%M:%S.mkv")
 file_path="$HOME/Videos/$filename"
+cam_window_title="CAM"
+cam_device="/dev/video0"
 
 help() {
     cat <<EOF
@@ -13,18 +15,21 @@ Simple screen recording script
 options:
 	-h		Print this text and exit
 	-v 		Record video only
-	-c 		Record camera only
+	-c 		Record camera too
 	-a 		Record audio only
+	-s 		Stop current recording if exists
 EOF
 }
 case "$1" in
-	# video only
-	-v) ffmpeg -y -f x11grab -s $dimensions  -i :0.0 $file_path ;;
-	# record camera
-	-c) ffmpeg -y -i /dev/video0 $file_path ;;
-	# audio only
-	-a) ffmpeg -y -f alsa -i default $file_path ;;
+	# Video only
+	-v) ffmpeg  -y -f x11grab -s $dimensions  -i :0.0 $file_path  >/dev/null 2>&1 &;;
+	# Record camera too. Sleep added to prevent video recording before cam loads
+	-c) ffplay -window_title "$cam_window_title" $cam_device  >/dev/null 2>&1 & sleep 2; ffmpeg  -y -f  x11grab -s $dimensions -i :0.0 -f alsa -i default $file_path >/dev/null 2>&1 &;;
+	# Audio only
+	-a) ffmpeg -y -f alsa -i default $file_path >/dev/null 2>&1 &;;
+	# Kill deatached processes
+	-s) pkill ffmpeg && pkill ffplay ;;
 	-h|--help) help && exit ;;
-	# record video with audio
-	*) ffmpeg -y -f x11grab -s $dimensions  -i :0.0 -f alsa -i default $file_path
+	# Record video with audio
+	*) ffmpeg -y -f x11grab -s $dimensions  -i :0.0 -f alsa -i default $file_path >/dev/null 2>&1 &;;
 esac
