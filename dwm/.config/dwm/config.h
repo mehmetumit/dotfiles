@@ -46,6 +46,9 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       1 << 2,            1,           -1 },
 	//Start opengl demo applications in floating window mode
 	{ NULL,    	  NULL,       "DEMO",       0,            1,           -1 },
+	{ NULL,    	  NULL,       "TankSimülasyonu",       0,            1,           -1 },
+	//Start camera window in floating window mode
+	{ NULL,    	  NULL,       "CAM",       0,            1,           -1 },
 	{ "kdenlive",     NULL,	NULL,       1 << 2,            1,           -1 },
 	//{ "firefox",  NULL,       NULL,       1,       0,           -1 },
 	//{ "Thunar",	  NULL,		NULL,       1 << 2,       0,           -1 },

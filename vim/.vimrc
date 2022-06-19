@@ -8,6 +8,8 @@ set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
+set nocompatible
+filetype plugin on
 syntax on
 set splitbelow splitright
 set number relativenumber
@@ -33,6 +35,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tpope/vim-surround'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plug 'vimwiki/vimwiki'
 	"Plug 'tomasiser/vim-code-dark'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'preservim/nerdtree'

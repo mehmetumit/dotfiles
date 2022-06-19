@@ -1,0 +1,19 @@
+#!/bin/sh
+recording_icon="🔴"
+recording_state=0
+script_path="$HOME/.scripts/dwm-scripts/grecord"
+
+case $BUTTON in
+	1) notify-send "$(gmemcon)" ;;
+	3) recording_state=0; ;;
+	4) $TERMINAL -e "vim $script_path" ;;
+esac
+
+if [ $recording_state -eq 1 ]; then
+	recording_icon="🟢"
+else
+	recording_icon="🔴"
+fi
+
+printf "$recording_icon"
+
