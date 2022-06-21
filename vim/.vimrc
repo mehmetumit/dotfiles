@@ -29,8 +29,8 @@ set shiftwidth=4
 call plug#begin('~/.vim/plugged')
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
+ 	Plug 'vim-airline/vim-airline'
+ 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tpope/vim-surround'

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#dependencies: nbfc-linux
+
+COLOR='\033[1;32m'
+NCOLOR='\033[0m'
+
+case $1 in
+	-a) printf "${COLOR}Automatic mode${NCOLOR}\n"; sudo nbfc set -f 0 -a && sudo nbfc set -f 1 -a ;;
+	-f) printf "${COLOR}Full speed${NCOLOR}\n"; sudo nbfc set -f 0 -s 100 && sudo nbfc set -f 1 -s 100 ;;
+	-H) printf "${COLOR}High speed${NCOLOR}\n"; sudo nbfc set -f 0 -s 80 && sudo nbfc set -f 1 -s 80 ;;
+	*) printf "usage set-fan [OPTIONS...]\noptions:\n\t-a\t Adjust the fan speed automatically\n\t-f\t Set the fan speed to maximum\n\t-H\tSet the fan speed 80%%\n"
+esac
