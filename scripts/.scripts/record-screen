@@ -1,4 +1,5 @@
 #!/bin/sh
+# author: Mehmet Ümit Özden
 
 dimensions=$(xdpyinfo | grep dimensions | awk '{printf $2}')
 filename=$(date "+%Y-%m-%d@%H:%M:%S.mkv")
@@ -22,14 +23,14 @@ EOF
 }
 case "$1" in
 	# Video only
-	-v) ffmpeg  -y -f x11grab -s $dimensions  -i :0.0 $file_path  >/dev/null 2>&1 &;;
+	-v) ffmpeg  -y -f x11grab -s "$dimensions"  -i :0.0 "$file_path"  >/dev/null 2>&1 &;;
 	# Record camera too. Sleep added to prevent video recording before cam loads
-	-c) ffplay -window_title "$cam_window_title" $cam_device  >/dev/null 2>&1 & sleep 2; ffmpeg  -y -f  x11grab -s $dimensions -i :0.0 -f alsa -i default $file_path >/dev/null 2>&1 &;;
+	-c) ffplay -window_title "$cam_window_title" $cam_device  >/dev/null 2>&1 & sleep 2; ffmpeg  -y -f  x11grab -s "$dimensions" -i :0.0 -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Audio only
-	-a) ffmpeg -y -f alsa -i default $file_path >/dev/null 2>&1 &;;
+	-a) ffmpeg -y -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Kill deatached processes
 	-s) pkill ffmpeg && pkill ffplay ;;
 	-h|--help) help && exit ;;
 	# Record video with audio
-	*) ffmpeg -y -f x11grab -s $dimensions  -i :0.0 -f alsa -i default $file_path >/dev/null 2>&1 &;;
+	*) ffmpeg -y -f x11grab -s "$dimensions"  -i :0.0 -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 esac

@@ -46,7 +46,6 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       1 << 2,            1,           -1 },
 	//Start opengl demo applications in floating window mode
 	{ NULL,    	  NULL,       "DEMO",       0,            1,           -1 },
-	{ NULL,    	  NULL,       "TankSimülasyonu",       0,            1,           -1 },
 	//Start camera window in floating window mode
 	{ NULL,    	  NULL,       "CAM",       0,            1,           -1 },
 	{ "kdenlive",     NULL,	NULL,       1 << 2,            1,           -1 },
@@ -83,7 +82,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *termcmd[]  = { "termite", NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
 //***************Custom key actions ***************
 //playerctl package needed
 static const char volup[]   = { "/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1%; update-block 7;"};
@@ -101,8 +100,8 @@ static const char sharesshot[] = {"mkdir -p $HOME/Screenshots && scrot -s $HOME/
 static const char bootmenu[] = {"bootmenu"};
 static const char clipmenu[] = {"clipmenu"};
 static const char qrgen[] = {"qrgen"};
-static const char ofilebrowser[] = {"termite -e ranger"};
-static const char osshots[] = {"cd ~/Screenshots/ && termite -e ranger"};
+static const char ofilebrowser[] = {"urxvt -e ranger"};
+static const char osshots[] = {"cd ~/Screenshots/ && urxvt -e ranger"};
 //autostart.sh script which exist in ~/.dwm/
 static const char kill_all[] = {"killall startup-script; killall dwm; killall dwmblocks;"};
 static const char color_picker[] = {"colpick -n -c "};
@@ -149,7 +148,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
 
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } }, { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },

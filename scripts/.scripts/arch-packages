@@ -67,6 +67,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 cd ~
+yay -S rxvt-unicode-truecolor-wide-glyphs
 yay -S visual-studio-code-bin
 sudo pacman -S openvpn
 yay -S openvpn-update-resolv-conf-git
@@ -176,10 +177,10 @@ sudo yay -S libxft-bgra
 sudo pacman -Sy gvfs gvfs-gphoto2
 # Android file transfer UI
 sudo pacman -S android-file-transfer
-# Logitech user interface
+# Logitech user interface can be useful
 sudo pacman -S solaar
 sudo pacman -S plantuml
-sudo pacman -S easyeffects
+# sudo pacman -S easyeffects
 sudo pacman -S pandoc
 sudo yay -S quich
 sudo yay -S tuxi
@@ -187,3 +188,8 @@ echo "Don't forget to change tuxi user agent!"
 printf  "\033[1;32mNoteBook FanControl Installing...\033[0m"
 sudo yay -S nbfc-linux
 sudo nbfc config --apply "Acer Predator G3-572"
+sudo systemctl enable nbfc_service
+# LaTeX
+sudo pacman -S texlive-most texlive-lang
+# Biblatex
+sudo pacman -S biber

@@ -34,17 +34,19 @@ export UC=$COLOR_GREEN # user's color
 [ $UID -eq "0" ] && UC=$COLOR_RED   # root's color
 
 export sv="185.225.39.250"
+# Change npm default directory
+export NPM_CONFIG_PREFIX=~/.npm-global
 # Export path after your path to prevent overwritten
 export JAVA_HOME="$HOME/GraalVM"
-export PATH="$HOME/.local/bin:$HOME/.scripts/:$HOME/.scripts/dmenu-scripts/:$HOME/.scripts/dwm-scripts/:$JAVA_HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.scripts/:$HOME/.scripts/dmenu-scripts/:$HOME/.scripts/dwm-scripts/:$JAVA_HOME/bin:$HOME/.npm-global/bin/:$PATH"
 # Sync multiple bash history in runtime
 #export PROMPT_COMMAND='history -a'
 export EDITOR="vim"
-export TERMINAL="termite"
+export TERMINAL="urxvt"
 # Fix color issues
 export TERM="xterm-256color"
 #export BROWSER="firefox"
-export BROWSER="brave"
+#export BROWSER="brave"
 export GREP_OPTIONS='--color=auto'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export GDK_DPI_SCALE=1.15

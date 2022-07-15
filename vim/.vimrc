@@ -36,6 +36,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-surround'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'vimwiki/vimwiki'
+	Plug 'lervag/vimtex'
 	"Plug 'tomasiser/vim-code-dark'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'preservim/nerdtree'
@@ -65,6 +66,11 @@ let g:javascript_conceal_super                = "Ω"
 let g:javascript_conceal_arrow_function       = "→"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
+" LaTeX
+let maplocalleader = ","
+let g:vimtex_view_method = 'zathura'
+" Make sure biber is installed
+let g:Tex_BibtexFlavor = 'biber'
 
 " Polyglot disable auto indentation
 "autocmd BufEnter * set indentexpr=

@@ -5,7 +5,8 @@ xset r rate 300 50
 # Swap capslock and escape
 setxkbmap -option caps:swapescape
 nitrogen --restore & 2>>$errlogfile
-picom --experimental-backends --config ~/.config/picom/picom.conf & 2>>$errlogfile
+#picom --experimental-backends --config ~/.config/picom/picom.conf & 2>>$errlogfile
+picom --config ~/.config/picom/picom.conf & 2>>$errlogfile
 
 # Load bell sound
 # use xset -b to disable and xset b to enable

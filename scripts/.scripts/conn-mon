@@ -1,5 +1,15 @@
 #!/bin/sh
-xrandr | grep -w "connected"
-read -p "Type name of output to turn on: " output_name
-xrandr --output $output_name --auto
+outputs=$(xrandr | awk -v i="1" '/\yconnected\y/{print "[" i++ "] " $1}')
+printf "$outputs\n"
+read -p "# Select output to turn on( default=1 ): " output_index
+read -p "# Type resolution(leave blank for auto detection): " resolution
+if [ -z "$output_index" ]; then
+	output_index=1
+fi
+output_name=$(printf "$outputs" | awk -v r="${output_index}" 'FNR==r{printf $2}' )
+if [ -z "$resolution" ]; then
+	xrandr --output $output_name --auto
+else
+	xrandr --output $output_name --mode $resolution
+fi
 

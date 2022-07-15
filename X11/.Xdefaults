@@ -1,18 +1,37 @@
-!URxvt
+! URxvt
 URxvt*background: [80]#00001e
 URxvt*depth: 32
 URxvt*scrollBar: false
 URxvt*saveLines: 100000
 URxvt*hold: false
-URxvt*font: xft:SauceCodePro Nerd Font:size=13:antialias=True:autohint=True:minspace=False
-URxvt.perl-ext-common: selection_to_clipboard
-URxvt.url-launcher: /usr/bin/xdg-open
+URxvt*font: xft:SauceCodePro Nerd Font:size=14:antialias=True:autohint=True:minspace=False,xft:NotoColorEmoji:pixelsize=16:antialias=true:autohint=true
+URxvt.perl-ext-common: default,matcher,resize-font,keyboard-select,url-select
 URxvt.matcher.button: 1
 URxvt*internalBorder: 0
-URxvt*letterSpace: 0
-URxvt.lineSpace: 0
+URxvt*letterSpace: 1
+URxvt.lineSpace: 1
+! Scrolling
+URxvt.keysym.M-k: command:\033]720;1\007
+URxvt.keysym.M-j: command:\033]721;1\007
+! Navigations
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
 ! Restore Ctrl+Shift+(c|v)
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
 URxvt.iso14755: false
 URxvt.iso14755_52: false
+! Select URL
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.underline: true
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.urlButton: 1
+!! Vim like keyboard selection
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+!! Resize font
+URxvt.resize-font.bigger: C-k
+URxvt.resize-font.smaller: C-j
