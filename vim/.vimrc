@@ -48,6 +48,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'OmniSharp/omnisharp-vim'
 	" HTML plugin
 	Plug 'mattn/emmet-vim'
+	" fzf
+	Plug 'junegunn/fzf.vim'
 call plug#end()
 " vim-javascript plugin section
 " let g:javascript_plugin_jsdoc = 1
@@ -71,6 +73,15 @@ let maplocalleader = ","
 let g:vimtex_view_method = 'zathura'
 " Make sure biber is installed
 let g:Tex_BibtexFlavor = 'biber'
+" fzf
+" Prefix for fzf commands
+let g:fzf_command_prefix = 'Fzf'
+" shortcuts
+nnoremap <silent> <C-f>f :FzfFiles<CR>
+nnoremap <silent> <C-f>h :FzfHistory<CR>
+nnoremap <silent> <C-f>s :FzfHistory/<CR>
+nnoremap <silent> <C-f>c :FzfHistory:<CR>
+
 
 " Polyglot disable auto indentation
 "autocmd BufEnter * set indentexpr=
@@ -320,12 +331,12 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.

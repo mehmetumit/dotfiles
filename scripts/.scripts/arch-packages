@@ -193,3 +193,5 @@ sudo systemctl enable nbfc_service
 sudo pacman -S texlive-most texlive-lang
 # Biblatex
 sudo pacman -S biber
+# Syntax highlighted preview for vim fzf
+sudo pacman -S bat

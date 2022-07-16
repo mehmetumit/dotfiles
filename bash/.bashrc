@@ -49,6 +49,7 @@ export TERM="xterm-256color"
 #export BROWSER="brave"
 export GREP_OPTIONS='--color=auto'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+ export FZF_DEFAULT_COMMAND="find -L"
 export GDK_DPI_SCALE=1.15
 # For UnityEditor
 export FrameworkPathOverride=/etc/mono/4.5
@@ -70,6 +71,15 @@ bind "set completion-ignore-case on"
 # Clear screen in vi mode
 bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
+# Shortcuts
+# Alt + f -> edit file from current location
+bind '"\ef":"vim \"$(find . -type f -print | fzf)\" \n"'
+# Alt + d -> edit file from dotfiles
+bind '"\ed":"vim \"$(find $HOME/dotfiles -type f -print | fzf)\" \n"'
+# Alt + p -> start tmux at projects path
+bind '"\ep":"cd \"$(find $HOME/Projects -maxdepth 2 -type d -print | fzf)\" && tmux && cd - && clear\n"'
+# Alt + c -> change directory
+bind '"\ec":"cd \"$(find . -type d -print | fzf)\" \n"'
 # bind '"ı":vi-insertion-mode' -> TODO
 # set show-mode-in-prompt on
 # set vi-cmd-mode-string "\1\e[2 q\2"
@@ -80,8 +90,8 @@ alias rm='rm -i'
 alias cp='cp -iv'
 alias cds="cd $HOME/.scripts/"
 alias cdd="cd $HOME/dotfiles"
-alias cdp="cd $HOME/Programming"
-alias cdw="cd $HOME/Programming/web"
+alias cdp="cd $HOME/Projects"
+alias cdw="cd $HOME/Projects/web"
 alias ls='ls -hN --color=auto --group-directories-first'
 alias lsa='ls -ahN --color=auto --group-directories-first'
 alias lsl='ls -lhN --color=auto --group-directories-first'

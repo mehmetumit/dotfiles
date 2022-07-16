@@ -180,6 +180,7 @@ static Key keys[] = {
 	{ 0,                       XF86XK_MonBrightnessUp, spawn, SHCMD(brup) },
 	{ 0,                       XF86XK_MonBrightnessDown, spawn, SHCMD(brdown) },
 	{ 0,						XF86XK_AudioPlay, spawn, SHCMD(medpause) },
+	{ 0,						XF86XK_AudioPause, spawn, SHCMD(medpause) },
 	{ 0,						XF86XK_AudioPrev, spawn, SHCMD(medprev) },
 	{ 0,						XF86XK_AudioNext, spawn, SHCMD(mednext) },
 	{ShiftMask,					XK_Pause ,			spawn, 		SHCMD(brup) },

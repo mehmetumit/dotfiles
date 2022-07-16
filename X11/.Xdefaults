@@ -33,5 +33,6 @@ URxvt.urlButton: 1
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 !! Resize font
-URxvt.resize-font.bigger: C-k
-URxvt.resize-font.smaller: C-j
+URxvt.resize-font.bigger: C-A-k
+URxvt.resize-font.smaller: C-A-j
+
