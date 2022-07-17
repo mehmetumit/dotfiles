@@ -77,6 +77,8 @@ let g:Tex_BibtexFlavor = 'biber'
 " Prefix for fzf commands
 let g:fzf_command_prefix = 'Fzf'
 " shortcuts
+" disable page scrolling
+nmap <C-f> <Nop>
 nnoremap <silent> <C-f>f :FzfFiles<CR>
 nnoremap <silent> <C-f>h :FzfHistory<CR>
 nnoremap <silent> <C-f>s :FzfHistory/<CR>
@@ -141,6 +143,7 @@ nnoremap S :%s//g<Left><Left>
 " Quickly switch between tabs
 nnoremap H gT
 nnoremap L gt
+nnoremap tn :tabnew<CR>
 " Last line
 set showmode
 set showcmd

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+alias sv="185.225.39.250"
+alias rm='rm -i'
+alias cp='cp -iv'
+alias cpy='xclip -selection clipboard'
+alias cds="cd $HOME/.scripts/"
+alias cdd="cd $HOME/dotfiles"
+alias cdp="cd $HOME/Projects"
+alias cdw="cd $HOME/Projects/web"
+alias ls='ls -hN --color=auto --group-directories-first'
+alias lsa='ls -ahN --color=auto --group-directories-first'
+alias lsl='ls -lhN --color=auto --group-directories-first'
+alias lsla='ls -lahN --color=auto --group-directories-first'
+alias lsal='ls -lahN --color=auto --group-directories-first'
+alias lsx='ls -XhN --color=auto --group-directories-first'
+alias lslx='ls -lXhN --color=auto --group-directories-first'
+alias lsxl='ls -lXhN --color=auto --group-directories-first'
+
+alias rg="rg --hidden --glob '!.git'"
+alias grep='grep --color=auto' #Grep highlight
+alias less='less -r' # less highlight
+alias c='clear'
+alias ..='cd ..'
+alias ...='cd ..; cd ..'
+alias q='exit'
+alias p='sudo pacman --color=auto'
+alias yay='yay --color=auto'
+alias v='vim'
+alias ta='tmux attach'
+# Fix tmux color issue
+alias tmux="TERM=screen-256color-bce tmux"
+alias cal='cal -m' # Monday first
+# Don't use root user's .vimrc use your own
+alias sv='sudo -E  vim'
+alias g='git'
+alias r='ranger'
+alias sr='sudo ranger'
+alias th='thunar'
+alias sth='sudo thunar'
+alias sshot='cd $HOME/Screenshots'
+alias yt='yt-dlp --add-metadata -ic' # Download video link
+alias yta='yt-dlp --audio-format mp3 --add-metadata -xic' # Download only audio
+alias htb='sudo openvpn ~/ovpn/htb.ovpn'
+# openvpn alias
+alias conn-vpn='sudo openvpn --config'
+# Run with Nvidia GPU
+alias unityhub='prime-run unityhub'
+#alias trash='cd ~/.local/share/Trash/files'
+#alias empty-trash='gio trash --empty;  echo "The trash has been emptied"'

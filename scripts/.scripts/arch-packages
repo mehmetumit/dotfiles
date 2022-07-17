@@ -140,9 +140,10 @@ sudo pacman -S sassc
 # code minifier
 sudo pacman -S minify
 sudo pacman -S zsh
+sudo pacman -S zsh-syntax-highlighting
 sudo pacman -S fzf
 sudo pacman -S stow
-sudo npm install live-server -g
+npm install live-server -g
 # Terminal IRC client
 sudo pacman -S irssi
 # Game manager based on wine
@@ -195,3 +196,4 @@ sudo pacman -S texlive-most texlive-lang
 sudo pacman -S biber
 # Syntax highlighted preview for vim fzf
 sudo pacman -S bat
+sudo pacman -S ripgrep

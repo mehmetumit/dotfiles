@@ -1,0 +1,48 @@
+#!/bin/sh
+#                                 _
+#   ___ ___  _ ____   _____ _ __ (_) ___ _ __   ___ ___  ___
+#  / __/ _ \| '_ \ \ / / _ \ '_ \| |/ _ \ '_ \ / __/ _ \/ __|
+# | (_| (_) | | | \ V /  __/ | | | |  __/ | | | (_|  __/\__ \
+#  \___\___/|_| |_|\_/ \___|_| |_|_|\___|_| |_|\___\___||___/
+#
+#
+# Increase scroll key speed
+xset r rate 300 50
+# Swap capslock and escape for vim
+setxkbmap -option caps:swapescape
+
+# If you using double quotes in PS1 don't forget to add escape otherwise it doesn't update until you source bashrc
+get_git_branch() {
+	git branch 2> /dev/null | awk '/*/{printf "(%s)", $2}'
+
+}
+# Edit files from current location
+edit_files() {
+    files=$(find . -type f -not -path "*/\.git/*" -print | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}') && vim -p "$files"
+}
+# Edit dotfiles with fzf
+edit_dotfiles() {
+    files=$(find "$HOME/dotfiles" -type f -not -path "*/\.git/*" -print | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' -m) && vim -p "$files"
+}
+# Start tmux at projects path
+start_tmux() {
+    project_path=$(find "$HOME/Projects" -maxdepth 2 -type d -not -path "*/\.git/*" -print | fzf --no-multi) && cd "$project_path" && tmux && cd - || exit
+}
+# Change directory with fzf
+quick_cd() {
+    cd "$(find . -type d -not -path "*/\.git/*" -print | fzf --no-multi)" || exit
+}
+# Use ranger to change directory
+ranger_cd() {
+    tmp="$(mktemp)"
+    ranger --choosedir="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir" || exit
+    fi
+}
+search_command() {
+    sh_name=$(ps -ocomm= -q $$)
+    [ "$sh_name" = "zsh" ] && print -z "$(cat "$HOME/.bash_history" "$HOME/.zsh_history" | fzf)" || echo "$sh_name not supported!"
+}
