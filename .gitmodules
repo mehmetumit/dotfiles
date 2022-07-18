@@ -13,3 +13,6 @@
 [submodule "ranger/.config/ranger/plugins/ranger_devicons"]
 	path = ranger/.config/ranger/plugins/ranger_devicons
 	url = https://github.com/alexanderjeurissen/ranger_devicons
+[submodule "scripts/k380-swap-keys"]
+	path = scripts/k380-swap-keys
+	url = https://github.com/mehmetumit/k380-swap-keys.git

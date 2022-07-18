@@ -47,7 +47,10 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 # Edit line in vim with ctrl-e
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+# bindkey '^e' edit-command-line
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M viins '^e' edit-command-line
+bindkey -M visual '^e' edit-command-line
 
 # Shortcuts
 # Change directory with ranger
