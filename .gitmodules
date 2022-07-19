@@ -16,3 +16,6 @@
 [submodule "scripts/k380-swap-keys"]
 	path = scripts/k380-swap-keys
 	url = https://github.com/mehmetumit/k380-swap-keys.git
+[submodule "scripts/.scripts/k380-swap-keys"]
+	path = scripts/.scripts/k380-swap-keys
+	url = https://github.com/mehmetumit/k380-swap-keys.git
