@@ -18,7 +18,7 @@ is_muted() {
 case $BUTTON in
 	1) notify-send "Built in device volume: $(gvol 1)"; notify-send "Secondary device volume: $(gvol 3)";;
 	3) $TERMINAL -e pulsemixer ;;
-	4) $TERMINAL -e "vim $script_path" ;;
+	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 
 gsound=$(gvol -d)

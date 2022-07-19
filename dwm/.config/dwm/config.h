@@ -100,6 +100,7 @@ static const char sharesshot[] = {"mkdir -p $HOME/Screenshots && scrot -s $HOME/
 static const char bootmenu[] = {"bootmenu"};
 static const char clipmenu[] = {"clipmenu"};
 static const char qrgen[] = {"qrgen"};
+static const char owebbrowser[] = {"$BROWSER"};
 static const char ofilebrowser[] = {"urxvt -e ranger"};
 static const char osshots[] = {"cd ~/Screenshots/ && urxvt -e ranger"};
 //autostart.sh script which exist in ~/.dwm/
@@ -174,6 +175,7 @@ static Key keys[] = {
 	{ MODKEY,             			XK_z,      spawn,           SHCMD(qrgen) },
 	{ MODKEY,             			XK_x,      spawn,           SHCMD(color_picker) },
 	{ MODKEY,             			XK_a,      spawn,           SHCMD(ofilebrowser) },
+	{ MODKEY,             			XK_w,      spawn,           SHCMD(owebbrowser) },
 	{ 0,                       XF86XK_AudioLowerVolume, spawn, SHCMD(voldown) },
 	{ 0,                       XF86XK_AudioMute, spawn, SHCMD(volmute) },
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, SHCMD(volup) },

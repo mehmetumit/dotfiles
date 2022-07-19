@@ -3,7 +3,7 @@ script_path="$HOME/.scripts/dwm-scripts/gnets"
 cache_path="/tmp/gnets"
 case $BUTTON in
 	1) notify-send "local ip: $(gip)" ;;
-	4) $TERMINAL -e "vim $script_path" ;;
+	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 #if [ -f "$HOME/.cache/gnets" ]; then
 if [ -f "$cache_path" ]; then

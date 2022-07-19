@@ -3,7 +3,7 @@ script_path="$HOME/.scripts/dwm-scripts/gmem"
 case $BUTTON in
 	1) notify-send "$(gmemcon)" ;;
 	3) $TERMINAL -e "ncdu";;
-	4) $TERMINAL -e "vim $script_path" ;;
+	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 gmem=$(free | awk '/Mem/ {printf "%5d MiB/%5d MiB", $3/1024,$2/1024}')
 printf "🧠$gmem"

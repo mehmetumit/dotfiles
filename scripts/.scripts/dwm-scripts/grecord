@@ -32,7 +32,7 @@ case $BUTTON in
 	1) args='';; # video with audio
 	2) args='-c';; # cam + video + audio
 	3) args='-v';; # video only
-	4) $TERMINAL -e "vim $script_path" ;;
+	4) $TERMINAL -e bash -c "vim $script_path" ;;
 	5) args='-a';; # audio only
 esac
 	if [ "$RECORDING_STATE" -eq 1 ]; then

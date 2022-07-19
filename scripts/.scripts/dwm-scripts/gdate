@@ -2,8 +2,8 @@
 script_path="$HOME/.scripts/dwm-scripts/gdate"
 case $BUTTON in
 	1) notify-send "$(cal -m)" ;;
-	3) $TERMINAL --hold -e "cal -3m" ;;
-	4) $TERMINAL -e "vim $script_path" ;;
+	3) $TERMINAL -hold -e bash -c "cal -3m" ;;
+	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 # 
 gdate=$(date +"📅 %a %b %d %H:%M")
