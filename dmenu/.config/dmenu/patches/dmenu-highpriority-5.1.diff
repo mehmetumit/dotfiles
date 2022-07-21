@@ -1,34 +1,17 @@
-From e9e1691a9b4ffa2db45cd5108b76b9a68610ba37 Mon Sep 17 00:00:00 2001
-From: takase1121 <takase1121@outlook.com>
-Date: Sun, 17 May 2020 07:05:32 +0800
-Subject: [PATCH] Adds high-priority items.
-
-This allows users to specify a list of high priority commands that should be
-displayed before other matches with the following arrangement:
-
-match -> prefix && high priority -> prefix -> substring
-
-As you can see, high priority for substring matches is not implemented or will not
-be implemented depending on needs.
----
- config.def.h |  1 +
- dmenu.c      | 64 +++++++++++++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 59 insertions(+), 6 deletions(-)
-
 diff --git a/config.def.h b/config.def.h
-index 1edb647..65e03fb 100644
+index 1edb647..47b616d 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -12,6 +12,7 @@ static const char *colors[SchemeLast][2] = {
  	[SchemeNorm] = { "#bbbbbb", "#222222" },
  	[SchemeSel] = { "#eeeeee", "#005577" },
  	[SchemeOut] = { "#000000", "#00ffff" },
-+	[SchemeHp] = { "#bbbbbb", "#333333" }
++	[SchemeHp]  = { "#bbbbbb", "#333333" }
  };
  /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
  static unsigned int lines      = 0;
 diff --git a/dmenu.c b/dmenu.c
-index 6b8f51b..7bf4099 100644
+index eca67ac..6ae896a 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -26,14 +26,16 @@
@@ -50,21 +33,24 @@ index 6b8f51b..7bf4099 100644
  static char text[BUFSIZ] = "";
  static char *embed;
  static int bh, mw, mh;
-@@ -58,6 +60,36 @@ static Clr *scheme[SchemeLast];
+@@ -58,6 +60,42 @@ static Clr *scheme[SchemeLast];
  static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
  static char *(*fstrstr)(const char *, const char *) = strstr;
  
-+static char**
-+tokenize(char *source, const char *delim, int *llen) {
-+	int listlength = 0;
-+	char **list = malloc(1 * sizeof(char*));
-+	char *token = strtok(source, delim);
++static char **
++tokenize(char *source, const char *delim, int *llen)
++{
++	int listlength = 0, list_size = 0;
++	char **list = NULL, *token;
 +
++	token = strtok(source, delim);
 +	while (token) {
-+		if (!(list = realloc(list, sizeof(char*) * (listlength + 1))))
-+			die("Unable to realloc %d bytes\n", sizeof(char*) * (listlength + 1));
++		if (listlength + 1 >= list_size) {
++			if (!(list = realloc(list, (list_size += 8) * sizeof(*list))))
++				die("Unable to realloc %zu bytes\n", list_size * sizeof(*list));
++		}
 +		if (!(list[listlength] = strdup(token)))
-+			die("Unable to strdup %d bytes\n", strlen(token) + 1);
++			die("Unable to strdup %zu bytes\n", strlen(token) + 1);
 +		token = strtok(NULL, delim);
 +		listlength++;
 +	}
@@ -74,11 +60,14 @@ index 6b8f51b..7bf4099 100644
 +}
 +
 +static int
-+arrayhas(char **list, int length, char *item) {
-+	for (int i = 0; i < length; i++) {
-+		int len1 = strlen(list[i]);
-+		int len2 = strlen(item);
-+		if (fstrncmp(list[i], item, len1 > len2 ? len2 : len1) == 0)
++arrayhas(char **list, int length, char *item)
++{
++	int i;
++
++	for (i = 0; i < length; i++) {
++		size_t len1 = strlen(list[i]);
++		size_t len2 = strlen(item);
++		if (!fstrncmp(list[i], item, len1 > len2 ? len2 : len1))
 +			return 1;
 +	}
 +	return 0;
@@ -87,7 +76,17 @@ index 6b8f51b..7bf4099 100644
  static void
  appenditem(struct item *item, struct item **list, struct item **last)
  {
-@@ -118,6 +150,8 @@ drawitem(struct item *item, int x, int y, int w)
+@@ -97,6 +135,9 @@ cleanup(void)
+ 	XUngrabKey(dpy, AnyKey, AnyModifier, root);
+ 	for (i = 0; i < SchemeLast; i++)
+ 		free(scheme[i]);
++	for (i = 0; i < hplength; ++i)
++		free(hpitems[i]);
++	free(hpitems);
+ 	drw_free(drw);
+ 	XSync(dpy, False);
+ 	XCloseDisplay(dpy);
+@@ -125,6 +166,8 @@ drawitem(struct item *item, int x, int y, int w)
  {
  	if (item == sel)
  		drw_setscheme(drw, scheme[SchemeSel]);
@@ -96,7 +95,7 @@ index 6b8f51b..7bf4099 100644
  	else if (item->out)
  		drw_setscheme(drw, scheme[SchemeOut]);
  	else
-@@ -219,7 +253,7 @@ match(void)
+@@ -226,7 +269,7 @@ match(void)
  	char buf[sizeof text], *s;
  	int i, tokc = 0;
  	size_t len, textsize;
@@ -105,7 +104,7 @@ index 6b8f51b..7bf4099 100644
  
  	strcpy(buf, text);
  	/* separate input text into tokens to be matched individually */
-@@ -228,7 +262,7 @@ match(void)
+@@ -235,7 +278,7 @@ match(void)
  			die("cannot realloc %u bytes:", tokn * sizeof *tokv);
  	len = tokc ? strlen(tokv[0]) : 0;
  
@@ -114,7 +113,7 @@ index 6b8f51b..7bf4099 100644
  	textsize = strlen(text) + 1;
  	for (item = items; item && item->text; item++) {
  		for (i = 0; i < tokc; i++)
-@@ -236,14 +270,24 @@ match(void)
+@@ -243,14 +286,24 @@ match(void)
  				break;
  		if (i != tokc) /* not all tokens match */
  			continue;
@@ -140,7 +139,7 @@ index 6b8f51b..7bf4099 100644
  	if (lprefix) {
  		if (matches) {
  			matchend->right = lprefix;
-@@ -535,6 +579,7 @@ readstdin(void)
+@@ -553,6 +606,7 @@ readstdin(void)
  		if (!(items[i].text = strdup(buf)))
  			die("cannot strdup %u bytes:", strlen(buf) + 1);
  		items[i].out = 0;
@@ -148,17 +147,17 @@ index 6b8f51b..7bf4099 100644
  		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
  		if (tmpmax > inputw) {
  			inputw = tmpmax;
-@@ -683,7 +728,8 @@ static void
+@@ -708,7 +762,8 @@ static void
  usage(void)
  {
  	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
 -	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
 +	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n"
-+		  "             [-hb color] [-hf color] [-hp items]\n", stderr);
++	      "             [-hb color] [-hf color] [-hp items]\n", stderr);
  	exit(1);
  }
  
-@@ -724,8 +770,14 @@ main(int argc, char *argv[])
+@@ -749,8 +804,14 @@ main(int argc, char *argv[])
  			colors[SchemeSel][ColBg] = argv[++i];
  		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
  			colors[SchemeSel][ColFg] = argv[++i];
@@ -173,6 +172,3 @@ index 6b8f51b..7bf4099 100644
  		else
  			usage();
  
--- 
-2.26.2
-

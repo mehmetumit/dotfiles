@@ -24,7 +24,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=99999999
 SAVEHIST=99999999
 export KEYTIMEOUT=1
-setopt autocd beep extendedglob PROMPT_SUBST
+setopt autocd beep extendedglob PROMPT_SUBST share_history
 unsetopt nomatch notify
 # Disable freeze
 stty stop undef
@@ -63,8 +63,8 @@ bindkey -s "\ed" "edit_dotfiles\n"
 bindkey -s "\ep" "start_tmux\n"
 # Alt + c -> change directory
 bindkey -s "\ec" "quick_cd\n"
-# Alt + h -> search through history and edit it
-bindkey -s "\eh" "search_command\n"
+# Ctrl + r -> search through history and edit it
+bindkey -s "\C-R" "search_command\n"
 
 #Change cursor shape for different vi modes.
 function zle-keymap-select {

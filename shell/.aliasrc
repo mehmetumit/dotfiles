@@ -1,6 +1,5 @@
 #!/bin/sh
 
-alias sv="185.225.39.250"
 alias rm='rm -i'
 alias cp='cp -iv'
 alias cpy='xclip -selection clipboard'
@@ -46,5 +45,6 @@ alias htb='sudo openvpn ~/ovpn/htb.ovpn'
 alias conn-vpn='sudo openvpn --config'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
+alias restart-fans='sudo systemctl restart nbfc_service'
 #alias trash='cd ~/.local/share/Trash/files'
 #alias empty-trash='gio trash --empty;  echo "The trash has been emptied"'

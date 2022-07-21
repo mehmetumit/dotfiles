@@ -1,2 +1,15 @@
 #!/bin/sh
+# Custom dmenu_run with path commands sorted  by frequency
+#DMHISTPATH="$HOME/.dmenu_history"
+#[ ! -f "$DMHISTPATH" ]; touch "$DMHISTPATH"
+#path_cache=$(dmenu_path)
+#dm_history=$(cat "$DMHISTPATH")
+#DMCMD=$(printf "${dm_history}\n${path_cache}" | sort | uniq -c | sort -r | awk '{print $2}' | dmenu "$@" || exit)
+#type "$DMCMD" > /dev/null && echo "$DMCMD" >> "$DMHISTPATH"
+#sh -c "$DMCMD" &
+
+#dmenu_path | dmenu -hp "$DM_HP_ITEMS" "$@" | ${SHELL:-"/bin/sh"} &
+
 dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
+
+

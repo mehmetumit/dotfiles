@@ -73,8 +73,8 @@ bind '"\ed":"edit_dotfiles\n"'
 bind '"\ep":"start_tmux\n"'
 # Alt + c -> change directory
 bind '"\ec":"quick_cd\n"'
-# Alt + h -> search through history
-bind '"\eh":"search_command\n"'
+# Ctrl + r -> search through history
+bind '"\C-R":"search_command\n"'
 # bind '"ı":vi-insertion-mode' -> TODO
 
 # User name and host name included

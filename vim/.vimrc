@@ -83,6 +83,7 @@ nnoremap <silent> <C-f>f :FzfFiles<CR>
 nnoremap <silent> <C-f>h :FzfHistory<CR>
 nnoremap <silent> <C-f>s :FzfHistory/<CR>
 nnoremap <silent> <C-f>c :FzfHistory:<CR>
+nnoremap <silent> <C-f>l :FzfLines<CR>
 
 
 " Polyglot disable auto indentation
