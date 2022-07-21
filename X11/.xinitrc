@@ -31,6 +31,15 @@ fi
 # Needed for cinnamon dwm already includes this script in ~/.dwm/ directory
 #(startup-script &> .startup.log)&
 
+# start some nice programs
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        # shellcheck source=/dev/null
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
 # Start display manager
 printf "Initializing dymdm...\n"
 dymdm 2>&1
