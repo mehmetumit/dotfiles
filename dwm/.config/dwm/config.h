@@ -82,7 +82,13 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
+static const char app_menu[] = { "rofi -show drun"};
+static const char window_menu[] = { "rofi -show window"};
+static const char run_menu[] = { "rofi -show run"};
+static const char calc_menu[] = { "rofi -show calc -no-show-match -no-sort"};
+static const char emoji_menu[] = { "rofi -show emoji -matching normal"};
 static const char *termcmd[]  = { "urxvt", NULL };
+
 //***************Custom key actions ***************
 //playerctl package needed
 static const char volup[]   = { "/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1%; update-block 7;"};
@@ -113,7 +119,7 @@ static const char color_picker[] = {"colpick -n -c "};
 //
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,            		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -173,9 +179,14 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      spawn,           SHCMD(kill_all) },
 	{ MODKEY,             			XK_c,      spawn,           SHCMD(clipmenu) },
 	{ MODKEY,             			XK_z,      spawn,           SHCMD(qrgen) },
-	{ MODKEY,             			XK_x,      spawn,           SHCMD(color_picker) },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,           SHCMD(color_picker) },
 	{ MODKEY,             			XK_a,      spawn,           SHCMD(ofilebrowser) },
-	{ MODKEY,             			XK_w,      spawn,           SHCMD(owebbrowser) },
+	{ MODKEY|ShiftMask,            	XK_w,      spawn,           SHCMD(owebbrowser) },
+	{ MODKEY,            			XK_e,      spawn,           SHCMD(emoji_menu) },
+	{ MODKEY|ShiftMask,            	XK_c,      spawn,           SHCMD(calc_menu) },
+	{ MODKEY,            			XK_p,      spawn,           SHCMD(app_menu) },
+	{ MODKEY|ShiftMask,            	XK_p,      spawn,           SHCMD(run_menu) },
+	{ MODKEY,            			XK_w,      spawn,           SHCMD(window_menu) },
 	{ 0,                       XF86XK_AudioLowerVolume, spawn, SHCMD(voldown) },
 	{ 0,                       XF86XK_AudioMute, spawn, SHCMD(volmute) },
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, SHCMD(volup) },
@@ -198,7 +209,7 @@ static Key keys[] = {
 	{ShiftMask,					XK_Print,			spawn,		SHCMD(selsshot) },
 	{ControlMask|ShiftMask,		XK_Print,			spawn,		SHCMD(sharesshot) },
 	{ControlMask,				XK_Print,			spawn,		SHCMD(focshot) },
-	{MODKEY|ShiftMask,			XK_e,				spawn,		SHCMD(bootmenu) },
+	{MODKEY,					XK_x,				spawn,		SHCMD(bootmenu) },
 
 };
 

@@ -1,18 +1,20 @@
 #!/bin/sh
-OPERATION=$(zenity --width=300\
-           --height=300\
-           --list\
-           --title "bootmenu"\
-            --text "Select Operation"\
-	    --column=""\
-            "shutdown"\
-            "reboot"\
-                )
+# Zenity
+#OPERATION=$(zenity --width=300\
+#           --height=300\
+#           --list\
+#           --title "bootmenu"\
+#            --text "Select Operation"\
+#	    --column=""\
+#            "shutdown"\
+#            "reboot"\
+#                )
+#
+OPERATION=$(printf "Shutdown\nReboot\nLock" | rofi -dmenu)
 
-case $OPERATION in 
-    (shutdown)
-        shutdown now;;
-    (reboot) 
-        reboot;;
+case $OPERATION in
+    'Shutdown') shutdown now;;
+    'Reboot') reboot;;
+    *) exit;;
 esac
 
