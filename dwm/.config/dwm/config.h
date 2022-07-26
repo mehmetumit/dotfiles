@@ -41,11 +41,13 @@ typedef struct {
 const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "ranger", NULL};
 const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
 const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
+const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "tmux", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spfm",      spfmcmd},
 	{"spterm",    sptermcmd},
 	{"spres",    sprescmd},
+	{"sptmux",    sptmuxcmd},
 };
 
 /* tagging */
@@ -71,6 +73,7 @@ static const Rule rules[] = {
 	{ NULL,		  "spfm",		NULL,		SPTAG(0),		1,			 -1 },
 	{ NULL,		  "spterm",		NULL,		SPTAG(1),		1,			 -1 },
 	{ NULL,		  "spres",	NULL,		SPTAG(2),		1,			 -1 },
+	{ NULL,		  "sptmux",	NULL,		SPTAG(3),		0,			 -1 },
 };
 
 /* layout(s) */
@@ -181,6 +184,7 @@ static Key keys[] = {
 	{ MODKEY,            			XK_a,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			XK_y,	   togglescratch,  {.ui = 2 } },
+	{ MODKEY,            			XK_t,	   togglescratch,  {.ui = 3 } },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
