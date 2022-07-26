@@ -59,8 +59,10 @@ bindkey -s "\C-O" "ranger_cd\n"
 bindkey -s "\ef" "edit_files\n"
 # Alt + d -> edit files fromdotfiles
 bindkey -s "\ed" "edit_dotfiles\n"
-# Alt + p -> start tmux at projects path
-bindkey -s "\ep" "start_tmux\n"
+# Alt + p -> start tmux at selected projects path
+bindkey -s "\ep" "start_tmux_at_projects\n"
+# Alt + t -> start tmux at selected  path
+bindkey -s "\et" "start_tmux\n"
 # Alt + c -> change directory
 bindkey -s "\ec" "quick_cd\n"
 # Ctrl + r -> search through history and edit it

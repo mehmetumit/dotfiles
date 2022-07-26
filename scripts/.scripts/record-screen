@@ -15,6 +15,7 @@ Simple screen recording script
 
 options:
 	-h		Print this text and exit
+	-r 		Record video with audio
 	-v 		Record video only
 	-c 		Record camera too
 	-a 		Record audio only
@@ -22,6 +23,8 @@ options:
 EOF
 }
 case "$1" in
+	# Record video with audio
+	-r) ffmpeg -y -f x11grab -s "$dimensions"  -i :0.0 -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Video only
 	-v) ffmpeg  -y -f x11grab -s "$dimensions"  -i :0.0 "$file_path"  >/dev/null 2>&1 &;;
 	# Record camera too. Sleep added to prevent video recording before cam loads
@@ -30,7 +33,5 @@ case "$1" in
 	-a) ffmpeg -y -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Kill deatached processes
 	-s) pkill ffmpeg && pkill ffplay ;;
-	-h|--help) help && exit ;;
-	# Record video with audio
-	*) ffmpeg -y -f x11grab -s "$dimensions"  -i :0.0 -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
+	-h|*) help && exit ;;
 esac

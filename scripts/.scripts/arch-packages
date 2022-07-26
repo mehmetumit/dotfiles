@@ -198,3 +198,4 @@ sudo pacman -S biber
 sudo pacman -S bat
 sudo pacman -S ripgrep
 sudo pacman -S rofi rofi-emoji rofi-calc
+sudo pacman -S stress

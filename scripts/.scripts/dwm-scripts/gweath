@@ -4,8 +4,8 @@ cache_path="/tmp/gweath"
 check_cache() { if [ ! -f $cache_path ]; then curl wttr.in/Bursa > $cache_path; fi;}
 if [ ! -z "$1" ]; then BUTTON="$1"; fi
 case $BUTTON in
-	1) notify-send "Weather data is getting...";  check_cache; $TERMINAL -e "less -Srf $cache_path" ;;
-	"get") notify-send "Weather data is getting...";  check_cache; $TERMINAL -e "less -Srf $cache_path" ;;
-	4) $TERMINAL -e "vim $script_path" ;;
+	1) notify-send "Weather data is getting...";  check_cache; $TERMINAL -e sh -c "less -Srf $cache_path" ;;
+	"get") notify-send "Weather data is getting...";  check_cache; $TERMINAL -e sh -c "less -Srf $cache_path" ;;
+	4) $TERMINAL -e sh -c "vim $script_path" ;;
 esac
 printf "%4s" $(curl wttr.in/Bursa?format="%c+%t" 2>/dev/null )

@@ -24,9 +24,13 @@ edit_files() {
 edit_dotfiles() {
     files=$(find "$HOME/dotfiles" -type f -not -path "*/\.git/*" -print | fzf --header='edit_dotfiles' --preview 'bat --style=numbers --color=always --line-range :500 {}' -m) && vim -p "$files"
 }
-# Start tmux at projects path
+# Start tmux at selected projects path
+start_tmux_at_projects() {
+    project_path=$(find "$HOME/Projects" -maxdepth 2 -type d -not -path "*/\.git/*" -print | fzf --no-multi --header='start_tmux_at_projects') && cd "$project_path" && tmux && cd - || return
+}
+# Start tmux at selected directory
 start_tmux() {
-    project_path=$(find "$HOME/Projects" -maxdepth 2 -type d -not -path "*/\.git/*" -print | fzf --no-multi --header='start_tmux') && cd "$project_path" && tmux && cd - || return
+    selected_path=$(find . -maxdepth 4 -type d -not -path "*/\.git/*" -print | fzf --no-multi --header='start_tmux') && cd "$selected_path" && tmux && cd - || return
 }
 # Change directory with fzf
 quick_cd() {

@@ -46,6 +46,6 @@ alias htb='sudo openvpn ~/ovpn/htb.ovpn'
 alias conn-vpn='sudo openvpn --config'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
-alias restart-fans='sudo systemctl restart nbfc_service'
+alias restart-fans='sudo systemctl restart nbfc_service && sudo nbfc set -a'
 #alias trash='cd ~/.local/share/Trash/files'
 #alias empty-trash='gio trash --empty;  echo "The trash has been emptied"'

@@ -10,7 +10,7 @@
 #            "reboot"\
 #                )
 #
-OPERATION=$(printf "Shutdown\nReboot\nLock" | rofi -dmenu)
+OPERATION=$(printf "Shutdown\nReboot\nLock" | rofi -dmenu -i)
 
 case $OPERATION in
     'Shutdown') shutdown now;;

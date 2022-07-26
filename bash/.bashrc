@@ -69,8 +69,10 @@ bind '"\C-O":"ranger_cd\n"'
 bind '"\ef":"edit_files\n"'
 # Alt + d -> edit files fromdotfiles
 bind '"\ed":"edit_dotfiles\n"'
-# Alt + p -> start tmux at projects path
+# Alt + p -> start tmux at selected projects path
 bind '"\ep":"start_tmux\n"'
+# Alt + t -> start tmux at selected path
+bind '"\et":"start_tmux\n"'
 # Alt + c -> change directory
 bind '"\ec":"quick_cd\n"'
 # Ctrl + r -> search through history
