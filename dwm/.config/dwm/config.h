@@ -1,4 +1,5 @@
 #include <X11/XF86keysym.h>
+#include "movestack.c"
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 10;        /* gaps between windows */
@@ -33,6 +34,20 @@ static const char *colors[][3]      = {
 	[SchemeTitle]  = { col_gray1, col_gray1,  col_cyan  },
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "ranger", NULL};
+const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
+const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spfm",      spfmcmd},
+	{"spterm",    sptermcmd},
+	{"spres",    sprescmd},
+};
+
 /* tagging */
 //
 static const char *tags[] = { "PRMRY","SCNDRY", "EXTR", "BCKG"};
@@ -53,6 +68,9 @@ static const Rule rules[] = {
 	//{ "Thunar",	  NULL,		NULL,       1 << 2,       0,           -1 },
 	{ "discord",	  NULL,		NULL,       1 << 2,       0,           -1 },
 	{ "obs",	  NULL,		NULL,       1 << 2,       0,           -1 },
+	{ NULL,		  "spfm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "spterm",		NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		  "spres",	NULL,		SPTAG(2),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -107,7 +125,7 @@ static const char bootmenu[] = {"bootmenu"};
 static const char clipmenu[] = {"clipmenu"};
 static const char qrgen[] = {"qrgen"};
 static const char owebbrowser[] = {"$BROWSER"};
-static const char ofilebrowser[] = {"urxvt -e ranger"};
+//static const char ofilebrowser[] = {"urxvt -e ranger"};
 static const char osshots[] = {"cd ~/Screenshots/ && urxvt -e ranger"};
 //autostart.sh script which exist in ~/.dwm/
 static const char kill_all[] = {"killall startup-script; killall dwm; killall dwmblocks;"};
@@ -155,6 +173,15 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
 
+
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+
+
+	{ MODKEY,            			XK_a,  	   togglescratch,  {.ui = 0 } },
+	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
+	{ MODKEY,            			XK_y,	   togglescratch,  {.ui = 2 } },
+
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -175,12 +202,12 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 //	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 //Used underscore for not conflict with other functions which can be exist in future
-	{ MODKEY,                       XK_s,      spawn,          SHCMD(osshots) },
+	{ MODKEY|ShiftMask,                       XK_s,      spawn,          SHCMD(osshots) },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,           SHCMD(kill_all) },
 	{ MODKEY,             			XK_c,      spawn,           SHCMD(clipmenu) },
 	{ MODKEY,             			XK_z,      spawn,           SHCMD(qrgen) },
 	{ MODKEY|ShiftMask,             XK_x,      spawn,           SHCMD(color_picker) },
-	{ MODKEY,             			XK_a,      spawn,           SHCMD(ofilebrowser) },
+	//{ MODKEY,             			XK_a,      spawn,           SHCMD(ofilebrowser) },
 	{ MODKEY|ShiftMask,            	XK_w,      spawn,           SHCMD(owebbrowser) },
 	{ MODKEY,            			XK_e,      spawn,           SHCMD(emoji_menu) },
 	{ MODKEY|ShiftMask,            	XK_c,      spawn,           SHCMD(calc_menu) },
