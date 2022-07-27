@@ -18,7 +18,7 @@
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 [ -f "$HOME/.convrc" ] && source "$HOME/.convrc"
 
-PS1='%B%F{blue}%~%F{yellow}$(get_git_branch)%(!.%F{red}.%F{green}) → %b%f'
+PS1='%B%F{blue}%~%F{yellow}$(get_git_branch)%F{red}$(get_git_status)%(!.%F{red}.%F{green}) → %b%f'
 
 HISTFILE=~/.zsh_history
 HISTSIZE=99999999

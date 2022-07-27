@@ -13,8 +13,12 @@ setxkbmap -option caps:swapescape
 
 # If you using double quotes in PS1 don't forget to add escape otherwise it doesn't update until you source bashrc
 get_git_branch() {
-	git branch 2> /dev/null | awk '/*/{printf "(%s)", $2}'
+    git branch 2> /dev/null | awk '/*/{printf "(%s)", $2}'
 
+}
+get_git_status() {
+    g_status=$(git status --porcelain 2>/dev/null || printf '0')
+    [ ! -z "$g_status" ] && [ ! "$g_status" = '0' ] && printf '*' || printf ''
 }
 # Edit files from current location
 edit_files() {
