@@ -42,12 +42,14 @@ const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "rang
 const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
 const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
 const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "tmux", NULL};
+const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "vim $HOME/vimwiki/index.wiki", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spfm",      spfmcmd},
 	{"spterm",    sptermcmd},
-	{"spres",    sprescmd},
+	{"spres",     sprescmd},
 	{"sptmux",    sptmuxcmd},
+	{"sptknote",  sptknotecmd }
 };
 
 /* tagging */
@@ -74,6 +76,7 @@ static const Rule rules[] = {
 	{ NULL,		  "spterm",		NULL,		SPTAG(1),		1,			 -1 },
 	{ NULL,		  "spres",	NULL,		SPTAG(2),		1,			 -1 },
 	{ NULL,		  "sptmux",	NULL,		SPTAG(3),		0,			 -1 },
+	{ NULL,		  "sptknote",	NULL,		SPTAG(4),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -185,6 +188,7 @@ static Key keys[] = {
 	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			XK_y,	   togglescratch,  {.ui = 2 } },
 	{ MODKEY,            			XK_t,	   togglescratch,  {.ui = 3 } },
+	{ MODKEY,            			XK_v,	   togglescratch,  {.ui = 4 } },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },

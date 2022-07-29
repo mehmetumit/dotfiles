@@ -77,6 +77,8 @@ bind '"\et":"start_tmux\n"'
 bind '"\ec":"quick_cd\n"'
 # Ctrl + r -> search through history
 bind '"\C-R":"search_command\n"'
+# Alt + v -> take note with vimwiki
+bind '"\ev":"tknote\n"'
 # bind '"ı":vi-insertion-mode' -> TODO
 
 # User name and host name included

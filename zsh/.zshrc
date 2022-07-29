@@ -69,6 +69,8 @@ bindkey -s "\et" "start_tmux\n"
 bindkey -s "\ec" "quick_cd\n"
 # Ctrl + r -> search through history and edit it
 bindkey -s "\C-R" "search_command\n"
+# Alt + v -> take note with vimwiki
+bindkey -s "\ev" "tknote\n"
 
 # Ctrl + space -> accept autosuggestion
 bindkey '^ ' autosuggest-accept

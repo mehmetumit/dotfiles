@@ -47,5 +47,6 @@ alias conn-vpn='sudo openvpn --config'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
 alias restart-fans='sudo systemctl restart nbfc_service && sudo nbfc set -a'
+alias tknote='vim $HOME/vimwiki/index.wiki'
 #alias trash='cd ~/.local/share/Trash/files'
 #alias empty-trash='gio trash --empty;  echo "The trash has been emptied"'
