@@ -28,6 +28,8 @@ setopt autocd beep extendedglob PROMPT_SUBST share_history
 unsetopt nomatch notify
 # Disable freeze
 stty stop undef
+# Disable paste highlighting
+zle_highlight=('paste:none')
 # Vi mode
 bindkey -v
 
@@ -68,6 +70,9 @@ bindkey -s "\ec" "quick_cd\n"
 # Ctrl + r -> search through history and edit it
 bindkey -s "\C-R" "search_command\n"
 
+# Ctrl + space -> accept autosuggestion
+bindkey '^ ' autosuggest-accept
+
 #Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
@@ -91,4 +96,6 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 autoload -U colors && colors
 
+# Extensions
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null

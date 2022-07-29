@@ -141,6 +141,7 @@ sudo pacman -S sassc
 sudo pacman -S minify
 sudo pacman -S zsh
 sudo pacman -S zsh-syntax-highlighting
+sudo pacman -S zsh-autosuggestions
 sudo pacman -S fzf
 sudo pacman -S stow
 npm install live-server -g

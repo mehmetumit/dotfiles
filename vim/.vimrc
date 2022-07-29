@@ -85,6 +85,9 @@ nnoremap <silent> <C-f>s :FzfHistory/<CR>
 nnoremap <silent> <C-f>c :FzfHistory:<CR>
 nnoremap <silent> <C-f>l :FzfLines<CR>
 
+" vim powered terminal keybindings
+map <silent> <Leader>t :term<CR>
+map <silent> <Leader>T :vert term<CR>
 
 " Polyglot disable auto indentation
 "autocmd BufEnter * set indentexpr=
