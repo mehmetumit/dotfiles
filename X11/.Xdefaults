@@ -1,5 +1,5 @@
 ! URxvt
-URxvt*background: [80]#00001e
+URxvt*background: [97]#292D3E
 URxvt*depth: 32
 URxvt*scrollBar: false
 URxvt*saveLines: 100000

@@ -1,0 +1,7 @@
+#!/bin/sh
+langs=$(printf "c cpp javascript typescript java bash shell nodejs golang lua" | tr ' ' '\n')
+utils=$(printf "grep sed awk curl wget lsblk dmesg ps kill ps tar df chown stow tr wc head tail file tee sort comm strings chmod tmux ln" | tr ' ' '\n')
+selected=$(printf "$langs\n$utils" | fzf) || exit 0
+read -p "query: " query
+
+[ $(printf "$langs" | grep -c "$selected") -gt 0 ] && curl -s cheat.sh/$selected/$(echo "$query" | tr ' ' '+') || curl -s cheat.sh/"$selected"~$(echo "$query" | tr ' ' '+')

@@ -19,12 +19,16 @@ set wildmode=longest,list,full
 " fix tmux color issue
 set background=dark
 "let mapleader="\<Space>"
-let mapleader=","
+" Comma location in US keyboard
+let mapleader="ö"
 " Use system clipboard as default for copy and paste
 set clipboard=unnamedplus
 " Make tab chracter as 4 spaces wide
 set tabstop=4
 set shiftwidth=4
+" Fix cursor
+autocmd VimEnter * silent exec "! echo -ne '\e[1 q'"
+"autocmd VimLeave * silent exec "! echo -ne '\e[5 q'" 
 " Plugin section
 call plug#begin('~/.vim/plugged')
 	Plug 'NLKNguyen/papercolor-theme'
@@ -69,7 +73,7 @@ let g:javascript_conceal_arrow_function       = "→"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 " LaTeX
-let maplocalleader = ","
+let maplocalleader = "ö"
 let g:vimtex_view_method = 'zathura'
 " Make sure biber is installed
 let g:Tex_BibtexFlavor = 'biber'
@@ -79,16 +83,19 @@ let g:fzf_command_prefix = 'Fzf'
 " shortcuts
 " disable page scrolling
 nmap <C-f> <Nop>
-nnoremap <silent> <C-f>f :FzfFiles<CR>
-nnoremap <silent> <C-f>h :FzfHistory<CR>
-nnoremap <silent> <C-f>s :FzfHistory/<CR>
-nnoremap <silent> <C-f>c :FzfHistory:<CR>
-nnoremap <silent> <C-f>l :FzfLines<CR>
+nnoremap <silent> <leader>ff :FzfFiles<CR>
+nnoremap <silent> <leader>fh :FzfHistory<CR>
+nnoremap <silent> <leader>fs :FzfHistory/<CR>
+nnoremap <silent> <leader>fc :FzfHistory:<CR>
+nnoremap <silent> <leader>fl :FzfLines<CR>
 
 " vim powered terminal keybindings
 map <silent> <Leader>t :term<CR>
 map <silent> <Leader>T :vert term<CR>
 
+" NERDCommenter swap default toggle with comment keybinding
+nnoremap <silent> <Leader>cc <Plug>NERDCommenterToggle
+nnoremap <silent> <Leader>c<space> <Plug>NERDCommenterComment
 " Polyglot disable auto indentation
 "autocmd BufEnter * set indentexpr=
 " Theme section
@@ -117,7 +124,7 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " normal save
 nnoremap <C-s> :w<CR>
 let g:user_emmet_mode='n' " Only enable normal mode functions
-let g:user_emmet_leader_key=',' " Press twice
+let g:user_emmet_leader_key='ö' " Press twice
 "let g:OmniSharp_server_use_mono = 1 " C# use mono
 let g:ale_linters = {
 \ 'cs': ['OmniSharp']
@@ -306,8 +313,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>F  <Plug>(coc-format-selected)
+nmap <leader>F  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
