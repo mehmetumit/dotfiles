@@ -210,7 +210,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 //	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 //Used underscore for not conflict with other functions which can be exist in future
-	{ MODKEY|ShiftMask,                       XK_s,      spawn,          SHCMD(osshots) },
+	{ MODKEY,                       XK_s,      spawn,          SHCMD(osshots) },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,           SHCMD(kill_all) },
 	{ MODKEY,             			XK_c,      spawn,           SHCMD(clipmenu) },
 	{ MODKEY,             			XK_z,      spawn,           SHCMD(qrgen) },

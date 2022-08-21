@@ -1,6 +1,6 @@
 #!/bin/sh
 langs=$(printf "c cpp javascript typescript java bash shell nodejs golang lua" | tr ' ' '\n')
-utils=$(printf "grep sed awk curl wget lsblk dmesg ps kill ps tar df chown stow tr wc head tail file tee sort comm strings chmod tmux ln" | tr ' ' '\n')
+utils=$(printf "grep sed awk curl wget lsblk dmesg ps kill ps tar df chown stow tr wc head tail file tee sort comm strings chmod tmux ln docker systemctl npm" | tr ' ' '\n')
 selected=$(printf "$langs\n$utils" | fzf) || exit 0
 read -p "query: " query
 

@@ -9,6 +9,8 @@ set incsearch
 set ignorecase
 set smartcase
 set nocompatible
+set path+=**
+set wildmenu
 filetype plugin on
 syntax on
 set splitbelow splitright
@@ -77,6 +79,8 @@ let maplocalleader = "ö"
 let g:vimtex_view_method = 'zathura'
 " Make sure biber is installed
 let g:Tex_BibtexFlavor = 'biber'
+" Java
+let g:java_highlight_all=1
 " fzf
 " Prefix for fzf commands
 let g:fzf_command_prefix = 'Fzf'
@@ -88,6 +92,7 @@ nnoremap <silent> <leader>fh :FzfHistory<CR>
 nnoremap <silent> <leader>fs :FzfHistory/<CR>
 nnoremap <silent> <leader>fc :FzfHistory:<CR>
 nnoremap <silent> <leader>fl :FzfLines<CR>
+nnoremap <silent> <leader>fa :FzfRg<CR>
 
 " vim powered terminal keybindings
 map <silent> <Leader>t :term<CR>
