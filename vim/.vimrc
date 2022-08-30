@@ -93,6 +93,7 @@ nnoremap <silent> <leader>fs :FzfHistory/<CR>
 nnoremap <silent> <leader>fc :FzfHistory:<CR>
 nnoremap <silent> <leader>fl :FzfLines<CR>
 nnoremap <silent> <leader>fa :FzfRg<CR>
+nnoremap <silent> <leader>fw :FzfWindows<CR>
 
 " vim powered terminal keybindings
 map <silent> <Leader>t :term<CR>
@@ -101,6 +102,8 @@ map <silent> <Leader>T :vert term<CR>
 " NERDCommenter swap default toggle with comment keybinding
 nnoremap <silent> <Leader>cc <Plug>NERDCommenterToggle
 nnoremap <silent> <Leader>c<space> <Plug>NERDCommenterComment
+vnoremap <silent> <Leader>cc <Plug>NERDCommenterToggle
+vnoremap <silent> <Leader>c<space> <Plug>NERDCommenterComment
 " Polyglot disable auto indentation
 "autocmd BufEnter * set indentexpr=
 " Theme section
