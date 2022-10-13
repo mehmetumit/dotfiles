@@ -1,6 +1,8 @@
 #!/bin/sh
 # For fix java awt white screen on dwm
 export AWT_TOOLKIT=MToolkit
+# For fix java gui problems
+export _JAVA_AWT_WM_NONREPARENTING=1
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources

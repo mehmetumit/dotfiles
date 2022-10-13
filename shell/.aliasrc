@@ -17,6 +17,7 @@ alias lslx='ls -lXhN --color=auto --group-directories-first'
 alias lsxl='ls -lXhN --color=auto --group-directories-first'
 
 alias rg="rg --hidden --glob '!.git'"
+#alias rg="rg --hidden --glob --no-require-git '!.git'"
 alias grep='grep --color=auto' #Grep highlight
 alias less='less -r' # less highlight
 alias c='clear'
@@ -49,5 +50,6 @@ alias conn-vpn='sudo openvpn --config'
 alias unityhub='prime-run unityhub'
 alias restart-fans='sudo systemctl restart nbfc_service && sudo nbfc set -a'
 alias tknote='vim $HOME/vimwiki/index.wiki'
+alias arduino='sudo -s; export _JAVA_AWT_WM_NONREPARENTING=1; arduino'
 #alias trash='cd ~/.local/share/Trash/files'
 #alias empty-trash='gio trash --empty;  echo "The trash has been emptied"'

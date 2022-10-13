@@ -1,3 +1,4 @@
 #!/bin/sh
+# Realtime signal -> RTMIN --> 34
 rtmin_plus=$((34 + $1))
 kill -$rtmin_plus "$(pidof dwmblocks)"

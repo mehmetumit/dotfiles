@@ -30,7 +30,7 @@ set tabstop=4
 set shiftwidth=4
 " Fix cursor
 autocmd VimEnter * silent exec "! echo -ne '\e[1 q'"
-"autocmd VimLeave * silent exec "! echo -ne '\e[5 q'" 
+"autocmd VimLeave * silent exec "! echo -ne '\e[5 q'"
 " Plugin section
 call plug#begin('~/.vim/plugged')
 	Plug 'NLKNguyen/papercolor-theme'
@@ -87,6 +87,8 @@ let g:fzf_command_prefix = 'Fzf'
 " shortcuts
 " disable page scrolling
 nmap <C-f> <Nop>
+" Paste without change register
+xnoremap <silent> <leader>p "_dP
 nnoremap <silent> <leader>ff :FzfFiles<CR>
 nnoremap <silent> <leader>fh :FzfHistory<CR>
 nnoremap <silent> <leader>fs :FzfHistory/<CR>
@@ -144,13 +146,6 @@ let g:NERDTreeIgnore = ['^node_modules$']
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 "nnoremap <C-n> :NERDTree<CR>
 
-" vim-prettier
-"let g:prettier#quickfix_enabled = 0
-"let g:prettier#quickfix_auto_focus = 0
-" prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-" run prettier on save
-"let g:prettier#autoformat = 0
 
 " Replace all is aliased to S
 nnoremap S :%s//g<Left><Left>
@@ -320,7 +315,20 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
+" vim-prettier
+"let g:prettier#quickfix_enabled = 0
+"let g:prettier#quickfix_auto_focus = 0
+" prettier command for coc
+"command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" Format whole file with prettier
+nmap <leader>fp :CocCommand prettier.formatFile<CR>
+" run prettier on save
+"let g:prettier#autoformat = 0
+
 " Formatting selected code.
+xmap <leader>F  <Plug>(coc-format-selected)
+nmap <leader>F  <Plug>(coc-format-selected)
+" Formatting all code
 xmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>F  <Plug>(coc-format-selected)
 
