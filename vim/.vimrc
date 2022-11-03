@@ -56,6 +56,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'mattn/emmet-vim'
 	" fzf
 	Plug 'junegunn/fzf.vim'
+	" Color preview
+	Plug 'gko/vim-coloresque'
+	" tailwindcss intellisense
+	"Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 call plug#end()
 " vim-javascript plugin section
 " let g:javascript_plugin_jsdoc = 1
@@ -269,11 +273,11 @@ let g:airline_section_z = '%l/%L:%c %p%%'
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ CheckBackSpace() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
+function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -324,11 +328,9 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>fp :CocCommand prettier.formatFile<CR>
 " run prettier on save
 "let g:prettier#autoformat = 0
+let g:prettier#config#use_tabs = 'true'
 
 " Formatting selected code.
-xmap <leader>F  <Plug>(coc-format-selected)
-nmap <leader>F  <Plug>(coc-format-selected)
-" Formatting all code
 xmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>F  <Plug>(coc-format-selected)
 

@@ -1,4 +1,5 @@
 #!/bin/sh
 bluetoothctl power on
 sudo bluetooth on
+bluetoothctl pair "FF:72:7E:B7:63:25"
 bluetoothctl connect "FF:72:7E:B7:63:25"
