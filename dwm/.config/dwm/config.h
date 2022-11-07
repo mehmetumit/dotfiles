@@ -237,9 +237,16 @@ static Key keys[] = {
 	{MODKEY|ALTKEY,				XK_Left,			spawn, 		SHCMD(brdown) },
 	{MODKEY|ALTKEY,				XK_Up, 				spawn, 		SHCMD(volup) },
 	{MODKEY|ALTKEY,				XK_Down, 			spawn, 		SHCMD(voldown) },
+
 	{0,							XK_Scroll_Lock, 	spawn, 		SHCMD(medpause) },
 	{ShiftMask,					XK_Scroll_Lock, 	spawn, 		SHCMD(mednext) },
 	{ControlMask,				XK_Scroll_Lock, 	spawn, 		SHCMD(medprev) },
+
+	// 0xff1b -> esc key code
+	{MODKEY,					0xff1b, 		spawn, 		SHCMD(medpause) },
+	{MODKEY|ShiftMask,			0xff1b, 		spawn, 		SHCMD(mednext) },
+	{MODKEY|ControlMask,		0xff1b, 		spawn, 		SHCMD(medprev) },
+
 	{0,							XK_Print,			spawn,		SHCMD(fullsshot) },
 	{ShiftMask,					XK_Print,			spawn,		SHCMD(selsshot) },
 	{ControlMask|ShiftMask,		XK_Print,			spawn,		SHCMD(sharesshot) },
