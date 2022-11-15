@@ -48,6 +48,7 @@ alias htb='sudo openvpn ~/ovpn/htb.ovpn'
 alias conn-vpn='sudo openvpn --config'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
+alias run_emulator='prime-run /opt/android-sdk/emulator/emulator -avd Pixel_XL_API_29 -netdelay none -netspeed full'
 alias restart-fans='sudo systemctl restart nbfc_service && sudo nbfc set -a'
 alias tknote='vim $HOME/vimwiki/index.wiki'
 alias arduino='sudo -s; export _JAVA_AWT_WM_NONREPARENTING=1; arduino'

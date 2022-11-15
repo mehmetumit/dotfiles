@@ -206,3 +206,7 @@ p -S system-config-printer
 echo "Don't forget to start cups service for printer"
 sudo pacman -S tree
 yay -S android-apktool
+# CLI download manager
+p -S aria2
+# Quickly rename files with vim
+yay -S vimv
