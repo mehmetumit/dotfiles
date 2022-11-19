@@ -200,13 +200,17 @@ sudo pacman -S bat
 sudo pacman -S ripgrep
 sudo pacman -S rofi rofi-emoji rofi-calc
 sudo pacman -S stress
-p -S cups
+sudo pacman -S cups
 sudo usermod -aG "$(whoami)"
-p -S system-config-printer
+sudo pacman -S system-config-printer
 echo "Don't forget to start cups service for printer"
 sudo pacman -S tree
 yay -S android-apktool
 # CLI download manager
-p -S aria2
+sudo pacman -S aria2
 # Quickly rename files with vim
 yay -S vimv
+# Mirror android device screen
+sudo pacman -S scrcpy
+# Apply diff files for dwm
+sudo pacman -S patch

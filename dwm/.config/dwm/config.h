@@ -4,6 +4,7 @@
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 //static const char *fonts[]          = { "Font Awesome 5 Free:style=Solid:size=12:autohint=true","Source Code Pro:size=12:antialias=true:autohint=true"};
@@ -61,22 +62,24 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       1 << 2,            1,           -1 },
+	/* class     	instance  	title           	tags mask  	  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",     	NULL,       NULL,       		1 << 2,       	1, 			 0, 	0,    -1 },
+	{ "URxvt",      NULL,     	NULL,           	0,        		0,           1,     0,    -1 },
 	//Start opengl demo applications in floating window mode
-	{ NULL,    	  NULL,       "DEMO",       0,            1,           -1 },
+	{ NULL,    	  	NULL,       "DEMO",       		0,            	1,        	 0, 	0,    -1 },
 	//Start camera window in floating window mode
-	{ NULL,    	  NULL,       "CAM",       0,            1,           -1 },
-	{ "kdenlive",     NULL,	NULL,       1 << 2,            1,           -1 },
-	//{ "firefox",  NULL,       NULL,       1,       0,           -1 },
-	//{ "Thunar",	  NULL,		NULL,       1 << 2,       0,           -1 },
-	{ "discord",	  NULL,		NULL,       1 << 2,       0,           -1 },
-	{ "obs",	  NULL,		NULL,       1 << 2,       0,           -1 },
-	{ NULL,		  "spfm",		NULL,		SPTAG(0),		1,			 -1 },
-	{ NULL,		  "spterm",		NULL,		SPTAG(1),		1,			 -1 },
-	{ NULL,		  "spres",	NULL,		SPTAG(2),		1,			 -1 },
-	{ NULL,		  "sptmux",	NULL,		SPTAG(3),		0,			 -1 },
-	{ NULL,		  "sptknote",	NULL,		SPTAG(4),		1,			 -1 },
+	{ NULL,    	  	NULL,       "CAM",       		0,            	1,           0, 	0,    -1 },
+	{ "kdenlive",   NULL,		NULL,       		1 << 2,         1,           0, 	0,    -1 },
+	//{ "firefox",  NULL,       NULL,       		1,       		0,           0, 	0,    -1 },
+	//{ "Thunar",	NULL,		NULL,       		1 << 2,       	0,           0, 	0,    -1 },
+	{ "discord",	NULL,		NULL,       		1 << 2,       	0,           0, 	0,    -1 },
+	{ "obs",	  	NULL,		NULL,       		1 << 2,       	0,           0, 	0,    -1 },
+	{ NULL,      	NULL,     	"Event Tester", 	0,         		0,           0,     1,    -1 }, /* xev */
+	{ NULL,		  	"spfm",		NULL,				SPTAG(0),		1,			 1, 	0,    -1 },
+	{ NULL,		  	"spterm",	NULL,				SPTAG(1),		1,			 1, 	0,    -1 },
+	{ NULL,		  	"spres",	NULL,				SPTAG(2),		1,			 1, 	0,    -1 },
+	{ NULL,		  	"sptmux",	NULL,				SPTAG(3),		0,			 1, 	0,    -1 },
+	{ NULL,		  	"sptknote",	NULL,				SPTAG(4),		1,			 1, 	0,    -1 },
 };
 
 /* layout(s) */
