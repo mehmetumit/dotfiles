@@ -22,7 +22,7 @@ get_git_status() {
 }
 # Edit files from current location
 edit_files() {
-    files=$(find . -type f -not -path "*/\.git/*" -print | fzf --header='edit_files' --preview 'bat --style=numbers --color=always --line-range :500 {}') && vim -p "$files"
+    files=$(find . -type f -not -path "*/\.git/*" -print 2>/dev/null | fzf --header='edit_files' --preview 'bat --style=numbers --color=always --line-range :500 {}') && vim -p "$files"
 }
 # Edit dotfiles with fzf
 edit_dotfiles() {

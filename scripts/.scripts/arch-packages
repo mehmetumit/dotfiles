@@ -5,6 +5,7 @@ sudo pacman -S gnome-disk-utility
 # prime-run -> for run apps with external gpu
 sudo pacman -S nvidia-prime
 sudo pacman -S ttf-linux-libertine ttf-inconsolata noto-fonts
+sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts
 sudo pacman -S gvim
 sudo pacman -S wget
 sudo pacman -S thunar
@@ -214,3 +215,7 @@ yay -S vimv
 sudo pacman -S scrcpy
 # Apply diff files for dwm
 sudo pacman -S patch
+# RSS reader
+sudo pacman -S newsboat
+# Downgrade package group
+yay -S downgrade
