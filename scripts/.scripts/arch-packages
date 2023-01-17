@@ -219,3 +219,4 @@ sudo pacman -S patch
 sudo pacman -S newsboat
 # Downgrade package group
 yay -S downgrade
+yay -S spotify-tui

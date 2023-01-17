@@ -67,6 +67,8 @@ static const Rule rules[] = {
 	{ "URxvt",      NULL,     	NULL,           	0,        		0,           1,     0,    -1 },
 	//Start opengl demo applications in floating window mode
 	{ NULL,    	  	NULL,       "DEMO",       		0,            	1,        	 0, 	0,    -1 },
+	//Start application in second monitor
+	{ NULL,    	  	NULL,       "p2p-chat-system",	0,            	0,        	 0, 	0,    1 },
 	//Start camera window in floating window mode
 	{ NULL,    	  	NULL,       "CAM",       		0,            	1,           0, 	0,    -1 },
 	{ "kdenlive",   NULL,		NULL,       		1 << 2,         1,           0, 	0,    -1 },
@@ -144,7 +146,7 @@ static const char color_picker[] = {"colpick -n -c "};
 //XK_Pause
 //XK_Print
 //
-static Key keys[] = {
+static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,            		XK_Return, spawn,          {.v = termcmd } },
@@ -260,7 +262,7 @@ static Key keys[] = {
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
+static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },

@@ -40,6 +40,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tpope/vim-surround'
+	" Git wrapper plugin
+	Plug 'tpope/vim-fugitive'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'vimwiki/vimwiki'
 	Plug 'lervag/vimtex'
@@ -49,7 +51,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'preservim/nerdcommenter'
 	"Plug 'pangloss/vim-javascript'
 	Plug 'sheerun/vim-polyglot'
-	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+	Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 	" C# plugin :OmniSharpInstall -> run this after install plug
 	Plug 'OmniSharp/omnisharp-vim'
 	" HTML plugin
@@ -88,6 +90,11 @@ let g:java_highlight_all=1
 " fzf
 " Prefix for fzf commands
 let g:fzf_command_prefix = 'Fzf'
+" Markdown
+let g:instant_markdown_autostart = 0
+map <leader>md :InstantMarkdownPreview<CR>
+map <leader>mds :InstantMarkdownStop<CR>
+"
 " shortcuts
 " disable page scrolling
 nmap <C-f> <Nop>

@@ -1,9 +1,10 @@
 #!/bin/bash
 errlogfile="$HOME/startup.log"
+printf "***Startup Script***\n"
 # Increase scroll key speed
-xset r rate 300 50
+xset r rate 300 50 2>>$errlogfile
 # Swap capslock and escape
-setxkbmap -option caps:swapescape
+setxkbmap -option caps:swapescape 2>>$errlogfile
 nitrogen --restore & 2>>$errlogfile
 #picom --experimental-backends --config ~/.config/picom/picom.conf & 2>>$errlogfile
 picom --config ~/.config/picom/picom.conf & 2>>$errlogfile
@@ -21,12 +22,12 @@ dwmblocks & 2>>$errlogfile
 # Start clipmenu
 clipmenud & 2>>$errlogfile
 # Start tlp
-sudo tlp start
+sudo tlp start 2>>$errlogfile
 # Standby HDD
-sudo hdparm -y /dev/sda
+sudo hdparm -y /dev/sda 2>>$errlogfile
 # Start dunst notifications
 dunst & 2>>$errlogfile
 # Change name server
 sudo conf-dns
 # Initialize sound effects
-init-sounds
+init-sounds 2>>$errlogfile
