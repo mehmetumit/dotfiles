@@ -83,7 +83,7 @@ sudo pacman -S cmake
 sudo yay -S nerd-fonts-mononoki
 sudo pacman -S ttf-joypixels
 sudo pacman -S shellcheck
-sudo pacman -S zathura-pdf-poppler
+sudo pacman -S zathura-pdf-mupdf
 sudo pacman -S wireless_tools
 sudo pacman -S screenkey
 sudo pacman -S mpv
@@ -219,4 +219,6 @@ sudo pacman -S patch
 sudo pacman -S newsboat
 # Downgrade package group
 yay -S downgrade
-yay -S spotify-tui
+sudo pacman -S pyenv
+# Pdf split
+sudo pacman -S pdftk

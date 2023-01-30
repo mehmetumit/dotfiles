@@ -45,7 +45,8 @@ alias yt='yt-dlp --add-metadata -ic' # Download video link
 alias yta='yt-dlp --audio-format mp3 --add-metadata -xic' # Download only audio
 alias htb='sudo openvpn ~/ovpn/htb.ovpn'
 # openvpn alias
-alias conn-vpn='sudo openvpn --config'
+#alias conn-vpn='sudo openvpn --config'
+alias conn-vpn='sudo openvpn "$(find $HOME/vpn/*.ovpn | fzf -m --header="select-vpn-server")"'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
 alias run_emulator='prime-run /opt/android-sdk/emulator/emulator -avd Pixel_XL_API_29 -netdelay none -netspeed full'

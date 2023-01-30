@@ -10,6 +10,8 @@ URxvt.matcher.button: 1
 URxvt*internalBorder: 0
 URxvt*letterSpace: 1
 URxvt.lineSpace: 1
+! fix half screen spacing in prompt on launch
+URxvt.geometry: 400x400
 ! Scrolling
 URxvt.keysym.M-k: command:\033]720;1\007
 URxvt.keysym.M-j: command:\033]721;1\007
