@@ -42,14 +42,14 @@ typedef struct {
 const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "ranger", NULL};
 const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
 const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
-const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "tmux", NULL};
+//const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
 const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "vim $HOME/vimwiki/index.wiki", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spfm",      spfmcmd},
 	{"spterm",    sptermcmd},
 	{"spres",     sprescmd},
-	{"sptmux",    sptmuxcmd},
+	//{"sptmux",    sptmuxcmd},
 	{"sptknote",  sptknotecmd }
 };
 
@@ -80,7 +80,7 @@ static const Rule rules[] = {
 	{ NULL,		  	"spfm",		NULL,				SPTAG(0),		1,			 1, 	0,    -1 },
 	{ NULL,		  	"spterm",	NULL,				SPTAG(1),		1,			 1, 	0,    -1 },
 	{ NULL,		  	"spres",	NULL,				SPTAG(2),		1,			 1, 	0,    -1 },
-	{ NULL,		  	"sptmux",	NULL,				SPTAG(3),		0,			 1, 	0,    -1 },
+	//{ NULL,		  	"sptmux",	NULL,				SPTAG(3),		0,			 1, 	0,    -1 },
 	{ NULL,		  	"sptknote",	NULL,				SPTAG(4),		1,			 1, 	0,    -1 },
 };
 
@@ -117,6 +117,7 @@ static const char run_menu[] = { "rofi -show run"};
 static const char calc_menu[] = { "rofi -show calc -no-show-match -no-sort"};
 static const char emoji_menu[] = { "rofi -show emoji -matching normal"};
 static const char *termcmd[]  = { "urxvt", NULL };
+static const char tmuxcmd[] = {"urxvt -e sh -c 'tmux attach 2>/dev/null || tmux'"};
 
 //***************Custom key actions ***************
 //playerctl package needed
@@ -149,7 +150,8 @@ static const char color_picker[] = {"colpick -n -c "};
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,            		XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,            			XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,            			XK_t,	   spawn,          SHCMD(tmuxcmd)},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -192,7 +194,7 @@ static const Key keys[] = {
 	{ MODKEY,            			XK_a,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			XK_y,	   togglescratch,  {.ui = 2 } },
-	{ MODKEY,            			XK_t,	   togglescratch,  {.ui = 3 } },
+	//{ MODKEY,            			XK_t,	   togglescratch,  {.ui = 3 } },
 	{ MODKEY,            			XK_v,	   togglescratch,  {.ui = 4 } },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
