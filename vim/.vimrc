@@ -107,6 +107,8 @@ nnoremap <silent> <leader>fc :FzfHistory:<CR>
 nnoremap <silent> <leader>fl :FzfLines<CR>
 nnoremap <silent> <leader>fa :FzfRg<CR>
 nnoremap <silent> <leader>fw :FzfWindows<CR>
+nnoremap <silent> <leader>C :FzfCommands
+nnoremap <silent> <leader>CC :CocList commands<CR>
 
 " vim powered terminal keybindings
 map <silent> <Leader>t :term<CR>

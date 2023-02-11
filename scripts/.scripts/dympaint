@@ -1,2 +1,2 @@
 # !/bin/sh
-java -jar "$HOME/Programming/DymPaint.jar"
+java -jar "$HOME/Projects/DymPaint.jar"

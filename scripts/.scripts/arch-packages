@@ -222,3 +222,7 @@ yay -S downgrade
 sudo pacman -S pyenv
 # Pdf split
 sudo pacman -S pdftk
+# Draw on screen
+yay -Ss gromit-mpx
+# ChatGPT cli
+pip install shell-gpt
