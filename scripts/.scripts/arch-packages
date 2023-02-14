@@ -226,3 +226,5 @@ sudo pacman -S pdftk
 yay -Ss gromit-mpx
 # ChatGPT cli
 pip install shell-gpt
+# Terminal countdown timer
+sudo pacman -S termdown
