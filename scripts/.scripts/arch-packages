@@ -228,3 +228,5 @@ yay -Ss gromit-mpx
 pip install shell-gpt
 # Terminal countdown timer
 sudo pacman -S termdown
+# Run slock automatically after a specific period of time
+sudo pacman -S xautolock

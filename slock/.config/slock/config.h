@@ -1,6 +1,7 @@
 /* user and group to drop privileges to */
 //nobody has least privileges
 static const char *user  = "nobody";
+//'nobody' group name is for arch linux, it may be 'nogroup' for other distros
 static const char *group = "nobody";
 
 static const char *colorname[NUMCOLS] = {
