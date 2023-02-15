@@ -13,14 +13,14 @@ static const char *colorname[NUMCOLS] = {
 static const int failonclear = 0;
 
 /* default message */
-static const char *message = "Suckless: Software that sucks less.";
+static const char *message = "Type password to unleash power";
 
 /* text color */
 static const char *text_color = "#ffffff";
 
 /* text position */
-static const int text_x = 500;
-static const int text_y = 300;
+static const int text_x = 960;
+static const int text_y = 850;
 
 /* text size (must be a valid size) */
 static const char *font_name = "lucidasans-bold-24";

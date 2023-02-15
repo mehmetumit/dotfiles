@@ -167,6 +167,7 @@ writemessage(Display *dpy, Window win, int screen)
 				j++;
 			}
 
+			//Draw text
 			XDrawString(dpy, win, gc, text_x, text_y, message + j, i - j);
 			while (i < len && message[i] == '\n') {
 				i++;
