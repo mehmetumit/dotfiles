@@ -9,11 +9,14 @@ static const char *colorname[NUMCOLS] = {
 	[FAILED] = "#CC3333",   /* wrong password */
 };
 /* treat a cleared input like a wrong password (color) */
-static const int failonclear = 0;
+static const int failonclear = 1;
 
 
 /* time in seconds before the monitor shuts down */
 static const int monitortime = 5;
+
+/* allow control key to trigger fail on clear */
+static const int controlkeyclear = 1;
 
 /* insert grid pattern with scale 1:1, the size can be changed with logosize */
 static const int logosize = 75;
