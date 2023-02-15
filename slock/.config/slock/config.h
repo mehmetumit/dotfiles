@@ -10,8 +10,20 @@ static const char *colorname[NUMCOLS] = {
 	[CAPS] = "yellow",         /* CapsLock on */
 };
 /* treat a cleared input like a wrong password (color) */
-static const int failonclear = 1;
+static const int failonclear = 0;
 
+/* default message */
+static const char *message = "Suckless: Software that sucks less.";
+
+/* text color */
+static const char *text_color = "#ffffff";
+
+/* text position */
+static const int text_x = 500;
+static const int text_y = 300;
+
+/* text size (must be a valid size) */
+static const char *font_name = "lucidasans-bold-24";
 
 /* time in seconds before the monitor shuts down */
 static const int monitortime = 5;
@@ -37,4 +49,3 @@ static XRectangle rectangles[9] = {
 	{ 11,	4,	1,	2 },
 
 };
-

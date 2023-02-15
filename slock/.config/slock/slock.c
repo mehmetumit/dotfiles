@@ -32,6 +32,9 @@
 
 char *argv0;
 
+/* global count to prevent repeated error messages */
+int count_error = 0;
+
 enum {
 	BACKGROUND,
 	INIT,
@@ -97,6 +100,88 @@ dontkillme(void)
 	}
 }
 #endif
+
+static void
+writemessage(Display *dpy, Window win, int screen)
+{
+	int len, line_len, i, j, k, tab_replace;
+	XGCValues gr_values;
+	XFontStruct *fontinfo;
+	XColor color, dummy;
+	XineramaScreenInfo *xsi;
+	GC gc;
+	fontinfo = XLoadQueryFont(dpy, font_name);
+
+	if (fontinfo == NULL) {
+		if (count_error == 0) {
+			fprintf(stderr, "slock: Unable to load font \"%s\"\n", font_name);
+			fprintf(stderr, "slock: Try listing fonts with 'slock -f'\n");
+			count_error++;
+		}
+		return;
+	}
+
+
+	XAllocNamedColor(dpy, DefaultColormap(dpy, screen),
+		 text_color, &color, &dummy);
+
+	gr_values.font = fontinfo->fid;
+	gr_values.foreground = color.pixel;
+	gc=XCreateGC(dpy,win,GCFont+GCForeground, &gr_values);
+
+	/*  To prevent "Uninitialized" warnings. */
+	xsi = NULL;
+
+	/*
+	 * Start formatting and drawing text
+	 */
+
+	len = strlen(message);
+
+	/* Max max line length (cut at '\n') */
+	line_len = 0;
+	k = 0;
+	for (i = j = 0; i < len; i++) {
+		if (message[i] == '\n') {
+			if (i - j > line_len)
+				line_len = i - j;
+			k++;
+			i++;
+			j = i;
+		}
+	}
+	/* If there is only one line */
+	if (line_len == 0)
+		line_len = len;
+
+	if (XineramaIsActive(dpy))
+		xsi = XineramaQueryScreens(dpy, &i);
+
+	/* Look for '\n' and print the text between them. */
+	for (i = j = k = 0; i <= len; i++) {
+		/* i == len is the special case for the last line */
+		if (i == len || message[i] == '\n') {
+			tab_replace = 0;
+			while (message[j] == '\t' && j < i) {
+				tab_replace++;
+				j++;
+			}
+
+			XDrawString(dpy, win, gc, text_x, text_y, message + j, i - j);
+			while (i < len && message[i] == '\n') {
+				i++;
+				j = i;
+				k++;
+			}
+		}
+	}
+
+	/* xsi should not be NULL anyway if Xinerama is active, but to be safe */
+	if (XineramaIsActive(dpy) && xsi != NULL)
+		XFree(xsi);
+}
+
+
 
 static const char *
 gethash(void)
@@ -252,6 +337,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 			if (running && oldc != color) {
 				for (screen = 0; screen < nscreens; screen++) {
 					drawlogo(dpy, locks[screen], color);
+					writemessage(dpy, locks[screen]->win, screen);
 				}
 				oldc = color;
 			}
@@ -266,7 +352,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 					else
 						XResizeWindow(dpy, locks[screen]->win,
 						              rre->width, rre->height);
-					XClearWindow(dpy, locks[screen]->win);
+					/*writemessage(dpy, locks[screen]->win, screen);*/
 					break;
 				}
 			}
@@ -384,7 +470,7 @@ lockscreen(Display *dpy, struct xrandr *rr, int screen)
 static void
 usage(void)
 {
-	die("usage: slock [-v] [cmd [arg ...]]\n");
+	die("usage: slock [-v] [-f] [-m message] [cmd [arg ...]]\n");
 }
 
 int
@@ -397,12 +483,25 @@ main(int argc, char **argv) {
 	gid_t dgid;
 	const char *hash;
 	Display *dpy;
-	int s, nlocks, nscreens;
+	int i, s, nlocks, nscreens;
+	int count_fonts;
+	char **font_names;
 	CARD16 standby, suspend, off;
 
 	ARGBEGIN {
 	case 'v':
 		fprintf(stderr, "slock-"VERSION"\n");
+		return 0;
+	case 'm':
+		message = EARGF(usage());
+		break;
+	case 'f':
+		if (!(dpy = XOpenDisplay(NULL)))
+			die("slock: cannot open display\n");
+		font_names = XListFonts(dpy, "*", 10000 /* list 10000 fonts*/, &count_fonts);
+		for (i=0; i<count_fonts; i++) {
+			fprintf(stderr, "%s\n", *(font_names+i));
+		}
 		return 0;
 	default:
 		usage();
@@ -448,10 +547,12 @@ main(int argc, char **argv) {
 	if (!(locks = calloc(nscreens, sizeof(struct lock *))))
 		die("slock: out of memory\n");
 	for (nlocks = 0, s = 0; s < nscreens; s++) {
-		if ((locks[s] = lockscreen(dpy, &rr, s)) != NULL)
+		if ((locks[s] = lockscreen(dpy, &rr, s)) != NULL) {
+			writemessage(dpy, locks[s]->win, s);
 			nlocks++;
-		else
+		} else {
 			break;
+		}
 	}
 	XSync(dpy, 0);
 
