@@ -118,6 +118,7 @@ static const char calc_menu[] = { "rofi -show calc -no-show-match -no-sort"};
 static const char emoji_menu[] = { "rofi -show emoji -matching normal"};
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char tmuxcmd[] = {"urxvt -e sh -c 'tmux attach 2>/dev/null || tmux'"};
+static const char lockscreen[] = {"slock"};
 
 //***************Custom key actions ***************
 //playerctl package needed
@@ -152,6 +153,7 @@ static const Key keys[] = {
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,            			XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,            			XK_t,	   spawn,          SHCMD(tmuxcmd)},
+	{ MODKEY|ShiftMask,        		XK_l,	   spawn,          SHCMD(lockscreen)},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
