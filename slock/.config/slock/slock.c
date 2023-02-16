@@ -271,8 +271,13 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 	if (!XkbGetIndicatorState(dpy, XkbUseCoreKbd, &indicators))
 		caps = indicators & 1;
 
+	color = INIT;
 	while (running && !XNextEvent(dpy, &ev)) {
 		if (ev.type == KeyPress) {
+			for (screen = 0; screen < nscreens; screen++) {
+				drawlogo(dpy, locks[screen], color);
+				writemessage(dpy, locks[screen]->win, screen);
+			}
 			explicit_bzero(&buf, sizeof(buf));
 			num = XLookupString(&ev.xkey, buf, sizeof(buf), &ksym, 0);
 			if (IsKeypadKey(ksym)) {
