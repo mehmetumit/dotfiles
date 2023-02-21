@@ -1,2 +1,5 @@
 vlc/.config/vlc/vlc-qt-interface.conf
+mpv/.config/mpv/watch_later
+mpv/.config/mpv/scripts/interSubs-python/__pycache__
+mpv/.config/mpv/scripts/urls
 

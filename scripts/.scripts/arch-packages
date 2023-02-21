@@ -144,6 +144,7 @@ sudo pacman -S zsh
 sudo pacman -S zsh-syntax-highlighting
 sudo pacman -S zsh-autosuggestions
 sudo pacman -S fzf
+# Dotfiles
 sudo pacman -S stow
 npm install live-server -g
 # Terminal IRC client
@@ -230,3 +231,7 @@ pip install shell-gpt
 sudo pacman -S termdown
 # Run slock automatically after a specific period of time
 sudo pacman -S xautolock
+# Sync things
+sudo pacman -S syncthing
+# Subtitle downloader which used in mpv
+yay -S subliminal
