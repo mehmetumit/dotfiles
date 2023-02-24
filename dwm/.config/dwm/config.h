@@ -276,6 +276,8 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
 	{ ClkStatusText,        ShiftMask,      Button1,        sigstatusbar,   {.i = 4} },
+	{ ClkStatusText,        0,              Button4,        sigstatusbar,   {.i = 5} },
+	{ ClkStatusText,        0,              Button5,        sigstatusbar,   {.i = 6} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },

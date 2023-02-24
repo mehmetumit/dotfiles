@@ -19,6 +19,8 @@ case $BUTTON in
 	1) notify-send "Built in device volume: $(gvol 1)"; notify-send "Secondary device volume: $(gvol 3)";;
 	3) $TERMINAL -e pulsemixer ;;
 	4) $TERMINAL -e bash -c "vim $script_path" ;;
+	5) /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1% ;;
+	6)/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -1% ;;
 esac
 
 gsound=$(gvol -d)

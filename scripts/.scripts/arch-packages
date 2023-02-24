@@ -235,3 +235,5 @@ sudo pacman -S xautolock
 sudo pacman -S syncthing
 # Subtitle downloader which used in mpv
 yay -S subliminal
+# Chromium play with mpv deamon like tool
+yay -S play-with-mpv-git

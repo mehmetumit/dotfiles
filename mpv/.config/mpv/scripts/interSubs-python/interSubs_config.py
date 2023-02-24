@@ -25,11 +25,11 @@ lang_to = 'tr'
 #	morfix (he/en en/he)
 #	redensarten (redensarten-index.de - German idioms etc.)
 #	tab_divided_dict - simple offline dictionary with word \t translation per line
-translation_function_names = ['reverso']
+translation_function_names = ['reverso', 'google']
 # translation_function_names = ['pons', 'reverso']
 # for automatic switch to Hebrew. Skip if it isn't your language.
 # translation_function_names_2 = ['google', 'morfix']
-translation_function_names_2 = ['reverso']
+translation_function_names_2 = ['reverso', 'google']
 
 # deepl/google
 translation_function_name_full_sentence = 'google'
