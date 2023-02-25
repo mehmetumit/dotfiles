@@ -2,55 +2,58 @@
 # author: Mehmet Ümit Özden
 # Uses record-screen script
 
-#recording_icon='🔴'
-#TEMP_FILE='/tmp/recording-state'
-#RECORDING_STATE=0
-#script_path="$HOME/.scripts/dwm-scripts/grecord"
-#args=''
-#
-##get_recording_state() {
-##}
-#
-#update_recording_state() {
-#	echo "$RECORDING_STATE" > "$TEMP_FILE"
-#}
-#
-#stop_recording() {
-#	record-screen -s
-#}
+recording_icon='🔴'
+TEMP_FILE='/tmp/recording-state'
+TEMP_ICON_FILE='/tmp/recording-icon'
+RECORDING_STATE=0
+script_path="$HOME/.scripts/dwm-scripts/grecord"
+args=''
 
-#change_recording_state(){
-#}
+# check recording state
+if [ -f "$TEMP_FILE" ]; then
+	RECORDING_STATE=$(cat "$TEMP_FILE")
+else
+	echo "$RECORDING_STATE" > "$TEMP_FILE"
+fi
 
-#if [ -f "$TEMP_FILE" ]; then
-#	RECORDING_STATE=$(cat "$TEMP_FILE")
-#else
-#	echo "$RECORDING_STATE" > "$TEMP_FILE"
-#fi
-#
-#case $BUTTON in
-#	1) args='';; # video with audio
-#	2) args='-c';; # cam + video + audio
-#	3) args='-v';; # video only
-#	4) $TERMINAL -e bash -c "vim $script_path" ;;
-#	5) args='-a';; # audio only
-#esac
-#	if [ "$RECORDING_STATE" -eq 1 ]; then
-#		RECORDING_STATE=0
-#		echo "$RECORDING_STATE" > "$TEMP_FILE"
-#		recording_icon='🔴'
-#		#stop_recording
-#	else
-#		RECORDING_STATE=1
-#		echo "$RECORDING_STATE" > "$TEMP_FILE"
-#		recording_icon='🟢'
-#		case $args in
-#			-c) recording_icon="$recording_icon 📷" ;;
-#			-v) recording_icon="$recording_icon 🎥" ;;
-#			-a) recording_icon="$recording_icon 📢" ;;
-#			#*) record video with audio
-#		esac
-#		#record-screen "$args"
-#	fi
-#printf "$recording_icon"
+# check icon
+if [ -f "$TEMP_ICON_FILE" ]; then
+	recording_icon=$(cat "$TEMP_ICON_FILE")
+else
+	echo "$recording_icon" > "$TEMP_ICON_FILE"
+fi
 
+stop_recording() {
+	record-screen -s
+}
+
+record_controller(){
+	if [ "$RECORDING_STATE" -eq 1 ]; then
+		RECORDING_STATE=0
+		recording_icon='🔴'
+		echo "$RECORDING_STATE" > "$TEMP_FILE"
+		echo "$recording_icon" > "$TEMP_ICON_FILE"
+		stop_recording
+	else
+		RECORDING_STATE=1
+		echo "$RECORDING_STATE" > "$TEMP_FILE"
+		recording_icon='🟢'
+		case $args in
+			-c) recording_icon="$recording_icon 📷🎥📢" ;;
+			-v) recording_icon="$recording_icon 🎥" ;;
+			-a) recording_icon="$recording_icon 📢" ;;
+			-r) recording_icon="$recording_icon 🎥📢" ;;
+		esac
+		record-screen "$args"
+		echo "$recording_icon" > "$TEMP_ICON_FILE"
+	fi
+}
+
+case $BUTTON in
+	1) args='-v'; record_controller;; # video only
+	2) args='-r'; record_controller;; # video with audio
+	3) args='-c'; record_controller;; # cam + video + audio
+	4) $TERMINAL -e bash -c "vim $script_path" ;;
+	5) args='-a'; record_controller;; # audio only
+esac
+printf "$recording_icon"
