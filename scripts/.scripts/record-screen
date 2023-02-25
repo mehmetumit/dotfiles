@@ -1,12 +1,11 @@
 #!/bin/sh
 # author: Mehmet Ümit Özden
 
-dimensions=$(xdpyinfo | grep dimensions | awk '{printf $2}')
+#dimensions=$(xdpyinfo | grep dimensions | awk '{printf $2}')
 filename=$(date "+%Y-%m-%d@%H:%M:%S.mkv")
 file_path="$HOME/Videos/$filename"
 cam_window_title="CAM"
 cam_device="/dev/video0"
-
 help() {
     cat <<EOF
 usage: record-screen [OPTIONS...]
@@ -22,13 +21,17 @@ options:
 	-s 		Stop current recording if exists
 EOF
 }
+init_dimensions(){
+ # Exit if escape key pressed
+ read -r X Y W H < <(echo "$(slop -f "%x %y %w %h")") || exit 1
+}
 case "$1" in
 	# Record video with audio
-	-r) ffmpeg -y -f x11grab -s "$dimensions"  -i :0.0 -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
+	-r) init_dimensions && ffmpeg -y -f x11grab -s "$W"x"$H"  -i :0.0+$X,$Y -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Video only
-	-v) ffmpeg  -y -f x11grab -s "$dimensions"  -i :0.0 "$file_path"  >/dev/null 2>&1 &;;
+	-v) init_dimensions && ffmpeg  -y -f x11grab -s "$W"x"$H"  -i :0.0+$X,$Y "$file_path"  >/dev/null 2>&1 &;;
 	# Record camera too. Sleep added to prevent video recording before cam loads
-	-c) ffplay -window_title "$cam_window_title" $cam_device  >/dev/null 2>&1 & sleep 2; ffmpeg  -y -f  x11grab -s "$dimensions" -i :0.0 -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
+	-c) ffplay -window_title "$cam_window_title" $cam_device  >/dev/null 2>&1 & sleep 2; init_dimensions && ffmpeg  -y -f  x11grab -s "$W"x"$H" -i "$W"x"$H" -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Audio only
 	-a) ffmpeg -y -f alsa -i default "$file_path" >/dev/null 2>&1 &;;
 	# Kill deatached processes

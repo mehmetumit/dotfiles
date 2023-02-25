@@ -237,3 +237,5 @@ sudo pacman -S syncthing
 yay -S subliminal
 # Chromium play with mpv deamon like tool
 yay -S play-with-mpv-git
+# Select area from screen
+sudo pacman -S slop
