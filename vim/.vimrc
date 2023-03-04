@@ -109,6 +109,7 @@ nnoremap <silent> <leader>fa :FzfRg<CR>
 nnoremap <silent> <leader>fw :FzfWindows<CR>
 nnoremap <silent> <leader>C :FzfCommands
 nnoremap <silent> <leader>CC :CocList commands<CR>
+nnoremap <silent> <leader>CD :CocCommand flutter.dev.openDevLog<CR>
 
 " vim powered terminal keybindings
 map <silent> <Leader>t :term<CR>
@@ -335,6 +336,7 @@ nmap <leader>rn <Plug>(coc-rename)
 "command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " Format whole file with prettier
 nmap <leader>fp :CocCommand prettier.formatFile<CR>
+nmap <leader>fP :CocCommand editor.action.formatDocument<CR>
 " run prettier on save
 "let g:prettier#autoformat = 0
 let g:prettier#config#use_tabs = 'true'

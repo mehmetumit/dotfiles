@@ -179,7 +179,7 @@ sudo pacman -S ttf-nerd-fonts-symbols
 # For color emojis
 sudo yay -S libxft-bgra
 sudo pacman -Sy gvfs gvfs-gphoto2
-# Android file transfer UI
+# Android file transfer UI and cli tools
 sudo pacman -S android-file-transfer
 # Logitech user interface can be useful
 sudo pacman -S solaar

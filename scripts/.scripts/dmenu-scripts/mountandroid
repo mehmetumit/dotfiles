@@ -1,0 +1,2 @@
+#!/bin/sh
+mkdir -p "$HOME/android" && aft-mtp-mount "$HOME/android"

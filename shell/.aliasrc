@@ -31,7 +31,7 @@ alias ta='tmux attach'
 alias tn='tmux new -s'
 # Fix tmux color issue
 alias tmux="TERM=screen-256color-bce tmux"
-kp(){ procs=$(ps -ef | fzf -m --header='kill-proc:' | awk '{print $8}'); for i in $(echo $procs); do killall -9 "$i"; echo "$i killed"; done }
+alias screenkey='screenkey -g $(slop -n -f '%g')'
 alias cal='cal -m' # Monday first
 # Don't use root user's .vimrc use your own
 alias sv='sudo -E  vim'
