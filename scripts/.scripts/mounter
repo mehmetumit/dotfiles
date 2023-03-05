@@ -1,0 +1,74 @@
+#!/bin/sh
+
+parent_dir='/mnt'
+default_sub_dirs='usb0 usb1 hdd0 hdd1'
+android_dir="$HOME/AndroidFS"
+server_dir="$HOME/ServerFS"
+server_host="dymos_server"
+server_ip="$sv"
+notification_expire_time='10000'
+
+mount_selected(){
+	selected="$(lsblk -plo "name,size,type,mountpoint,label" | awk '!/part \// && /part /{print $4 "\t" $1 "\t(" $2 ")\t"}' | fzf +m | awk -F'\t' '{print $2}')"
+	# only show subdirectories
+	mount_point="$(find "$parent_dir" -maxdepth 2 -mindepth 1 -type d | fzf +m)"
+
+	[ -z "$selected" ] && notify-send "Mount failed! Invalid disk!" --urgency='critical' --expire-time="$notification_expire_time" && exit 1
+	[ -z "$mount_point" ] && notify-send "Mount failed! Invalid mount point!" --urgency='critical' --expire-time="$notification_expire_time" && exit 1
+
+	sudo mount "$selected" "$mount_point" && notify-send "$selected successfully mounted" || notify-send "$selected -> $mount_point failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+unmount_selected(){
+	selected="$(lsblk -plo "name,size,mountpoint,label" | awk -v var="$parent_dir" 'part $0 ~ var{print $4 "\t" $1 "\t(" $2 ")\t"}' | fzf +m | awk -F'\t' '{print $2}')"
+
+	[ -z "$selected" ] && notify-send "Unmount failed! Invalid disk!" --urgency='critical' --expire-time="$notification_expire_time" && exit 1
+	sudo umount "$selected" && notify-send "$selected successfully unmounted!" || notify-send "$selected unmount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+mount_drive(){
+	sudo mount "/dev/sda1" "/mnt/hdd" && notify-send "/dev/sda1 successfully mounted to /mnt/hdd" || notify-send "/dev/sda1 mount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+mount_server(){
+	mkdir -p "$server_dir" || notify-send "$server_dir creation failed!"
+	sshfs "$server_host@$server_ip:/home/$server_host" "$server_dir" && notify-send "$server_host@$server_ip successfully mounted!" || notify-send "$server_host@$server_ip mount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+mount_android(){
+	mkdir -p "$android_dir" || notify-send "$android_dir creation failed!"
+	aft-mtp-mount "$android_dir" && notify-send "$android_dir successfully mounted!" || notify-send "$android_dir mount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+unmount_server(){
+	fusermount -u "$server_dir"  && notify-send "$server_dir successfully unmounted!" || notify-send "$server_dir unmount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+unmount_android(){
+	fusermount -u "$android_dir" && notify-send "$android_dir successfully unmounted!" || notify-send "$android_dir unmount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+}
+help(){
+	cat <<EOF
+Usage: mounter [OPTIONS...]
+
+Options:
+	-i 		Initialize subdirectories if they are not exists
+	-f 		Mount selected drive
+	-d 		Mount predefined drive
+	-a 		Mount android using mtp
+	-s 		Mount predefined server file system using sshfs
+	-ud  		Unmount selected drive
+	-ua 		Unmount android device
+	-us 		Unmount server file system
+
+EOF
+}
+create_dirs(){
+	for i in $default_sub_dirs; do sudo mkdir -p "$parent_dir/$i"; done
+}
+
+case "$1" in
+	-i) create_dirs;;
+	-f) mount_selected;;
+	-d) mount_drive;;
+	-a) mount_android;;
+	-s) mount_server;;
+	-ud) unmount_selected;;
+	-ua) unmount_android;;
+	-us) unmount_server;;
+	-h|*) help;;
+esac
