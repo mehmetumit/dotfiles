@@ -79,6 +79,8 @@ bind '"\ec":"quick_cd\n"'
 bind '"\C-R":"search_command\n"'
 # Alt + v -> take note with vimwiki
 bind '"\ev":"tknote\n"'
+# Alt + s -> calculate disk usage in current location
+bind '"\es":"disk_usage\n"'
 # bind '"ı":vi-insertion-mode' -> TODO
 
 # User name and host name included

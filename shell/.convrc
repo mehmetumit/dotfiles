@@ -52,6 +52,9 @@ ranger_cd() {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir" || exit
     fi
 }
+disk_usage() {
+    du -h --max-depth=1 | sort -hr
+}
 search_command() {
     sh_name=$(ps -ocomm= -q $$)
     [ "$sh_name" = "zsh" ] && print -z "$(cat "$HOME/.bash_history" "$HOME/.zsh_history" | fzf --header='search_command')" || echo "$sh_name not supported!"

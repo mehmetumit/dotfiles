@@ -1,3 +1,0 @@
-#!/bin/sh
-echo 'Calculating file space usage...'
-du -h --max-depth=1 | sort -hr

@@ -71,6 +71,8 @@ bindkey -s "\ec" "quick_cd\n"
 bindkey -s "\C-R" "search_command\n"
 # Alt + v -> take note with vimwiki
 bindkey -s "\ev" "tknote\n"
+# Alt + s -> calculate disk usage in current location
+bindkey -s "\es" "disk_usage\n"
 
 # Ctrl + space -> accept autosuggestion
 bindkey '^ ' autosuggest-accept

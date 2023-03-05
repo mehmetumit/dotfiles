@@ -1,5 +1,0 @@
-#!/bin/bash
-for i in {2..254};do ping "192.168.1.$i" -c 1 -W 1 | grep -w "0%" -B 1; done
-
-
-
