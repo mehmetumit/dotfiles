@@ -184,6 +184,7 @@ sudo pacman -S android-file-transfer
 # Logitech user interface can be useful
 sudo pacman -S solaar
 sudo pacman -S plantuml
+# Improve mic audio quality
 # sudo pacman -S easyeffects
 sudo pacman -S pandoc
 sudo yay -S quich

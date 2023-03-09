@@ -28,7 +28,7 @@ slock: ${OBJ}
 	@echo CC -o $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 
-clean:
+clean: uninstall
 	@echo cleaning
 	@rm -f slock ${OBJ} slock-${VERSION}.tar.gz
 

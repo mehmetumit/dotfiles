@@ -16,7 +16,8 @@ the /usr/local namespace by default).
 Afterwards enter the following command to build and install slock
 (if necessary as root):
 
-    make clean install
+clean command will run uninstall too
+    sudo make clean install
 
 
 Running slock

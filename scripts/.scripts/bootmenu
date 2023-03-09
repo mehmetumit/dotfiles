@@ -15,6 +15,7 @@ OPERATION=$(printf "Shutdown\nReboot\nLock" | rofi -dmenu -i)
 case $OPERATION in
     'Shutdown') shutdown now;;
     'Reboot') reboot;;
+    'Lock') slock;;
     *) exit;;
 esac
 
