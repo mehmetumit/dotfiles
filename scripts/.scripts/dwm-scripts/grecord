@@ -35,6 +35,7 @@ record_controller(){
 		echo "$recording_icon" > "$TEMP_ICON_FILE"
 		stop_recording
 	else
+		record-screen "$args" || exit 1
 		RECORDING_STATE=1
 		echo "$RECORDING_STATE" > "$TEMP_FILE"
 		recording_icon='🟢'
@@ -44,7 +45,6 @@ record_controller(){
 			-a) recording_icon="$recording_icon 📢" ;;
 			-r) recording_icon="$recording_icon 🎥📢" ;;
 		esac
-		record-screen "$args"
 		echo "$recording_icon" > "$TEMP_ICON_FILE"
 	fi
 }
