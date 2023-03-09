@@ -1,0 +1,3 @@
+#!/bin/sh
+
+procs=$(ps -ef | fzf -m --header='kill-proc:' | awk '{print $8}'); for i in $procs; do killall -9 "$i" && echo 'Killed' || echo "Error occurred" ; done

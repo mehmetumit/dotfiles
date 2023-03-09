@@ -11,12 +11,8 @@ xset r rate 300 50
 # Swap capslock and escape for vim
 setxkbmap -option caps:swapescape
 
-# If you using double quotes in PS1 don't forget to add escape otherwise it doesn't update until you source bashrc
-kp(){ procs=$(ps -ef | fzf -m --header='kill-proc:' | awk '{print $8}'); for i in $(echo $procs); do killall -9 "$i"; echo "$i killed"; done }
-
 get_git_branch() {
     git branch 2> /dev/null | awk '/*/{printf "(%s)", $2}'
-
 }
 get_git_status() {
     g_status=$(git status --porcelain 2>/dev/null || printf '0')
