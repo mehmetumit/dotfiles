@@ -240,3 +240,5 @@ yay -S subliminal
 yay -S play-with-mpv-git
 # Select area from screen
 sudo pacman -S slop
+# Run commands when files change
+sudo pacman -S entr
