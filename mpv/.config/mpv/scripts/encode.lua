@@ -11,6 +11,15 @@ local profile_start = ""
 local timer = nil
 local timer_duration = 2
 
+function notify_desktop(notification_msg, isError)
+    expire_time=5000
+    if isError then
+        mp.command_native({name="subprocess", args={"notify-send", notification_msg, "--expire-time="..expire_time, "--urgency=critical"}})
+    else
+        mp.command_native({name="subprocess", args={"notify-send", notification_msg}})
+    end
+end
+
 function append_table(lhs, rhs)
     for i = 1,#rhs do
         lhs[#lhs+1] = rhs[i]
@@ -203,6 +212,7 @@ function start_encoding(from, to, settings)
     local output_name = get_output_string(output_directory, settings.output_format, input_name, extension, title, from, to, settings.profile)
     if not output_name then
         mp.osd_message("Invalid path " .. output_directory)
+        notify_desktop("Invalid encoidng output path " .. output_directory, true)
         return
     end
     args[#args + 1] = utils.join_path(output_directory, output_name)
@@ -230,9 +240,11 @@ function start_encoding(from, to, settings)
     else
         local res = utils.subprocess({ args = args, max_size = 0, cancellable = false })
         if res.status == 0 then
-            mp.osd_message("Finished encoding succesfully")
+            mp.osd_message("Finished encoding successfully")
+            notify_desktop("Finished encoding successfully!")
         else
             mp.osd_message("Failed to encode, check the log")
+            notify_desktop("Failed to encode!", true)
         end
     end
 end
@@ -283,6 +295,7 @@ function set_timestamp(profile)
             , seconds_to_time_string(from, false)
             , seconds_to_time_string(to, false)
         ), timer_duration)
+        notify_desktop("Encoding started!")
         -- include the current frame into the extract
         local fps = mp.get_property_number("container-fps") or 30
         to = to + 1 / fps / 2
