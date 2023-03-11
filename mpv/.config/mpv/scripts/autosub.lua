@@ -15,7 +15,7 @@ end
 function load_sub_fn()
   path = mp.get_property("path")
   srt_path = string.gsub(path, "%.%w+$", ".srt")
-  t = { args = { "subliminal", credentials[1], credentials[2], credentials[3] ,"download", "-s", "-f", "-l", lang, path } }
+  t = { args = { "subliminal", credentials[1], credentials[2], credentials[3] ,"download", "-s", "-f", "-l", lang, srt_path } }
 
   mp.osd_message("Searching subtitle")
   res = utils.subprocess(t)
