@@ -3,6 +3,10 @@
 -- keyname script_binding auto_load_subs
 local utils = require 'mp.utils'
 
+local credentials = {
+  '--opensubtitles', 'USERNAME', 'PASSWORD'
+}
+local lang = "en"
 function display_error()
   mp.msg.warn("Subtitle download failed: ")
   mp.osd_message("Subtitle download failed")
@@ -11,7 +15,7 @@ end
 function load_sub_fn()
   path = mp.get_property("path")
   srt_path = string.gsub(path, "%.%w+$", ".srt")
-  t = { args = { "subliminal", "download", "-s", "-f", "-l", "en", path } }
+  t = { args = { "subliminal", credentials[1], credentials[2], credentials[3] ,"download", "-s", "-f", "-l", lang, path } }
 
   mp.osd_message("Searching subtitle")
   res = utils.subprocess(t)
