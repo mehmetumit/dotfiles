@@ -26,7 +26,8 @@ sudo pacman -S nemo
 sudo pacman -S ranger
 sudo pacman -S gcc
 sudo pacman -S bluez bluez-utilis blueman
-sudo pacman -S pulseaudio pulseaudio-bluetooth
+sudo pacman -S pipewire  pipewire-audio pipewire-alsa pipewire-x11-bell pipewire-pulse lsp-plugins
+#sudo pacman -S pulseaudio pulseaudio-bluetooth
 sudo pacman -S neofetch
 sudo pacman -S make
 sudo pacman -S grub-customizer
@@ -103,6 +104,7 @@ sudo pacman -S cpupower
 sudo pacman -S gthumb
 sudo pacman -S tk
 sudo pacman -S dunst
+# Text to Ascii art
 sudo pacman -S figlet
 sudo pacman -S nmap
 sudo pacman -S smbclient
@@ -242,3 +244,6 @@ yay -S play-with-mpv-git
 sudo pacman -S slop
 # Run commands when files change
 sudo pacman -S entr
+# Rust language toolchain
+sudo pacman -S rust
+sudo pacman -S rust-analyzer

@@ -107,8 +107,9 @@ nnoremap <silent> <leader>fc :FzfHistory:<CR>
 nnoremap <silent> <leader>fl :FzfLines<CR>
 nnoremap <silent> <leader>fa :FzfRg<CR>
 nnoremap <silent> <leader>fw :FzfWindows<CR>
-nnoremap <silent> <leader>C :FzfCommands
-nnoremap <silent> <leader>CC :CocList commands<CR>
+nnoremap <silent> <leader>CS :shell<CR>
+nnoremap <silent> <leader>CC :FzfCommands<CR>
+nnoremap <silent> <leader>CL :CocList commands<CR>
 nnoremap <silent> <leader>CD :CocCommand flutter.dev.openDevLog<CR>
 
 " vim powered terminal keybindings
