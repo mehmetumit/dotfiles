@@ -1,6 +1,6 @@
 #!/bin/sh
 SOUNDS_DIR="$HOME/Sounds"
 # Load samples
-pacmd "load-sample x11-bell $SOUNDS_DIR/funk_bell.wav"
+pactl upload-sample "$SOUNDS_DIR/funk_bell.wav" bell-window-system
 # Load modules
-pacmd "load-module module-x11-bell sample=x11-bell display=:0.0"
+pactl load-module module-x11-bell sample=bell-window-system display=:0.0

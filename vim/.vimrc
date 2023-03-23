@@ -40,6 +40,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-obsession'
 	" Git wrapper plugin
 	Plug 'tpope/vim-fugitive'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -94,7 +95,47 @@ let g:fzf_command_prefix = 'Fzf'
 let g:instant_markdown_autostart = 0
 map <leader>md :InstantMarkdownPreview<CR>
 map <leader>mds :InstantMarkdownStop<CR>
-"
+
+" Session managment
+let g:session_dir='~/.vim/sessions/'
+function! ToggleSession()
+   let session_status= ObsessionStatus('$', '')
+	" new session
+   if len(session_status) != 0
+	   execute ":Obsession"
+	" load session
+   elseif filereadable("./Session.vim")
+	   execute ':source ./Session.vim'
+	" pause session
+   else
+	   execute ":Obsession"
+   endif
+endfunction
+function! DeleteSession()
+	let session_status= ObsessionStatus('$', '')
+   if len(session_status) != 0
+		if confirm('',"Do you want to delete session?(&Yes\n&No)",1) == 1
+			execute ":Obsession!"
+		endif
+   else
+	   :echo 'Session not found!'
+   endif
+endfunction
+"function! PauseSession()
+	"let session_status= ObsessionStatus('$', '')
+   "if len(session_status) != 0
+	   "execute ":Obsession"
+   "else
+	   ":echo 'Session not found!'
+   "endif
+"endfunction
+
+" Not compatible with tmux-resurrect
+"execute "nnoremap <Leader>ss :Obsession " . session_dir . ".vim<Left><Left><Left><Left>"
+nnoremap <Leader>ss :call ToggleSession()<CR>
+nnoremap <Leader>sd :call DeleteSession()<CR>
+"nnoremap <Leader>sp :call PauseSession()<CR>
+
 " shortcuts
 " disable page scrolling
 nmap <C-f> <Nop>
@@ -215,6 +256,8 @@ let g:airline#extensions#coc#enabled = 1
 let airline#extensions#coc#error_symbol = '❌'
 let airline#extensions#coc#warning_symbol = '⚠️'
 let g:airline#extensions#coc#show_coc_status = 1
+"let g:airline#extensions#obsession#enabled = 1
+"let g:airline#extensions#obsession#indicator_text = 'Session'
 autocmd VimEnter * call StartUp()
 
 " STATUS LINE SECTION
@@ -254,7 +297,8 @@ let g:currentmode={
       \}
 "
 " Status line text
-let g:airline_section_z = '%l/%L:%c %p%%'
+"let g:airline_section_z = airline#section#create(['obsession', '%l/%L:%c %p%%'])
+let g:airline_section_z = "%{ObsessionStatus('[$] ', '')}%l/%L:%c %p%%"
 
 " set noshowmode
 " set laststatus=2

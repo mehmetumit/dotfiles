@@ -247,3 +247,6 @@ sudo pacman -S entr
 # Rust language toolchain
 sudo pacman -S rust
 sudo pacman -S rust-analyzer
+# Fast network scanner
+sudo pacman -S masscan
+#yay -S PrismLauncher
