@@ -36,13 +36,14 @@ require('lazy').setup({
   -- vim wiki
   'vimwiki/vimwiki',
   -- HTML plugin
-  'mattn/emmet-vim',
+  -- 'mattn/emmet-vim',
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   {
+    -- Analyze troubles
     'folke/trouble.nvim',
     dependencies = "nvim-tree/nvim-web-devicons",
   },
@@ -60,13 +61,18 @@ require('lazy').setup({
 
       -- Additional lua configuration, makes nvim lua configuration easier
       'folke/neodev.nvim',
+      {
+        -- For formatters and linters
+        'jose-elias-alvarez/null-ls.nvim',
+        dependencies = 'nvim-lua/plenary.nvim',
+      }
+
     },
   },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies =
-    {
+    dependencies = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
@@ -79,8 +85,7 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim',
-    opts = {
-    }
+    opts = {}
   },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
@@ -128,9 +133,12 @@ require('lazy').setup({
     },
   },
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
@@ -191,7 +199,7 @@ vim.opt.cursorline = true
 
 vim.opt.wrap = false
 -- Save undo history
-vim.opt.undodir= os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.undofile = true
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -231,15 +239,15 @@ vim.o.termguicolors = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- [[ Basic Keymaps ]]
+-- [[ Keymaps ]]
 
 -- Copy paste magics
 vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
--- Format current buffer
-vim.keymap.set("n", "<leader>fp", vim.lsp.buf.format)
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+-- Asynchronously Format current buffer
+vim.keymap.set('n', '<leader>fp', ":Format<CR>")
 -- Add normal save
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>');
 -- Disable page scrolling
@@ -277,6 +285,8 @@ vim.keymap.set({ 'n', 'v' }, '<leader>CS', ':shell<CR>');
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+vim.keymap.set('n', '<leader>l', ':Lazy<CR>')
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -290,6 +300,26 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Trouble ]]
 require('trouble').setup {
+  action_keys = {
+    jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
+    open_split = { "x" },       -- open buffer in new split
+    open_vsplit = { "v" },      -- open buffer in new vsplit
+    open_tab = { "<c-t>" },     -- open buffer in new tab
+    jump_close = { "o", "l" },  -- jump to the diagnostic and close the list
+    toggle_fold = { "h" },      -- toggle fold of current file
+  },
+}
+-- [[ Configure Null-ls ]]
+
+local null_ls = require('null-ls');
+null_ls.setup {
+  sources = {
+    null_ls.builtins.formatting.prettier,
+    -- null_ls.builtins.diagnostics.eslint,
+    -- null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.completion.luasnip,
+  }
+
 }
 
 -- [[ Configure Telescope ]]
@@ -344,7 +374,7 @@ local function tree_on_attach(bufnr)
   vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'));
   vim.keymap.set('n', 'o', api.node.open.edit, opts('Open'));
   vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'));
-  vim.keymap.set('n', '<C-h>', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))--alternative to H
+  vim.keymap.set('n', '<C-h>', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles')) --alternative to H
   vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts('Dir up'));
   vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close node'));
   vim.keymap.set('n', 'v', api.node.open.vertical, opts('Open: Vertical split'));
@@ -454,8 +484,28 @@ require('nvim-treesitter.configs').setup {
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+local function quickfix()
+  -- local isFirstCodeAction = true;
+  vim.lsp.buf.code_action({
+    -- filter = function(action, idx)
+    --   if isFirstCodeAction then
+    --     isFirstCodeAction = false
+    --     return true
+    --   else
+    --     return false
+    --   end
+    -- end,
+    apply = true,
+  })
+end
+vim.keymap.set('n', '<leader>qf', quickfix, { desc = "Open diagnostics list and fix" })
+-- vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", {silent = true, noremap = true})
+-- Use m key to change between workspace and document diagnostics
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
+-- vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", {silent = true, noremap = true})
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
+-- vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = true, noremap = true})
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -495,7 +545,7 @@ local on_attach = function(_, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
+    vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
   end, { desc = 'Format current buffer with LSP' })
 end
 
@@ -528,7 +578,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- [[ Configure Mason ]]
-vim.keymap.set( 'n', '<leader>m', ':Mason<CR>')
+vim.keymap.set('n', '<leader>m', ':Mason<CR>')
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
