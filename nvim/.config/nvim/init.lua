@@ -3,6 +3,7 @@
 
 
 -- Make sure to set `mapleader` before lazy so your mappings are correct
+-- Comma location in US keyboard
 vim.g.mapleader = 'ö'
 vim.g.maplocalleader = ' '
 -- Install package manager
@@ -173,15 +174,35 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.smartindent = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+-- Make tab chracter as 4 spaces wide
+vim.o.tabstop = 4
+vim.opt.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 vim.opt.cursorline = true
+-- vim.opt.guicursor = ""
+
+
+vim.opt.wrap = false
+-- Save undo history
+vim.opt.undodir= os.getenv("HOME") .. "/.vim/undodir"
+vim.o.undofile = true
+vim.opt.swapfile = false
+vim.opt.backup = false
 -- Set highlight on search
 vim.o.hlsearch = false
+vim.o.incsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
-vim.wo.number = true
 vim.wo.rnu = true
-
+-- vim.o.list = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -193,20 +214,13 @@ vim.o.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.o.breakindent = true
 
--- Save undo history
-vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
+-- Update time
+vim.o.updatetime = 50
+-- vim.o.timeout = true
+-- vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -218,7 +232,14 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- [[ Basic Keymaps ]]
---
+
+-- Copy paste magics
+vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+-- Format current buffer
+vim.keymap.set("n", "<leader>fp", vim.lsp.buf.format)
 -- Add normal save
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>');
 -- Disable page scrolling
@@ -238,8 +259,7 @@ vim.keymap.set('n', 'L', 'gt');
 --- Open new empty tab
 vim.keymap.set('n', 'tn', ':tabnew<CR>');
 -- Searching
-vim.keymap.set({ 'n', 'v' }, '/', '/\v');
-vim.keymap.set({ 'n', 'v' }, '/', '/\v');
+-- vim.keymap.set({ 'n', 'v' }, '/', '/\v');
 
 --- Split navigation remap
 vim.keymap.set({ 'n', 'v' }, '<C-h>', '<C-w>h');
@@ -507,6 +527,8 @@ require("flutter-tools").setup {}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- [[ Configure Mason ]]
+vim.keymap.set( 'n', '<leader>m', ':Mason<CR>')
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
