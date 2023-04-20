@@ -6,6 +6,12 @@
 -- Comma location in US keyboard
 vim.g.mapleader = 'ö'
 vim.g.maplocalleader = ' '
+local signs = {
+  Error = "❌",
+  Warn = "⚠️",
+  Hint = "💡",
+  Info = "",
+}
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -108,6 +114,7 @@ require('lazy').setup({
     config = function()
       vim.cmd.colorscheme 'onedark'
     end,
+
   },
   {
     -- Set lualine as statusline
@@ -179,6 +186,9 @@ require('lazy').setup({
   },
 }, {})
 
+-- [[Configure theme ]]
+require('onedark').setup( { style = 'cool' })
+require('onedark').load()
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
@@ -298,23 +308,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- [[ Configure Trouble ]]
-require('trouble').setup {
-  action_keys = {
-    jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
-    open_split = { "x" },       -- open buffer in new split
-    open_vsplit = { "v" },      -- open buffer in new vsplit
-    open_tab = { "<c-t>" },     -- open buffer in new tab
-    jump_close = { "o", "l" },  -- jump to the diagnostic and close the list
-    toggle_fold = { "h" },      -- toggle fold of current file
-  },
-}
 -- [[ Configure Null-ls ]]
 
 local null_ls = require('null-ls');
 null_ls.setup {
   sources = {
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettierd,
     -- null_ls.builtins.diagnostics.eslint,
     -- null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.completion.luasnip,
@@ -395,10 +394,10 @@ require("nvim-tree").setup {
   diagnostics = {
     enable = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = signs.Hint,
+      info = signs.Info,
+      warning = signs.Warn,
+      error = signs.Error,
     }
   },
   sort_by = "case_sensitive",
@@ -507,7 +506,29 @@ vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle workspace_diagnostics<cr>"
 vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
 -- vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = true, noremap = true})
 
+-- [[ Configure Trouble ]]
+require('trouble').setup {
+  action_keys = {
+    jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
+    open_split = { "x" },       -- open buffer in new split
+    open_vsplit = { "v" },      -- open buffer in new vsplit
+    open_tab = { "<c-t>" },     -- open buffer in new tab
+    jump_close = { "o", "l" },  -- jump to the diagnostic and close the list
+    toggle_fold = { "h" },      -- toggle fold of current file
+  },
+  signs = {
+    error = signs.Error,
+    warning = signs.Warn,
+    hint = signs.Hint,
+    information = signs.Info,
+  },
+}
 -- LSP settings.
+-- Set lsp signs
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   -- Create a function that lets us more easily define mappings specific
@@ -545,7 +566,8 @@ local on_attach = function(_, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
+    -- vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
+    vim.lsp.buf.format({ async = true })
   end, { desc = 'Format current buffer with LSP' })
 end
 
