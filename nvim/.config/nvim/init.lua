@@ -82,6 +82,7 @@ require('lazy').setup({
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
+      'windwp/nvim-autopairs',
       -- Snippets
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
@@ -114,7 +115,6 @@ require('lazy').setup({
     config = function()
       vim.cmd.colorscheme 'onedark'
     end,
-
   },
   {
     -- Set lualine as statusline
@@ -187,7 +187,7 @@ require('lazy').setup({
 }, {})
 
 -- [[Configure theme ]]
-require('onedark').setup( { style = 'cool' })
+require('onedark').setup({ style = 'cool' })
 require('onedark').load()
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -236,7 +236,7 @@ vim.o.breakindent = true
 vim.wo.signcolumn = 'yes'
 
 -- Update time
-vim.o.updatetime = 50
+vim.o.updatetime = 300
 -- vim.o.timeout = true
 -- vim.o.timeoutlen = 300
 
@@ -313,9 +313,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local null_ls = require('null-ls');
 null_ls.setup {
   sources = {
+    null_ls.builtins.diagnostics.trail_space,
+    null_ls.builtins.formatting.trim_newlines,
+    -- null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.prettierd,
-    -- null_ls.builtins.diagnostics.eslint,
-    -- null_ls.builtins.code_actions.gitsigns,
+    -- null_ls.builtins.formatting.prettierd.with({
+    --       condition = function(utils)
+    --         return utils.has_file({ ".prettierrc.json" })
+    --       end,
+    --     }),
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.completion.luasnip,
   }
 
@@ -342,8 +350,8 @@ local builtin = require('telescope.builtin')
 -- pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>fl', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -351,12 +359,13 @@ vim.keymap.set('n', '<leader>fl', function()
     previewer = false,
   })
 end, { desc = '[F]ind [L]ine in current buffer' })
-
+vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = '[F]ind [C]ommands' })
+vim.keymap.set('n', '<leader>fhc', builtin.command_history, { desc = '[F]ind in Command [H]istory' })
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles using .gitignore' })
-vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fw', require('telescope.builtin').buffers, { desc = '[F]ind [W]indow' })
-vim.keymap.set('n', '<leader>fa', require('telescope.builtin').live_grep, { desc = '[F]ind [A]ll Using Grep' })
-vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
+vim.keymap.set('n', '<leader>fw', builtin.buffers, { desc = '[F]ind [W]indow' })
+vim.keymap.set('n', '<leader>fa', builtin.live_grep, { desc = '[F]ind [A]ll Using Grep' })
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
 
 -- [[ Configure NvimTree ]]
 --Toggle tree
@@ -529,6 +538,21 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+-- Diagnostic popup
+vim.diagnostic.config({
+  virtual_text = false,
+  float = {
+    source = 'always',
+  },
+})
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+  callback = function()
+    if vim.lsp.buf.server_ready() then
+      -- vim.diagnostic.open_float({ scope = 'line' })
+      vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+    end
+  end,
+})
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   -- Create a function that lets us more easily define mappings specific
@@ -566,8 +590,8 @@ local on_attach = function(_, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    -- vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
-    vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
+    -- vim.lsp.buf.format({ async = true })
   end, { desc = 'Format current buffer with LSP' })
 end
 
@@ -599,6 +623,9 @@ require("flutter-tools").setup {}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- [[ Configure Nvim Autopairs ]]
+require('nvim-autopairs').setup({
+})
 -- [[ Configure Mason ]]
 vim.keymap.set('n', '<leader>m', ':Mason<CR>')
 -- Ensure the servers above are installed
@@ -628,6 +655,7 @@ mason_lspconfig.setup_handlers {
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
 luasnip.config.setup {}
 
@@ -669,6 +697,11 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+-- Insert `(` after select function or method item
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
