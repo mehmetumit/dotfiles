@@ -27,6 +27,7 @@ alias q='exit'
 alias p='sudo pacman --color=auto'
 alias yay='yay --color=auto'
 alias v='vim'
+alias nv='nvim'
 alias ta='tmux attach'
 alias tn='tmux new -s'
 # Fix tmux color issue

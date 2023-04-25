@@ -196,6 +196,7 @@ require('onedark').load()
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.smartindent = true
+-- default split positions
 vim.o.splitbelow = true
 vim.o.splitright = true
 -- Make tab chracter as 4 spaces wide
@@ -569,6 +570,10 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  -- Can be more convenient than pressing enter key
+  nmap('gdd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gdt', "<cmd>tab split | lua vim.lsp.buf.definition()<cr>", '[G]oto [D]efinition In New [T]ab')
+  nmap('gds', "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", '[G]oto [D]efinition In New [S]plit')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
@@ -590,7 +595,9 @@ local on_attach = function(_, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "tsserver" end })
+    -- Disable default lsp formatting for spesific clients to prevent conflictions with prettier
+    vim.lsp.buf.format({ async = true,
+      filter = function(client) return (client.name ~= "tsserver" and client.name ~= "volar") end })
     -- vim.lsp.buf.format({ async = true })
   end, { desc = 'Format current buffer with LSP' })
 end
