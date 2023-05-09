@@ -56,6 +56,8 @@ sudo pacman -S chafa
 #sudo vim /etc/pacman.conf
 #test xorg type startx
 #sudo pacman -S xorg-twm xorg-xclock xterm
+#Use external lock screen with dpms
+sudo pacman -S xss-lock
 sudo pacman -S lib32-virtualgl
 sudo pacman -S bumblebee mesa xf86-video-intel nvidia nvidia-settings lib32-nvidia-utils bbswitch nvidia-utils
 nvidia-modprobe
@@ -255,3 +257,5 @@ sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 #sudo virsh net-start default
 sudo virsh net-autostart default
+# Backlight managment
+sudo pacman -S light

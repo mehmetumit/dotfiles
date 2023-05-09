@@ -71,7 +71,8 @@ require('lazy').setup({
         -- For formatters and linters
         'jose-elias-alvarez/null-ls.nvim',
         dependencies = 'nvim-lua/plenary.nvim',
-      }
+      },
+      'mfussenegger/nvim-jdtls'
 
     },
   },
@@ -127,6 +128,11 @@ require('lazy').setup({
         component_separators = '|',
         section_separators = '',
       },
+      -- sections = {
+      --   lualine_a = {
+      --     cond=""
+      --   }
+      -- }
     },
   },
   {
@@ -184,6 +190,8 @@ require('lazy').setup({
     'nvim-lua/plenary.nvim',
     'stevearc/dressing.nvim', -- optional for vim.ui.select
   },
+  {
+  }
 }, {})
 
 -- [[Configure theme ]]
@@ -596,8 +604,10 @@ local on_attach = function(_, bufnr)
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     -- Disable default lsp formatting for spesific clients to prevent conflictions with prettier
-    vim.lsp.buf.format({ async = true,
-      filter = function(client) return (client.name ~= "tsserver" and client.name ~= "volar") end })
+    vim.lsp.buf.format({
+      async = true,
+      filter = function(client) return (client.name ~= "tsserver" and client.name ~= "volar") end
+    })
     -- vim.lsp.buf.format({ async = true })
   end, { desc = 'Format current buffer with LSP' })
 end
@@ -710,5 +720,32 @@ cmp.event:on(
   cmp_autopairs.on_confirm_done()
 )
 
+-- Java LSP Setup
+-- local jdtls_default_config = require("lspconfig")["jdtls"].document_config.default_config
+-- local config = {
+--   on_attach = function()
+--     require("jdtls.setup").add_commands()
+--   end,
+--   cmd = jdtls_default_config.cmd,
+--   root_dir = jdtls_default_config.root_dir(),
+--   settings = {
+--     java = {
+--       format = {
+--         comments = {
+--           -- enabled = false,
+--           enabled = true,
+--         },
+--         settings = {
+--           url =
+--           "https://gist.githubusercontent.com/ikws4/7880fdcb4e3bf4a38999a628d287b1ab/raw/9005c451ed1ff629679d6100e22d63acc805e170/jdtls-formatter-style.xml",
+--         },
+--       },
+--     },
+--   },
+--   init_options = {
+--     bundles = {},
+--   },
+-- }
+-- require("jdtls").start_or_attach(config)
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
