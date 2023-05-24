@@ -374,7 +374,8 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles u
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
 vim.keymap.set('n', '<leader>fw', builtin.buffers, { desc = '[F]ind [W]indow' })
 vim.keymap.set('n', '<leader>fa', builtin.live_grep, { desc = '[F]ind [A]ll Using Grep' })
-vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>fD', builtin.diagnostics, { desc = '[F]ind All [D]iagnostics' })
+vim.keymap.set('n', '<leader>fd', function() builtin.diagnostics({bufnr = 0}) end, { desc = '[F]ind [D]iagnostics In Current Buffer' })
 
 -- [[ Configure NvimTree ]]
 --Toggle tree
@@ -577,14 +578,12 @@ local on_attach = function(_, bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  -- Can be more convenient than pressing enter key
-  nmap('gdd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gdt', "<cmd>tab split | lua vim.lsp.buf.definition()<cr>", '[G]oto [D]efinition In New [T]ab')
-  nmap('gds', "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", '[G]oto [D]efinition In New [S]plit')
+  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+  nmap('gDt', "<cmd>tab split | lua require'telescope.builtin'.lsp_definitions()<cr>", '[G]oto [D]efinition In New [T]ab')
+  nmap('gDs', "<cmd>vsplit | lua require'telescope.builtin'.lsp_definitions()<cr>", '[G]oto [D]efinition In New [S]plit')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+  nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
@@ -721,31 +720,54 @@ cmp.event:on(
 )
 
 -- Java LSP Setup
--- local jdtls_default_config = require("lspconfig")["jdtls"].document_config.default_config
--- local config = {
---   on_attach = function()
---     require("jdtls.setup").add_commands()
---   end,
---   cmd = jdtls_default_config.cmd,
---   root_dir = jdtls_default_config.root_dir(),
---   settings = {
---     java = {
---       format = {
---         comments = {
---           -- enabled = false,
---           enabled = true,
---         },
---         settings = {
---           url =
---           "https://gist.githubusercontent.com/ikws4/7880fdcb4e3bf4a38999a628d287b1ab/raw/9005c451ed1ff629679d6100e22d63acc805e170/jdtls-formatter-style.xml",
---         },
---       },
---     },
---   },
---   init_options = {
---     bundles = {},
---   },
--- }
--- require("jdtls").start_or_attach(config)
+local jdtls_default_config = require("lspconfig")["jdtls"].document_config.default_config
+local config = {
+  on_attach = function()
+    require("jdtls.setup").add_commands()
+  end,
+  cmd = jdtls_default_config.cmd,
+  root_dir = jdtls_default_config.root_dir(),
+  settings = {
+    java = {
+      extendedClientCapabilities = {
+        classFileContentsSupport = true
+      },
+      maven = {
+        downloadSources = true
+
+      },
+      implementationsCodeLens = {
+        enabled = true
+      },
+      referencesCodeLens = {
+        enabled = true
+      },
+      references = {
+        includeDecompiledSources = true
+      },
+      format = {
+        enabled = true,
+        settings = {
+          url =
+          "https://gist.githubusercontent.com/ikws4/7880fdcb4e3bf4a38999a628d287b1ab/raw/9005c451ed1ff629679d6100e22d63acc805e170/jdtls-formatter-style.xml",
+        },
+      },
+    },
+    signatureHelp = { enabled = true },
+    importOrder = {
+      "java",
+      "javax",
+      "com",
+      "org"
+    }
+  },
+  init_options = {
+    -- extendedClientCapabilities = {
+    --   classFileContentsSupport = true
+    -- },
+    bundles = {},
+  },
+}
+require("jdtls").start_or_attach(config)
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
