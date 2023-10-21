@@ -34,6 +34,7 @@ sudo pacman -S grub-customizer
 # pdf reader
 sudo pacman -S zathura
 sudo pacman -S git
+sudo pacman -S github-cli
 sudo pacman -S sxiv
 sudo pacman -S ntfs-3g
 sudo pacman -S gedit
@@ -76,13 +77,14 @@ sudo pacman -S openvpn
 yay -S openvpn-update-resolv-conf-git
 sudo pacman -S jdk-openjdk
 sudo pacman -S gimp
+yay -S git-interactive-rebase-tool-bin
 # System info gui
 sudo pacman -S hardinfo
 sudo pacman -S playerctl
 sudo pacman -S scrot
 sudo pacman -S picom
 sudo pacman -S cmake
-sudo yay -S nerd-fonts-mononoki
+yay -S nerd-fonts-mononoki
 sudo pacman -S ttf-joypixels
 sudo pacman -S shellcheck
 sudo pacman -S zathura-pdf-mupdf
@@ -93,8 +95,8 @@ pip3 install ueberzug
 sudo pacman -S ueberzug
 sudo pacman -S android-tools
 sudo pacman -S clipmenu
-sudo yay -S scrcpy
-#sudo yay -S unityhub
+yay -S scrcpy
+#yay -S unityhub
 sudo pacman -S p7zip
 sudo pacman -S httrack
 # Music player
@@ -109,7 +111,7 @@ sudo pacman -S dunst
 sudo pacman -S figlet
 sudo pacman -S nmap
 sudo pacman -S smbclient
-sudo yay -S gobuster
+yay -S gobuster
 sudo pacman -S tor
 sudo pacman -S net-tools
 sudo pacman -S torbrowser-launcher
@@ -180,7 +182,7 @@ sudo pacman -S translate-shell
 pip install grip
 sudo pacman -S ttf-nerd-fonts-symbols
 # For color emojis
-sudo yay -S libxft-bgra
+yay -S libxft-bgra
 sudo pacman -Sy gvfs gvfs-gphoto2
 # Android file transfer UI and cli tools
 sudo pacman -S android-file-transfer
@@ -190,11 +192,11 @@ sudo pacman -S plantuml
 # Improve mic audio quality
 # sudo pacman -S easyeffects
 sudo pacman -S pandoc
-sudo yay -S quich
-sudo yay -S tuxi
+yay -S quich
+yay -S tuxi
 echo "Don't forget to change tuxi user agent!"
 printf  "\033[1;32mNoteBook FanControl Installing...\033[0m"
-sudo yay -S nbfc-linux
+yay -S nbfc-linux
 sudo nbfc config --apply "Acer Predator G3-572"
 sudo systemctl enable nbfc_service
 # LaTeX
@@ -259,3 +261,13 @@ sudo systemctl start libvirtd
 sudo virsh net-autostart default
 # Backlight managment
 sudo pacman -S light
+sudo pacman -S kubectl
+sudo pacman -S minikube
+sudo pacman -S k9s
+sudo pacman -S skaffold
+sudo pacman -S sqlx-cli
+# du + rust
+sudo pacman -S dust
+sudo pacman -S go-swagger
+# ADR documentation generator
+yay -S adr-tools

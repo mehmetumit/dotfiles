@@ -1,0 +1,5 @@
+#!/bin/sh
+# git config
+#git config --global --replace sequence.editor interactive-rebase-tool
+# install packages
+./archpackages

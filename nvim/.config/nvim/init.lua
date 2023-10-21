@@ -54,6 +54,10 @@ require('lazy').setup({
     dependencies = "nvim-tree/nvim-web-devicons",
   },
   {
+    -- Copilot 
+    -- 'github/copilot.vim'
+  },
+  {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -63,7 +67,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim lua configuration easier
       'folke/neodev.nvim',
@@ -140,10 +144,12 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl",
+    opts = {}
+    -- opts = {
+    --   char = '┊',
+    --   show_trailing_blankline_indent = false,
+    -- },
   },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -216,7 +222,7 @@ vim.opt.cursorline = true
 -- vim.opt.guicursor = ""
 
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 -- Save undo history
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.undofile = true
@@ -322,7 +328,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local null_ls = require('null-ls');
 null_ls.setup {
   sources = {
-    null_ls.builtins.diagnostics.trail_space,
+    null_ls.builtins.diagnostics.trail_space.with({
+        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    }),
     null_ls.builtins.formatting.trim_newlines,
     -- null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.prettierd,
@@ -331,12 +339,35 @@ null_ls.setup {
     --         return utils.has_file({ ".prettierrc.json" })
     --       end,
     --     }),
-    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d.with({
+        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    }),
     null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.diagnostics.vacuum.with({
+        diagnostic_config = {
+            -- see :help vim.diagnostic.config()
+            underline = false,
+            virtual_text = false,
+            signs = true,
+            update_in_insert = false,
+            severity_sort = true,
+
+        },
+        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    }),
     null_ls.builtins.completion.luasnip,
   }
 
 }
+
+-- [[ Configure indent-blankline ]]
+require('ibl').setup({
+  indent = { char = '┊', },
+  whitespace = {
+        remove_blankline_trail = false,
+    },
+    -- scope = { enabled = false },
+})
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -375,7 +406,8 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
 vim.keymap.set('n', '<leader>fw', builtin.buffers, { desc = '[F]ind [W]indow' })
 vim.keymap.set('n', '<leader>fa', builtin.live_grep, { desc = '[F]ind [A]ll Using Grep' })
 vim.keymap.set('n', '<leader>fD', builtin.diagnostics, { desc = '[F]ind All [D]iagnostics' })
-vim.keymap.set('n', '<leader>fd', function() builtin.diagnostics({bufnr = 0}) end, { desc = '[F]ind [D]iagnostics In Current Buffer' })
+vim.keymap.set('n', '<leader>fd', function() builtin.diagnostics({ bufnr = 0 }) end,
+  { desc = '[F]ind [D]iagnostics In Current Buffer' })
 
 -- [[ Configure NvimTree ]]
 --Toggle tree
@@ -443,7 +475,7 @@ require('nvim-treesitter.configs').setup {
   auto_install = false,
 
   highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
+  indent = { enable = true, disable = { 'python' }, width = 4 },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -550,7 +582,7 @@ for type, icon in pairs(signs) do
 end
 -- Diagnostic popup
 vim.diagnostic.config({
-  virtual_text = false,
+  virtual_text = true,
   float = {
     source = 'always',
   },

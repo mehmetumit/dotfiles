@@ -43,7 +43,7 @@ const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "rang
 const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
 const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
 const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
-const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "vim $HOME/vimwiki/index.wiki", NULL};
+const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "nvim $HOME/vimwiki/index.wiki", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spfm",      spfmcmd},
