@@ -2,6 +2,8 @@
 sudo pacman -Syu
 sudo pacman -S base-devel
 sudo pacman -S gnome-disk-utility
+# dns dig command
+sudo pacman -S bind-tool
 # prime-run -> for run apps with external gpu
 sudo pacman -S nvidia-prime
 sudo pacman -S ttf-linux-libertine ttf-inconsolata noto-fonts
@@ -271,3 +273,7 @@ sudo pacman -S dust
 sudo pacman -S go-swagger
 # ADR documentation generator
 yay -S adr-tools
+# Go migration tool
+yay -S goose
+sudo pacman -S helm
+sudo pacman -S aws-cli-v2

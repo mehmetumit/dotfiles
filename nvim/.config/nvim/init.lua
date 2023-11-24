@@ -54,7 +54,7 @@ require('lazy').setup({
     dependencies = "nvim-tree/nvim-web-devicons",
   },
   {
-    -- Copilot 
+    -- Copilot
     -- 'github/copilot.vim'
   },
   {
@@ -197,6 +197,12 @@ require('lazy').setup({
     'stevearc/dressing.nvim', -- optional for vim.ui.select
   },
   {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
   }
 }, {})
 
@@ -329,7 +335,7 @@ local null_ls = require('null-ls');
 null_ls.setup {
   sources = {
     null_ls.builtins.diagnostics.trail_space.with({
-        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
     null_ls.builtins.formatting.trim_newlines,
     -- null_ls.builtins.formatting.prettier,
@@ -340,20 +346,20 @@ null_ls.setup {
     --       end,
     --     }),
     null_ls.builtins.diagnostics.eslint_d.with({
-        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.diagnostics.vacuum.with({
-        diagnostic_config = {
-            -- see :help vim.diagnostic.config()
-            underline = false,
-            virtual_text = false,
-            signs = true,
-            update_in_insert = false,
-            severity_sort = true,
+      diagnostic_config = {
+        -- see :help vim.diagnostic.config()
+        underline = false,
+        virtual_text = false,
+        signs = true,
+        update_in_insert = false,
+        severity_sort = true,
 
-        },
-        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      },
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
     null_ls.builtins.completion.luasnip,
   }
@@ -364,9 +370,9 @@ null_ls.setup {
 require('ibl').setup({
   indent = { char = '┊', },
   whitespace = {
-        remove_blankline_trail = false,
-    },
-    -- scope = { enabled = false },
+    remove_blankline_trail = false,
+  },
+  -- scope = { enabled = false },
 })
 
 -- [[ Configure Telescope ]]
@@ -557,6 +563,17 @@ vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle workspace_diagnostics<cr>"
 vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
 -- vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = true, noremap = true})
 
+-- [[ Configure Go ]]
+require('go').setup({
+  run_in_floaterm = true,
+  test_runner = 'go',
+  floaterm = {            -- position
+    posititon = 'center', -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+    width = 0.90,         -- width of float window if not auto
+    height = 0.98,        -- height of float window if not auto
+
+  },
+})
 -- [[ Configure Trouble ]]
 require('trouble').setup {
   action_keys = {
