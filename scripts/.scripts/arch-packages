@@ -90,6 +90,7 @@ yay -S nerd-fonts-mononoki
 sudo pacman -S ttf-joypixels
 sudo pacman -S shellcheck
 sudo pacman -S zathura-pdf-mupdf
+sudo pacman -S zathura-djvu
 sudo pacman -S wireless_tools
 sudo pacman -S screenkey
 sudo pacman -S mpv
