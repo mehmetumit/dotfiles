@@ -35,4 +35,4 @@ sudo conf-dns
 # Initialize sound effects
 init-sounds 2>>$errlogfile
 
-nohup play-with-mpv & 2>>$errlogfile
+#nohup play-with-mpv & 2>>$errlogfile
