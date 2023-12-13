@@ -1,4 +1,6 @@
 set page-padding 2
+map n navigate next
+map N navigate previous
 map K zoom in
 map J zoom out
 map i recolor
