@@ -681,8 +681,6 @@ local servers = {
 
 -- Setup neovim lua configuration
 require('neodev').setup()
--- Setup flutter
-require("flutter-tools").setup {}
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -701,10 +699,17 @@ mason_lspconfig.setup {
 }
 
 -- Setup dartls language server
-require('lspconfig')["dartls"].setup {
+-- require('lspconfig')["dartls"].setup {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   settings = servers["dartls"],
+-- }
+-- Setup flutter
+require("flutter-tools").setup {
+  lsp = {
   capabilities = capabilities,
   on_attach = on_attach,
-  settings = servers["dartls"],
+  }
 }
 
 mason_lspconfig.setup_handlers {

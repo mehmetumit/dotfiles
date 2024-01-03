@@ -278,3 +278,4 @@ yay -S adr-tools
 yay -S goose
 sudo pacman -S helm
 sudo pacman -S aws-cli-v2
+yay -S anki

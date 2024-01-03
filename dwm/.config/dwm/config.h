@@ -145,6 +145,7 @@ static const char osshots[] = {"cd ~/Screenshots/ && urxvt -e ranger"};
 //autostart.sh script which exist in ~/.dwm/
 static const char kill_all[] = {"killall startup-script; killall dwm; killall dwmblocks;"};
 static const char color_picker[] = {"colpick -n -c "};
+static const char kbman[] = {"kbman"};
 //*************************************************
 //XK_Scroll_Lock -> Don't use Mod3Key use this
 //XK_Pause
@@ -221,6 +222,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 //	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 //Used underscore for not conflict with other functions which can be exist in future
+	{ MODKEY|ControlMask,           XK_space,      spawn,          SHCMD(kbman) },
 	{ MODKEY,                       XK_s,      spawn,          SHCMD(osshots) },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,           SHCMD(kill_all) },
 	{ MODKEY,             			XK_c,      spawn,           SHCMD(clipmenu) },
