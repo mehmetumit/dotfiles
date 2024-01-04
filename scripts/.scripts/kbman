@@ -1,10 +1,13 @@
 #!/bin/sh
 currLayout="$(setxkbmap -print | awk -F"+" '/xkb_symbols/ {printf $2}')"
-if [ "$currLayout" = 'us' ]; then
-    setxkbmap "tr"
-    newLayout='TR'
-else
-    setxkbmap "us"
-    newLayout='US'
-fi
+case "$currLayout" in
+    *us*)# us(altgr-intl)
+        setxkbmap tr
+        newLayout='TR'
+    ;;
+    *tr*)
+        setxkbmap -layout us -variant altgr-intl
+        newLayout='US'
+    ;;
+esac
 notify-send "Keyboard layout changed to $newLayout"
