@@ -37,7 +37,8 @@ sudo pacman -S grub-customizer
 sudo pacman -S zathura
 sudo pacman -S git
 sudo pacman -S github-cli
-sudo pacman -S sxiv
+sudo pacman -S nsxiv
+sudo ln -s /usr/bin/nsxiv /usr/bin/sxiv
 sudo pacman -S ntfs-3g
 sudo pacman -S gedit
 sudo pacman -S code

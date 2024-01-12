@@ -1,14 +1,46 @@
 #!/bin/sh
+# Usable after command key(C-x)
+targetDir=''
 while read file
 do
         case "$1" in
-        "C-d")
+        "d")
                 gio trash "$file" ;;
-        "C-r")
+        "r")
                 convert -rotate 90 "$file" "$file" ;;
-        "C-c")
-                echo -n "$file" | xclip -selection clipboard ;;
-        "C-w")
+        "c")
+                xclip -selection clipboard "$file" -t image/png &&
+                notify-send "Image $file copied to clipboard" ;;
+        "C")
+                echo -n "$file" | xclip -selection clipboard &&
+                notify-send "Filename $file copied to clipboard" ;;
+        "m")
+                if [ "$targetDir" = "" ]; then
+                        targetDir=$(echo '' | dmenu)
+                        if [ "$( printf "yes\nno" | dmenu -p "Do you want to copy files to $targetDir ?" )" = "yes" ]; then
+                                notify-send "Started copy files to $targetDir"
+                                cp "$file" -t "$targetDir" || notify-send "Failed copy $file to $targetDir"
+                        else
+                                targetDir=''
+                        fi
+                else
+                        cp "$file" -t "$targetDir" || notify-send "Failed copy $file to $targetDir"
+                fi
+                ;;
+        "M")
+                if [ "$targetDir" = "" ]; then
+                        targetDir=$(echo '' | dmenu)
+                        if [ "$( printf "yes\nno" | dmenu -p "Do you want to move files to $targetDir ?" )" = "yes" ]; then
+                                notify-send "Started move files to $targetDir"
+                                mv "$file" -t "$targetDir" || notify-send "Failed move $file to $targetDir"
+                        else
+                                targetDir=''
+                        fi
+                else
+                        mv "$file" -t "$targetDir" || notify-send "Failed move $file to $targetDir"
+                fi
+                ;;
+        "w")
                 nitrogen --save --set-zoom-fill "$file" ;;
         esac
 done
