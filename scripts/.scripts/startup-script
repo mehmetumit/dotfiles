@@ -34,5 +34,6 @@ dunst & 2>>$errlogfile
 sudo conf-dns
 # Initialize sound effects
 init-sounds 2>>$errlogfile
-
+# To control media that last opened when using playerctl
+playerctld daemon 2>>$errlogfile
 #nohup play-with-mpv & 2>>$errlogfile

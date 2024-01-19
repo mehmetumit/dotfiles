@@ -4,7 +4,8 @@
 
 -- Make sure to set `mapleader` before lazy so your mappings are correct
 -- Comma location in US keyboard
-vim.g.mapleader = 'ö'
+-- vim.g.mapleader = 'ö'
+vim.g.mapleader = ','
 vim.g.maplocalleader = ' '
 local signs = {
   Error = "❌",
