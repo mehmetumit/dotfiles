@@ -280,3 +280,8 @@ yay -S goose
 sudo pacman -S helm
 sudo pacman -S aws-cli-v2
 yay -S anki
+sudo pacman -S dive
+# neofetch for git
+sudo pacman -S onefetch
+sudo pacman -S lazygit
+yay -S lazydocker
