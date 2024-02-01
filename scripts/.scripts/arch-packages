@@ -285,3 +285,5 @@ sudo pacman -S dive
 sudo pacman -S onefetch
 sudo pacman -S lazygit
 yay -S lazydocker
+# http load generator
+sudo pacman -S hey

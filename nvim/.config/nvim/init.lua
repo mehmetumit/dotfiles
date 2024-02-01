@@ -475,7 +475,7 @@ require("nvim-tree").setup {
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'java', 'bash', 'html', 'json',
+  ensure_installed = { 'c', 'cpp', 'go', 'templ', 'lua', 'python', 'rust', 'tsx', 'javascript', 'java', 'bash', 'html', 'json',
     'vue', 'yaml', 'make', 'css', 'typescript', 'vimdoc', 'vim', 'dart', 'dockerfile' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -672,12 +672,20 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  -- templ = { },
+  -- htmx = { },
   lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+      },
+    }
   },
+  tailwindcss = {
+    filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+    init_options = { userLanguages = { templ = "html" } },
+  }
 }
 
 -- Setup neovim lua configuration
@@ -686,6 +694,7 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 
 -- [[ Configure Nvim Autopairs ]]
 require('nvim-autopairs').setup({
@@ -713,13 +722,23 @@ require("flutter-tools").setup {
   }
 }
 
+
+-- Add templ extension in orther to make lsp work automatically
+vim.filetype.add({ extension = { templ = "templ" } })
+
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
+    -- If custom config exists
+    if servers[server_name] then
+      servers[server_name].capabilities = capabilities
+      servers[server_name].on_attach = on_attach
+      require('lspconfig')[server_name].setup(servers[server_name])
+    else
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }
+    end
   end,
 }
 
