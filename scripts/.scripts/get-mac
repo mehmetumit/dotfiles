@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ping "$1" -c 1 >/dev/null && arp -a | awk 'NR==2 {print $4}'
