@@ -6,7 +6,7 @@ alias cpy='xclip -selection clipboard'
 alias cds="cd $HOME/.scripts/"
 alias cdd="cd $HOME/dotfiles"
 alias cdp="cd $HOME/Projects"
-alias cdw="cd $HOME/Projects/web"
+alias cdw="cd $HOME/Workspace"
 alias ls='ls -hN --color=auto --group-directories-first'
 alias lsa='ls -ahN --color=auto --group-directories-first'
 alias lsl='ls -lhN --color=auto --group-directories-first'
@@ -49,6 +49,7 @@ alias htb='sudo openvpn ~/ovpn/htb.ovpn'
 # openvpn alias
 #alias conn-vpn='sudo openvpn --config'
 alias conn-vpn='sudo openvpn "$(find $HOME/vpn/*.ovpn | fzf -m --header="select-vpn-server")"'
+alias conn-forti='eval "$(find $HOME/vpn/*.forti | fzf -m --header="select-fortivpn-server")"'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
 alias run_emulator='prime-run /opt/android-sdk/emulator/emulator -avd Pixel_XL_API_29 -netdelay none -netspeed full'

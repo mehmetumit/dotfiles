@@ -88,4 +88,7 @@ bind '"\es":"disk_usage\n"'
 # Without user and host name
 PS1="${COLOR_BLUE}\w${COLOR_YELLOW}\$(get_git_branch)${COLOR_RED}\$(get_git_status)${UC} → ${COLOR_NC}"
 #PS1="${COLOR_LIGHT_RED}➵${COLOR_NC} "
-source /usr/share/nvm/init-nvm.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
