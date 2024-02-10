@@ -12,6 +12,10 @@ echo 'Bootstrapping fedora...'
 # GRUB_CMDLINE_LINUX="quiet" -> remove quiet here
 # GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3" -> add this
 # GRUB_CMDLINE_LINUX_DEFAULT="acpi_enforce_resources=lax" -> add this if lm-sensors won't show fan usage
+# GRUB_TERMINAL_OUTPUT="console" -> remove this to disable graphical boot
+# GRUB_CMDLINE_LINUX="rhgb" -> remove this
+# GRUB_CMDLINE_LINUX="verbose" -> might be useful to add this
+#
 # Run this to update grub afterward -> grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"
 #
 # Install fonts to /usr/share/fonts

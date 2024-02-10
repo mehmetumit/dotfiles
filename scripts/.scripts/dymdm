@@ -1,11 +1,12 @@
 #!/bin/sh
 DESKTOP=$(zenity --width=300\
-           --height=300\
+           --height=350\
            --list\
            --title "dymdm"\
             --text "Select desktop"\
 	    --column=""\
             "dwm"\
+            "gnome"\
             "cinnamon"\
                 )
 
@@ -15,6 +16,8 @@ case $DESKTOP in
 		dwm >/dev/null 2>&1
 	done
         exec dwm;;
+    (gnome)
+        exec gnome-session;;
     (cinnamon)
         exec cinnamon-session;;
 esac
