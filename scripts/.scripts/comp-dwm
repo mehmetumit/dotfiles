@@ -10,3 +10,6 @@ sudo make -C $HOME/.config/dwmblocks/ install
 # Compile dmenu
 printf "${COLOR}# dmenu compiling...${NC}\n"
 sudo make -C $HOME/.config/dmenu/ install
+# Compile slock
+printf "${COLOR}# slock compiling...${NC}\n"
+sudo make -C $HOME/.config/slock/ install
