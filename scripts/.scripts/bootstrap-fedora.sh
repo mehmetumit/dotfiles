@@ -152,6 +152,7 @@ awscli2 \
 go \
 xss-lock \
 xautolock \
+xev \
 picom \
 tlp \
 xset \
@@ -228,12 +229,24 @@ echo "Run :PlugInstall inside of vim"
 
 # necessary operations
 sudo ln -s /usr/bin/nsxiv /usr/bin/sxiv
+
 sudo usermod -aG libvirt "$(whoami)"
 sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 sudo virsh net-autostart default
+
 which zsh && sudo ln -sf "$(which zsh)" /bin/sh
+
 sudo ln -s /bin/7za /bin/7z
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker # load group changes without log out
+
+mkdir -p ~/distrobox/arch ~/distrobox/ubuntu
+distrobox-create -i archlinux:latest -n arch -H ~/distrobox/arch/
+distrobox-create -i ubuntu:latest -n ubuntu -H ~/distrobox/ubuntu/
+
 printf '#!/bin/sh\nflatpak run com.brave.Browser' | sudo tee /bin/brave && sudo chmod +x /bin/brave
 # change default shell
 chsh -s /usr/bin/zsh
