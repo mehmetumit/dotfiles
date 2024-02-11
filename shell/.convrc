@@ -20,11 +20,11 @@ get_git_status() {
 }
 # Edit files from current location
 edit_files() {
-    files=$(find . -type f -not -path "*/\.git/*" -print 2>/dev/null | fzf --header='edit_files' --preview 'bat --style=numbers --color=always --line-range :500 {}') && nvim -p "$files"
+    files=$(find . -type f -not -path "*/\.git/*" -print 2>/dev/null | fzf --header='edit_files' --preview 'bat --style=numbers --color=always --line-range :500 {}') && $EDITOR -p "$files"
 }
 # Edit dotfiles with fzf
 edit_dotfiles() {
-    files=$(find "$HOME/dotfiles" -type f -not -path "*/\.git/*" -print | fzf --header='edit_dotfiles' --preview 'bat --style=numbers --color=always --line-range :500 {}' -m) && nvim -p "$files"
+    files=$(find "$HOME/dotfiles" -type f -not -path "*/\.git/*" -print | fzf --header='edit_dotfiles' --preview 'bat --style=numbers --color=always --line-range :500 {}' -m) && $EDITOR -p "$files"
 }
 # Start tmux at selected projects path
 start_tmux_at_projects() {

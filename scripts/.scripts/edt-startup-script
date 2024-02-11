@@ -1,2 +1,2 @@
 #!/bin/sh
-vim ~/.scripts/startup-script
+$EDITOR ~/.scripts/startup-script

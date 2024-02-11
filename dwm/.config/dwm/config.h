@@ -39,11 +39,17 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "ranger", NULL};
-const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
-const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
-const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
-const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
+
+const char *spfmcmd[] = {"alacritty", "--class", "spfm", "-o",  "window.dimensions.columns=120", "-o",  "window.dimensions.lines=29", "-e", "ranger", NULL};
+//const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "ranger", NULL};
+const char *sptermcmd[] = {"alacritty", "--class", "spterm", "-o",  "window.dimensions.columns=100", "-o",  "window.dimensions.lines=25", NULL};
+//const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
+const char *sprescmd[] = {"alacritty", "--class", "spres", "-o",  "window.dimensions.columns=120", "-o",  "window.dimensions.lines=29", "-e", "btop", NULL};
+//const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
+const char *sptmuxcmd[] = {"alacritty", "--class", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
+//const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
+const char *sptknotecmd[] = {"alacritty", "--class", "sptknote", "-o",  "window.dimensions.columns=120", "-o",  "window.dimensions.lines=29", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
+//const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spfm",      spfmcmd},
@@ -64,7 +70,7 @@ static const Rule rules[] = {
 	 */
 	/* class     	instance  	title           	tags mask  	  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",     	NULL,       NULL,       		1 << 2,       	1, 			 0, 	0,    -1 },
-	{ "URxvt",      NULL,     	NULL,           	0,        		0,           1,     0,    -1 },
+	{ "alacritty",      NULL,     	NULL,           	0,        		0,           1,     0,    -1 },
 	//Start opengl demo applications in floating window mode
 	{ NULL,    	  	NULL,       "DEMO",       		0,            	1,        	 0, 	0,    -1 },
 	//Start application in second monitor
@@ -116,8 +122,8 @@ static const char window_menu[] = { "rofi -show window"};
 static const char run_menu[] = { "rofi -show run"};
 static const char calc_menu[] = { "rofi -show calc -no-show-match -no-sort"};
 static const char emoji_menu[] = { "rofi -show emoji -matching normal"};
-static const char *termcmd[]  = { "urxvt", NULL };
-static const char tmuxcmd[] = {"urxvt -e sh -c 'tmux attach 2>/dev/null || tmux'"};
+static const char *termcmd[]  = { "alacritty", NULL };
+static const char tmuxcmd[] = {"alacritty -e sh -c 'tmux attach 2>/dev/null || tmux'"};
 static const char lockscreen[] = {"slock"};
 
 //***************Custom key actions ***************
@@ -140,8 +146,8 @@ static const char bootmenu[] = {"bootmenu"};
 static const char clipmenu[] = {"clipmenu"};
 static const char qrgen[] = {"qrgen"};
 static const char owebbrowser[] = {"$BROWSER"};
-//static const char ofilebrowser[] = {"urxvt -e ranger"};
-static const char osshots[] = {"cd ~/Screenshots/ && urxvt -e ranger"};
+//static const char ofilebrowser[] = {"alacritty -e ranger"};
+static const char osshots[] = {"cd ~/Screenshots/ && alacritty -e ranger"};
 //autostart.sh script which exist in ~/.dwm/
 static const char kill_all[] = {"killall startup-script; killall dwm; killall dwmblocks;"};
 static const char color_picker[] = {"colpick -n -c "};

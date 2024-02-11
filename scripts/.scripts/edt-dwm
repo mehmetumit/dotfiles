@@ -1,1 +1,1 @@
-vim ~/.config/dwm/config.h
+$EDITOR ~/.config/dwm/config.h
