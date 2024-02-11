@@ -228,6 +228,9 @@ echo "Run :PlugInstall inside of vim"
 
 
 # necessary operations
+sudo mkdir -p /etc/X11/xorg.conf.d
+sudo cp -rf ~/dotfiles/X11/xorg.conf.d/. /etc/X11/xorg.conf.d/
+
 sudo ln -s /usr/bin/nsxiv /usr/bin/sxiv
 
 sudo usermod -aG libvirt "$(whoami)"
@@ -235,7 +238,7 @@ sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 sudo virsh net-autostart default
 
-which zsh && sudo ln -sf "$(which zsh)" /bin/sh
+sudo ln -s ~/.scripts/ /root/.scripts
 
 sudo ln -s /bin/7za /bin/7z
 

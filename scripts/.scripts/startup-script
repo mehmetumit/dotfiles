@@ -40,4 +40,4 @@ init-sounds 2>>$errlogfile
 playerctld daemon 2>>$errlogfile
 #nohup play-with-mpv & 2>>$errlogfile
 # Init monitor
-init-mon -l 2>>$errlogfile
+#init-mon -l 2>>$errlogfile
