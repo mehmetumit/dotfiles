@@ -32,7 +32,7 @@ alias ta='tmux attach'
 alias tn='tmux new -s'
 alias k='kubectl'
 # Fix tmux color issue
-alias tmux="TERM=screen-256color-bce tmux"
+#alias tmux="TERM=screen-256color-bce tmux"
 alias screenkey='screenkey -g $(slop -n -f '%g')'
 alias cal='cal -m' # Monday first
 # Don't use root user's .vimrc use your own

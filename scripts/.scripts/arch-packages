@@ -69,6 +69,7 @@ sudo gpasswd -a $USER bumblebee
 sudo systemctl enable bumblebeed.service
 #sudo systemctl enable lightdm
 # yay AUR helper
+sudo pacman -S --needed git base-devel
 cd ~/Desktop
 git clone https://aur.archlinux.org/yay.git
 cd yay
