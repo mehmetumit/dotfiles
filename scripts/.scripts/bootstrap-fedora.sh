@@ -38,6 +38,11 @@ sudo dnf copr -y enable zeno/scrcpy
 sudo dnf copr -y enable trixieua/nbfc-linux
 sudo dnf copr -y enable luminoso/k9s
 sudo dnf copr -y enable atim/lazygit
+sudo dnf copr -y enable coder966/postman
+# import custom packages
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:justkidding/Fedora_39/home:justkidding.repo
 
 # dnf installations
 sudo dnf -y install \
@@ -164,8 +169,11 @@ lazygit \
 google-noto-color-emoji-fonts \
 gnome-tweaks \
 lm_sensors \
-distrobox
-
+distrobox \
+brave-browser \
+keepassxc \
+postman \
+ueberzugpp
 
 # pip installations
 pip install pulsemixer
@@ -175,12 +183,12 @@ pip install python3-xlib
 # flatpak installations
 flatpak -y install zaproxy
 flatpak -y install anki
-flatpak -y install brave
 
 # go installations
 go install github.com/rakyll/hey@latest
 go install github.com/gokcehan/lf@latest
 go install github.com/mehmetumit/dive@latest
+go install github.com/jesseduffield/lazydocker@latest
 
 # install custom packages
 # dragon
@@ -249,6 +257,9 @@ newgrp docker # load group changes without log out
 mkdir -p ~/distrobox/arch ~/distrobox/ubuntu
 distrobox-create -i archlinux:latest -n arch -H ~/distrobox/arch/
 distrobox-create -i ubuntu:latest -n ubuntu -H ~/distrobox/ubuntu/
+
+## increase file descriptor limit
+# sudo printf "$USER\tsoft\tnofile\t4096\nroot\tsoft\tnofile\t4096" | sudo tee -a /etc/security/limits.conf
 
 printf '#!/bin/sh\nflatpak run com.brave.Browser' | sudo tee /bin/brave && sudo chmod +x /bin/brave
 # change default shell
