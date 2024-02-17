@@ -29,7 +29,12 @@ sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
 sudo dnf -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 sudo dnf -y groupupdate sound-and-video
 sudo dnf -y install intel-media-driver
+# To lock version of some packages
+sudo dnf install 'dnf-command(versionlock)'
 #sudo dnf install nvidia-vaapi-driver
+
+# Disable unnecessary services
+sudo systemctl disable NetworkManager-wait-online.service
 
 # enable copr repos
 sudo dnf copr -y enable mamg22/nsxiv
