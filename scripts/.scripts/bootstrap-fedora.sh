@@ -175,6 +175,7 @@ google-noto-color-emoji-fonts \
 gnome-tweaks \
 lm_sensors \
 distrobox \
+openssl \
 brave-browser \
 keepassxc \
 postman \
@@ -188,6 +189,7 @@ pip install python3-xlib
 # flatpak installations
 flatpak -y install zaproxy
 flatpak -y install anki
+flatpak -y install com.stremio.Stremio
 
 # go installations
 go install github.com/rakyll/hey@latest
@@ -266,7 +268,9 @@ distrobox-create -i ubuntu:latest -n ubuntu -H ~/distrobox/ubuntu/
 ## increase file descriptor limit
 # sudo printf "$USER\tsoft\tnofile\t4096\nroot\tsoft\tnofile\t4096" | sudo tee -a /etc/security/limits.conf
 
-printf '#!/bin/sh\nflatpak run com.brave.Browser' | sudo tee /bin/brave && sudo chmod +x /bin/brave
+# printf '#!/bin/sh\nflatpak run com.brave.Browser' | sudo tee /bin/brave && sudo chmod +x /bin/brave
+# Generate certs to .config/Postman/proxy/certificates/
+openssl req -subj '/C=US/CN=Postman Proxy' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout ~/.config/Postman/proxy/certificates/postman-proxy-ca.key -out ~/.config/Postman/proxy/certificates/postman-proxy-ca.crt
 # change default shell
 chsh -s /usr/bin/zsh
 # TODO install fonts
