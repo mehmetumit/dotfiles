@@ -44,6 +44,7 @@ sudo dnf copr -y enable trixieua/nbfc-linux
 sudo dnf copr -y enable luminoso/k9s
 sudo dnf copr -y enable atim/lazygit
 sudo dnf copr -y enable coder966/postman
+sudo dnf copr -y enable wezfurlong/wezterm-nightly
 # import custom packages
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
@@ -179,7 +180,8 @@ openssl \
 brave-browser \
 keepassxc \
 postman \
-ueberzugpp
+ueberzugpp \
+wezterm
 
 # pip installations
 pip install pulsemixer

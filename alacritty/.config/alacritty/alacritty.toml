@@ -1,2 +1,16 @@
 [window]
 opacity = 1.0
+[env]
+WINIT_X11_SCALE_FACTOR = "1.25"
+# [font]
+# size = 12.0
+# [bell]
+# animation = "Linear"
+# duration = 500
+[keyboard]
+bindings = [ 
+    { key = "K",  mods = "Control|Alt", action = "IncreaseFontSize" },
+    { key = "J",  mods = "Control|Alt", action = "DecreaseFontSize" },
+    { key = "Escape",  mods = "Alt", action = "ToggleViMode" },
+    # { key = "Escape",  mode = "Vi", action = "ToggleViMode" },
+]

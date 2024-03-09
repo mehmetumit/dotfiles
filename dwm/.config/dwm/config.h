@@ -40,7 +40,7 @@ typedef struct {
 	const void *cmd;
 } Sp;
 
-const char *spfmcmd[] = {"alacritty", "--class", "spfm", "-o",  "window.dimensions.columns=120", "-o",  "window.dimensions.lines=29", "-e", "ranger", NULL};
+const char *spfmcmd[] = {"alacritty", "--class", "spfm", "-o",  "window.dimensions.columns=135", "-o",  "window.dimensions.lines=32", "-e", "ranger", NULL};
 //const char *spfmcmd[] = {"urxvt", "-name", "spfm", "-g",  "150x38",  "-e", "ranger", NULL};
 const char *sptermcmd[] = {"alacritty", "--class", "spterm", "-o",  "window.dimensions.columns=100", "-o",  "window.dimensions.lines=25", NULL};
 //const char *sptermcmd[] = {"urxvt", "-name", "spterm", "-g", "130x34", NULL};
@@ -48,7 +48,7 @@ const char *sprescmd[] = {"alacritty", "--class", "spres", "-o",  "window.dimens
 //const char *sprescmd[] = {"urxvt", "-name", "spres", "-g", "130x34", "-e", "btop", NULL};
 const char *sptmuxcmd[] = {"alacritty", "--class", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
 //const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
-const char *sptknotecmd[] = {"alacritty", "--class", "sptknote", "-o",  "window.dimensions.columns=120", "-o",  "window.dimensions.lines=29", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
+const char *sptknotecmd[] = {"alacritty", "--class", "sptknote", "-o",  "window.dimensions.columns=130", "-o",  "window.dimensions.lines=35", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
 //const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
