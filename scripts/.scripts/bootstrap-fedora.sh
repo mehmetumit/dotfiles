@@ -47,6 +47,7 @@ sudo dnf copr -y enable coder966/postman
 sudo dnf copr -y enable wezfurlong/wezterm-nightly
 # import custom packages
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:justkidding/Fedora_39/home:justkidding.repo
 
@@ -68,6 +69,7 @@ zsh-syntax-highlighting \
 make \
 docker \
 docker-compose \
+docker-buildx-plugin \
 kubernetes \
 stow \
 ranger \
@@ -181,17 +183,25 @@ brave-browser \
 keepassxc \
 postman \
 ueberzugpp \
-wezterm
+pinta \
+task \
+vit \
+flameshot \
+git-delta \
+earlyoom
 
 # pip installations
 pip install pulsemixer
 pip install python3-xlib
+pip install iredis
 #pip install ueberzug
 
 # flatpak installations
 flatpak -y install zaproxy
 flatpak -y install anki
 flatpak -y install com.stremio.Stremio
+flatpak -y install flathub org.localsend.localsend_app
+flatpak -y install com.mongodb.Compass
 
 # go installations
 go install github.com/rakyll/hey@latest
@@ -266,6 +276,8 @@ newgrp docker # load group changes without log out
 mkdir -p ~/distrobox/arch ~/distrobox/ubuntu
 distrobox-create -i archlinux:latest -n arch -H ~/distrobox/arch/
 distrobox-create -i ubuntu:latest -n ubuntu -H ~/distrobox/ubuntu/
+
+sudo systemctl enable --now earlyoom
 
 ## increase file descriptor limit
 # sudo printf "$USER\tsoft\tnofile\t4096\nroot\tsoft\tnofile\t4096" | sudo tee -a /etc/security/limits.conf
