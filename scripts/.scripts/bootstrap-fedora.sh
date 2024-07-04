@@ -188,7 +188,8 @@ task \
 vit \
 flameshot \
 git-delta \
-earlyoom
+earlyoom \
+thunar
 
 # pip installations
 pip install pulsemixer

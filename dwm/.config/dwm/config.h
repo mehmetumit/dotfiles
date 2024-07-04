@@ -138,6 +138,7 @@ static const char brdown[] = {"light -U 5; update-block 6;"};
 static const char medpause[] = {"playerctl play-pause"};
 static const char mednext[] = {"playerctl next"};
 static const char medprev[] = {"playerctl previous"};
+static const char flameshot[] = {"flameshot gui -p $HOME/Screenshots" };
 static const char focshot[] = {"mkdir -p $HOME/Screenshots && scrot -u $HOME/Screenshots/%Y-%m-%d@%H-%M-%S.png" };
 static const char fullsshot[] = {"mkdir -p $HOME/Screenshots && scrot $HOME/Screenshots/%Y-%m-%d@%H-%M-%S.png" };
 static const char selsshot[] = {"mkdir -p $HOME/Screenshots && scrot -s --freeze $HOME/Screenshots/%Y-%m-%d@%H-%M-%S.png"};
@@ -266,6 +267,7 @@ static const Key keys[] = {
 	{MODKEY|ShiftMask,			0xff1b, 		spawn, 		SHCMD(mednext) },
 	{MODKEY|ControlMask,		0xff1b, 		spawn, 		SHCMD(medprev) },
 
+	{ MODKEY|ShiftMask,         XK_s,				spawn,		SHCMD(flameshot) },
 	{0,							XK_Print,			spawn,		SHCMD(fullsshot) },
 	{ShiftMask,					XK_Print,			spawn,		SHCMD(selsshot) },
 	{ControlMask|ShiftMask,		XK_Print,			spawn,		SHCMD(sharesshot) },

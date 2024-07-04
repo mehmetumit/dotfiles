@@ -66,7 +66,7 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
+      -- Useful status progress updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
@@ -270,7 +270,7 @@ vim.o.termguicolors = true
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
+vim.g.python3_host_prog='/bin/python3.9'
 -- [[ Keymaps ]]
 
 -- Copy paste magics
@@ -404,6 +404,7 @@ vim.keymap.set('n', '<leader>fl', function()
   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
+    layout_config = {width = 0.6, height = 0.6}
   })
 end, { desc = '[F]ind [L]ine in current buffer' })
 vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = '[F]ind [C]ommands' })
@@ -495,6 +496,7 @@ require('nvim-treesitter.configs').setup {
   textobjects = {
     select = {
       enable = true,
+      disable = {'dart'}, -- Disabled for performance resasons
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
@@ -682,10 +684,11 @@ local servers = {
       },
     }
   },
-  tailwindcss = {
-    filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-    init_options = { userLanguages = { templ = "html" } },
-  }
+
+  -- tailwindcss = {
+  --   filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+  --   init_options = { userLanguages = { templ = "html" } },
+  -- }
 }
 
 -- Setup neovim lua configuration
