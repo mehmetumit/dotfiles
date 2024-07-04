@@ -8,9 +8,9 @@ WINIT_X11_SCALE_FACTOR = "1.25"
 # animation = "Linear"
 # duration = 500
 [keyboard]
-bindings = [ 
+bindings = [
     { key = "K",  mods = "Control|Alt", action = "IncreaseFontSize" },
     { key = "J",  mods = "Control|Alt", action = "DecreaseFontSize" },
     { key = "Escape",  mods = "Alt", action = "ToggleViMode" },
-    # { key = "Escape",  mode = "Vi", action = "ToggleViMode" },
+    { key = "Q",  mode = "Vi", action = "ToggleViMode" },
 ]
