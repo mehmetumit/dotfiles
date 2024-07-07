@@ -189,7 +189,10 @@ vit \
 flameshot \
 git-delta \
 earlyoom \
-thunar
+thunar \
+imhex \
+python3-virtualenv \
+binwalk
 
 # pip installations
 pip install pulsemixer
