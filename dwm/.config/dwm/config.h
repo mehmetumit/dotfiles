@@ -50,13 +50,15 @@ const char *sptmuxcmd[] = {"alacritty", "--class", "sptmux", "-e", "sh -c 'tmux 
 //const char *sptmuxcmd[] = {"urxvt", "-name", "sptmux", "-e", "sh -c 'tmux attach 2>/dev/null || tmux'", NULL};
 const char *sptknotecmd[] = {"alacritty", "--class", "sptknote", "-o",  "window.dimensions.columns=130", "-o",  "window.dimensions.lines=35", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
 //const char *sptknotecmd[] = {"urxvt", "-name", "sptknote", "-g", "150x38", "-e", "sh", "-c", "cd $HOME/vimwiki/ && nvim $HOME/vimwiki/index.wiki", NULL};
+const char *sptaskmancmd[] = {"alacritty", "--class", "sptaskman", "-o",  "window.dimensions.columns=135", "-o",  "window.dimensions.lines=32", "-e", "vit", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spfm",      spfmcmd},
 	{"spterm",    sptermcmd},
 	{"spres",     sprescmd},
 	{"sptmux",    sptmuxcmd},
-	{"sptknote",  sptknotecmd }
+	{"sptknote",  sptknotecmd },
+	{"sptaskman", sptaskmancmd}
 };
 
 /* tagging */
@@ -88,6 +90,7 @@ static const Rule rules[] = {
 	{ NULL,		  	"spres",	NULL,				SPTAG(2),		1,			 1, 	0,    -1 },
 	{ NULL,		  	"sptmux",	NULL,				SPTAG(3),		0,			 1, 	0,    -1 },
 	{ NULL,		  	"sptknote",	NULL,				SPTAG(4),		1,			 1, 	0,    -1 },
+	{ NULL,		  	"sptaskman",NULL,				SPTAG(5),		1,			 1, 	0,    -1 },
 };
 
 /* layout(s) */
@@ -208,6 +211,7 @@ static const Key keys[] = {
 	{ MODKEY,            			XK_y,	   togglescratch,  {.ui = 2 } },
 	{ MODKEY|ShiftMask,            	XK_t,	   togglescratch,  {.ui = 3 } },
 	{ MODKEY,            			XK_v,	   togglescratch,  {.ui = 4 } },
+	{ MODKEY,            			XK_o,	   togglescratch,  {.ui = 5 } },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
