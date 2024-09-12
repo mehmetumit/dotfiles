@@ -74,8 +74,12 @@ require('lazy').setup({
       'folke/neodev.nvim',
       {
         -- For formatters and linters
+        -- 'nvimtools/none-ls.nvim',
         'jose-elias-alvarez/null-ls.nvim',
-        dependencies = 'nvim-lua/plenary.nvim',
+        dependencies = {
+          -- "nvimtools/none-ls-extras.nvim",
+          'nvim-lua/plenary.nvim'
+        },
       },
       -- 'mfussenegger/nvim-jdtls'
 
@@ -401,17 +405,18 @@ vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently o
 vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>fl', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
-  builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-    layout_config = {width = 0.6, height = 0.6}
-  })
+  -- builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    -- winblend = 10,
+    -- previewer = false,
+    -- layout_config = {width = 0.6, height = 0.6}
+  -- })
+  builtin.live_grep({search_dirs={vim.fn.expand("%:p")}})
 end, { desc = '[F]ind [L]ine in current buffer' })
 vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = '[F]ind [C]ommands' })
 vim.keymap.set('n', '<leader>fhc', builtin.command_history, { desc = '[F]ind in Command [H]istory' })
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles using .gitignore' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fw', builtin.buffers, { desc = '[F]ind [W]indow' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffer' })
 vim.keymap.set('n', '<leader>fa', builtin.live_grep, { desc = '[F]ind [A]ll Using Grep' })
 vim.keymap.set('n', '<leader>fD', builtin.diagnostics, { desc = '[F]ind All [D]iagnostics' })
 vim.keymap.set('n', '<leader>fd', function() builtin.diagnostics({ bufnr = 0 }) end,
@@ -561,9 +566,9 @@ end
 vim.keymap.set('n', '<leader>qf', quickfix, { desc = "Open diagnostics list and fix" })
 -- vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", {silent = true, noremap = true})
 -- Use m key to change between workspace and document diagnostics
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xd", "<cmd>Trouble toggle diagnostics<cr>", { silent = true, noremap = true })
 -- vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", {silent = true, noremap = true})
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xq", "<cmd>Trouble toggle quickfix<cr>", { silent = true, noremap = true })
 -- vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {silent = true, noremap = true})
 
 -- [[ Configure Go ]]
