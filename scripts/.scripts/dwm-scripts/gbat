@@ -5,10 +5,10 @@ case $BUTTON in
 	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 
-batstat=$(cat /sys/class/power_supply/BAT1/status)
+batstat=$(cat /sys/class/power_supply/BAT0/status)
 # [ "$batstat" == "Discharging" ] && icon="" || icon=""
 [ "$batstat" == "Discharging" ] && icon="🔋" || icon="🔌"
-gbat=$(cat /sys/class/power_supply/BAT1/capacity)
+gbat=$(cat /sys/class/power_supply/BAT0/capacity)
 # charge_full=$(cat /sys/class/power_supply/BAT1/charge_full)
 # charge_now=$(cat /sys/class/power_supply/BAT1/charge_now)
 # curr_now=$(cat /sys/class/power_supply/BAT1/current_now)

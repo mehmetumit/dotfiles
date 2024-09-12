@@ -19,6 +19,8 @@ echo 'Bootstrapping fedora...'
 # Run this to update grub afterward -> grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"
 #
 # Install fonts to /usr/share/fonts
+#
+# Run resolvectl dns [interface-name] [dns-server1] [dns-server2] command to set custom dns
 
 sudo hostnamectl set-hostname fedora
 
@@ -192,7 +194,9 @@ earlyoom \
 thunar \
 imhex \
 python3-virtualenv \
-binwalk
+binwalk \
+qalculate \
+qalculate-qt
 
 # pip installations
 pip install pulsemixer
@@ -241,6 +245,8 @@ cd dotfiles
 git submodule update --init --recursive
 stow --adopt */
 cd ~
+# fix wifi connection error on rtw_8821ce
+sudo cp ./scripts/.scripts/config/rtw88_pci.conf /etc/modprobe.d/
 # setup k380-swap-keys
 cd ./scripts/.scripts/k380-swap-keys/
 sudo make install
@@ -281,6 +287,7 @@ mkdir -p ~/distrobox/arch ~/distrobox/ubuntu
 distrobox-create -i archlinux:latest -n arch -H ~/distrobox/arch/
 distrobox-create -i ubuntu:latest -n ubuntu -H ~/distrobox/ubuntu/
 
+# Edit here for configuration /etc/default/earlyoom
 sudo systemctl enable --now earlyoom
 
 ## increase file descriptor limit
