@@ -35,6 +35,7 @@ alias k='kubectl'
 #alias tmux="TERM=screen-256color-bce tmux"
 alias screenkey='screenkey -g $(slop -n -f '%g')'
 alias cal='cal -m' # Monday first
+alias calc='qalc'
 # Don't use root user's .vimrc use your own
 alias sv='sudo -E  vim'
 alias g='git'
