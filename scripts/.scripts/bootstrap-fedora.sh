@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -x
 set -e
 cd ~
 echo 'Bootstrapping fedora...'
