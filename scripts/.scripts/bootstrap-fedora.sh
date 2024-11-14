@@ -308,6 +308,9 @@ sudo cp -r ~/dotfiles/icons/.icons/* /usr/share/icons/
 sudo systemctl disable NetworkManager-wait-online.service
 # disable bluetooth
 rfkill block bluetooth
+# disable wifi powersave
+~/dotfiles/scripts/.scripts/disable-wifi-powersave.sh
+
 #sudo pacman -S minikube
 #sudo pacman -S skaffold
 #sudo pacman -S dust
