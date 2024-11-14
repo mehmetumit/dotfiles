@@ -35,9 +35,6 @@ sudo dnf -y install intel-media-driver
 sudo dnf install 'dnf-command(versionlock)'
 #sudo dnf install nvidia-vaapi-driver
 
-# Disable unnecessary services
-sudo systemctl disable NetworkManager-wait-online.service
-
 # enable copr repos
 sudo dnf copr -y enable mamg22/nsxiv
 sudo dnf copr -y enable skidnik/clipmenu
@@ -196,7 +193,8 @@ imhex \
 python3-virtualenv \
 binwalk \
 qalculate \
-qalculate-qt
+qalculate-qt \
+cinnamon # has useful utilities
 
 # pip installations
 pip install pulsemixer
@@ -216,6 +214,9 @@ go install github.com/rakyll/hey@latest
 go install github.com/gokcehan/lf@latest
 go install github.com/mehmetumit/dive@latest
 go install github.com/jesseduffield/lazydocker@latest
+
+# rust installations
+cargo install trippy --locked
 
 # install custom packages
 # dragon
@@ -302,6 +303,10 @@ chsh -s /usr/bin/zsh
 # init icons
 sudo cp -r ~/dotfiles/icons/.icons/* /usr/share/icons/
 
+# Disable unnecessary services
+sudo systemctl disable NetworkManager-wait-online.service
+# disable bluetooth
+rfkill block bluetooth
 #sudo pacman -S minikube
 #sudo pacman -S skaffold
 #sudo pacman -S dust

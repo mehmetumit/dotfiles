@@ -29,7 +29,7 @@ clipmenud & 2>>$errlogfile
 # Start tlp
 # sudo tlp start 2>>$errlogfile
 # Standby HDD
-sudo hdparm -y /dev/sda 2>>$errlogfile
+# sudo hdparm -y /dev/sda 2>>$errlogfile
 # Start dunst notifications
 dunst & 2>>$errlogfile
 # Change name server
