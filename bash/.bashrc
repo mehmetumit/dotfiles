@@ -86,7 +86,7 @@ bind '"\es":"disk_usage\n"'
 # User name and host name included
 #PS1="${UC}\u@\h${COLOR_WHITE}:${COLOR_BLUE}\w${COLOR_YELLOW}\$(get_git_branch)${COLOR_RED} → ${COLOR_NC} "
 # Without user and host name
-PS1="${COLOR_BLUE}\w${COLOR_YELLOW}\$(get_git_branch)${COLOR_RED}\$(get_git_status)${UC} → ${COLOR_NC}"
+PS1="${COLOR_BLUE}\w${COLOR_YELLOW}\$(get_git_branch)${COLOR_RED}\$(get_git_status)${UC} ➤ ${COLOR_NC}"
 #PS1="${COLOR_LIGHT_RED}➵${COLOR_NC} "
 
 export NVM_DIR="$HOME/.nvm"

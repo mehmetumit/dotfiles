@@ -195,7 +195,11 @@ python3-virtualenv \
 binwalk \
 qalculate \
 qalculate-qt \
-cinnamon # has useful utilities
+cinnamon \ # has useful utilities
+\ cronie \
+strace \
+visidata
+
 
 # pip installations
 pip install pulsemixer
