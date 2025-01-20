@@ -45,6 +45,7 @@ sudo dnf copr -y enable luminoso/k9s
 sudo dnf copr -y enable atim/lazygit
 sudo dnf copr -y enable coder966/postman
 sudo dnf copr -y enable wezfurlong/wezterm-nightly
+dnf copr enable agriffis/neovim-nightly
 # import custom packages
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
@@ -62,7 +63,7 @@ git \
 tmux \
 openfortivpn \
 gvim \
-neovim \
+neovim python3-neovim \
 zsh \
 zsh-autosuggestions \
 zsh-syntax-highlighting \
@@ -222,6 +223,7 @@ go install github.com/jesseduffield/lazydocker@latest
 
 # rust installations
 cargo install trippy --locked
+cargo install git-cliff
 
 # install custom packages
 # dragon

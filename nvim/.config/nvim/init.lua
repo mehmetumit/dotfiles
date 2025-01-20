@@ -625,7 +625,8 @@ vim.diagnostic.config({
 })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
   callback = function()
-    if vim.lsp.buf.server_ready() then
+    -- if vim.lsp.buf.server_ready() then
+    if #vim.lsp.get_clients() > 0 then
       -- vim.diagnostic.open_float({ scope = 'line' })
       vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
     end
