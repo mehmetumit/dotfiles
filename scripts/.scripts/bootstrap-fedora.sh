@@ -199,7 +199,10 @@ qalculate-qt \
 cinnamon \ # has useful utilities
 \ cronie \
 strace \
-visidata
+visidata \
+iftop \
+wol \
+poetry
 
 
 # pip installations
