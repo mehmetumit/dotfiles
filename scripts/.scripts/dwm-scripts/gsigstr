@@ -9,6 +9,7 @@ esac
 # Calculate wireless signal strength
 gwifi=$(cat /proc/net/wireless | awk 'NR==3{printf "%d", $3*10/7}')
 vpn=$(sed "s/.*/ 🔐/" /sys/class/net/tun*/operstate 2>/dev/null)
+wired_status=$(cat /sys/class/net/enp*/operstate 2>/dev/null) # enp2s0
 if [ $gwifi -gt 80 ]; then
 	str=""
 elif [ $gwifi -gt 50 ]; then
@@ -18,7 +19,13 @@ elif [ $gwifi -gt 30 ]; then
 elif [ $gwifi -gt 0 ]; then
 	str="直"
 else
-	str="睊"
+	if [ $wired_status = 'up' ]; then
+		str="🔗"
+		printf "$str$vpn"
+		return
+	else
+		str="睊"
+	fi
 fi
 #printf " %2d%%$vpn" $gwifi
 printf "$str %2d%%$vpn" $gwifi
