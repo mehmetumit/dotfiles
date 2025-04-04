@@ -2,8 +2,9 @@
 script_path="$HOME/.scripts/dwm-scripts/gsigstr"
 case $BUTTON in
 	1) notify-send -t 2000 "SSID: $(gssid)" "IP: $(gip)";;
-	2) notify-send -t 2000 "Scanning available wifi networks...";  notify-send "$(nmcli -f SSID,BARS device wifi list --rescan yes)";;
-	3) notify-send -t 2000 "Scanning available wifi networks..."; $TERMINAL -e "conn-wifi" ;;
+	2) notify-send -t 2000 "Scanning available wifi networks..."; $TERMINAL -e "conn-wifi" ;;
+	#3) notify-send -t 2000 "Scanning available wifi networks...";  notify-send "$(nmcli -f SSID,BARS device wifi list --rescan yes)";;
+	3) cinnamon-settings network;;
 	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 # Calculate wireless signal strength

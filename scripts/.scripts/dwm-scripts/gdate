@@ -2,7 +2,7 @@
 script_path="$HOME/.scripts/dwm-scripts/gdate"
 case $BUTTON in
 	1) notify-send "$(cal -m)" ;;
-	3) $TERMINAL -hold -e bash -c "cal -3m" ;;
+	3) urxvt -hold -e bash -c "cal -m -y" ;; # urxvt
 	4) $TERMINAL -e bash -c "vim $script_path" ;;
 esac
 # 
