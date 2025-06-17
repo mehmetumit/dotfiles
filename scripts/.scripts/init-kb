@@ -3,4 +3,4 @@
 # Increase scroll key speed
 xset r rate 300 50
 # Swap capslock and escape
-setxkbmap -option caps:swapescape
+#setxkbmap -option caps:swapescape

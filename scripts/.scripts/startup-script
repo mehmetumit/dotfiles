@@ -6,7 +6,7 @@ init-kb 2>>$errlogfile
 # Increase scroll key speed
 xset r rate 300 50 2>>$errlogfile
 # Swap capslock and escape
-setxkbmap -option caps:swapescape 2>>$errlogfile
+# setxkbmap -option caps:swapescape 2>>$errlogfile
 # Start slock after 5 minute inacivity
 # xautolock -time 5 -locker slock & 2>>$errlogfile
 xss-lock -- slock & 2>>$errlogfile
