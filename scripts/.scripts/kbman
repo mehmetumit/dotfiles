@@ -9,5 +9,9 @@ case "$currLayout" in
         setxkbmap -layout us -variant altgr-intl
         newLayout='US'
     ;;
+    *)
+        setxkbmap -layout us -variant altgr-intl
+        newLayout='US'
+    ;;
 esac
 notify-send "Keyboard layout changed to $newLayout"
