@@ -26,7 +26,7 @@ unmount_selected(){
 	sudo umount "$selected" && notify-send "$selected successfully unmounted!" || notify-send "$selected unmount failed!" --urgency='critical' --expire-time="$notification_expire_time"
 }
 mount_drive(){
-	sudo mount "/dev/sda1" "/mnt/hdd0" && notify-send "/dev/sda1 successfully mounted to /mnt/hdd0" || notify-send "/dev/sda1 mount failed!" --urgency='critical' --expire-time="$notification_expire_time"
+	sudo mount "/dev/sda" "/mnt/hdd0" && notify-send "/dev/sda successfully mounted to /mnt/hdd0" || notify-send "/dev/sda mount failed!" --urgency='critical' --expire-time="$notification_expire_time"
 }
 mount_server(){
 	mkdir -p "$server_dir" || notify-send "$server_dir creation failed!"
