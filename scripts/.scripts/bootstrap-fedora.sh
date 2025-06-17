@@ -50,7 +50,7 @@ dnf copr enable agriffis/neovim-nightly
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:justkidding/Fedora_39/home:justkidding.repo
+sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:justkidding/Fedora_40/home:justkidding.repo
 
 # dnf installations
 sudo dnf -y install \
@@ -71,6 +71,7 @@ make \
 docker \
 docker-compose \
 docker-buildx-plugin \
+docker-compose-plugin \
 kubernetes \
 stow \
 ranger \
@@ -202,7 +203,8 @@ strace \
 visidata \
 iftop \
 wol \
-poetry
+poetry \
+clean-rpm-gpg-pubkey
 
 
 # pip installations
@@ -223,6 +225,7 @@ go install github.com/rakyll/hey@latest
 go install github.com/gokcehan/lf@latest
 go install github.com/mehmetumit/dive@latest
 go install github.com/jesseduffield/lazydocker@latest
+go install github.com/kopecmaciej/vi-mongo@latest
 
 # rust installations
 cargo install trippy --locked
