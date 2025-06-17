@@ -63,8 +63,8 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', config = true },
+      'mason-org/mason-lspconfig.nvim',
 
       -- Useful status progress updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -74,10 +74,10 @@ require('lazy').setup({
       'folke/neodev.nvim',
       {
         -- For formatters and linters
-        -- 'nvimtools/none-ls.nvim',
-        'jose-elias-alvarez/null-ls.nvim',
+        'nvimtools/none-ls.nvim',
+        -- 'jose-elias-alvarez/null-ls.nvim',
         dependencies = {
-          -- "nvimtools/none-ls-extras.nvim",
+          "nvimtools/none-ls-extras.nvim",
           'nvim-lua/plenary.nvim'
         },
       },
@@ -331,8 +331,13 @@ vim.keymap.set({ 'n', 'v' }, '<leader>CS', ':shell<CR>');
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
+-- Open lazy.nvim
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>')
+-- Git keybindings
+vim.keymap.set('n', '<leader>G', ':Git ')
+vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')
+vim.keymap.set('n', '<leader>ga', ':Git add %<CR>')
+vim.keymap.set('n', '<leader>gr', ':Git reset %<CR>')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -353,7 +358,7 @@ null_ls.setup {
     null_ls.builtins.diagnostics.trail_space.with({
       method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
-    null_ls.builtins.formatting.trim_newlines,
+    -- null_ls.builtins.formatting.trim_newlines,
     -- null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.prettierd,
     -- null_ls.builtins.formatting.prettierd.with({
@@ -361,10 +366,13 @@ null_ls.setup {
     --         return utils.has_file({ ".prettierrc.json" })
     --       end,
     --     }),
-    null_ls.builtins.diagnostics.eslint_d.with({
+    require("none-ls.diagnostics.eslint_d").with({
       method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
-    null_ls.builtins.code_actions.eslint_d,
+    -- null_ls.builtins.diagnostics.eslint_d.with({
+    --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    -- }),
+    -- null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.diagnostics.vacuum.with({
       diagnostic_config = {
         -- see :help vim.diagnostic.config()
@@ -690,7 +698,7 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  ts_ls = {},
   -- templ = { },
   -- htmx = { },
   lua_ls = {
