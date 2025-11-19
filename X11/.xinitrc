@@ -7,6 +7,15 @@ userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# use ibus for keyboard
+# export XMODIFIERS=@im=ibus
+# export GTK_IM_MODULE=ibus
+# export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=ibus
+ibus-daemon -drx
 # XCURSOR_THEME=Oxygen 14 Matrix Green
 # XCURSOR_THEME=Oxygen 18 White
 # edit ~/.icons/default/index.theme , ~/.Xresources and ~/.config/gtk-3.0/settings.ini for change cursor theme

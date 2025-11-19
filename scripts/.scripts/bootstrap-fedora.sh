@@ -200,12 +200,14 @@ qalculate-qt \
 cinnamon \ # has useful utilities
 \ cronie \
 strace \
-visidata \
 iftop \
+visidata \ # csv
+\ iftop \
 wol \
 poetry \
-clean-rpm-gpg-pubkey
-
+clean-rpm-gpg-pubkey \
+ibus \
+ibus-mozc
 
 # pip installations
 pip install pulsemixer
@@ -322,6 +324,9 @@ sudo systemctl disable NetworkManager-wait-online.service
 rfkill block bluetooth
 # disable wifi powersave
 ~/dotfiles/scripts/.scripts/disable-wifi-powersave.sh
+
+# setup keyboard
+PYTHON=/usr/bin/python3 ibus-setup
 
 #sudo pacman -S minikube
 #sudo pacman -S skaffold

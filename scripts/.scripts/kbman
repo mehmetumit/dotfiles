@@ -1,17 +1,35 @@
 #!/bin/sh
-currLayout="$(setxkbmap -print | awk -F"+" '/xkb_symbols/ {printf $2}')"
+# currLayout="$(setxkbmap -print | awk -F"+" '/xkb_symbols/ {printf $2}')"
+# case "$currLayout" in
+#     *us*)# us(altgr-intl)
+#         setxkbmap tr
+#         newLayout='TR'
+#     ;;
+#     *tr*)
+#         setxkbmap -layout us -variant altgr-intl
+#         newLayout='US'
+#     ;;
+#     *)
+#         setxkbmap -layout us -variant altgr-intl
+#         newLayout='US'
+#     ;;
+# esac
+# notify-send "Keyboard layout changed to $newLayout"
+currLayout="$(ibus engine)"
 case "$currLayout" in
-    *us*)# us(altgr-intl)
-        setxkbmap tr
+    *us*)# xkb:us::eng
+        ibus engine xkb:tr::tur
         newLayout='TR'
     ;;
-    *tr*)
-        setxkbmap -layout us -variant altgr-intl
+    *tr*)# xkb:tr:alt:tur
+        ibus engine xkb:us:altgr-intl:eng
         newLayout='US'
     ;;
     *)
-        setxkbmap -layout us -variant altgr-intl
+        ibus engine xkb:us:altgr-intl:eng
         newLayout='US'
     ;;
 esac
+# ibus engine anthy
+# ibus engine mozc-jp
 notify-send "Keyboard layout changed to $newLayout"
