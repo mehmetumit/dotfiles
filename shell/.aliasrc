@@ -39,6 +39,7 @@ alias calc='qalc'
 # Don't use root user's .vimrc use your own
 alias sv='sudo -E  vim'
 alias g='git'
+alias gb='git branch --sort=-committerdate | head'
 alias r='ranger'
 alias sr='sudo ranger'
 alias th='thunar'
@@ -49,8 +50,11 @@ alias yta='yt-dlp --audio-format mp3 --add-metadata -xic' # Download only audio
 alias htb='sudo openvpn ~/ovpn/htb.ovpn'
 # openvpn alias
 #alias conn-vpn='sudo openvpn --config'
-alias conn-vpn='sudo openvpn "$(find $HOME/vpn/*.ovpn | fzf -m --header="select-vpn-server")"'
-alias conn-forti='eval "$(find $HOME/vpn/*.forti | fzf -m --header="select-fortivpn-server")"'
+alias conn-vpn='sudo openvpn "$(find $HOME/vpn/*.ovpn | fzf -m --header="Open VPN")"'
+alias conn-forti='eval "$(find $HOME/vpn/*.forti | fzf -m --header="Forti VPN")"'
+alias conn-cisco='eval "$(find $HOME/vpn/*.cisco | fzf -m --header="Cisco VPN")"'
+alias conn-gp='eval "$(find $HOME/vpn/*.gp | fzf -m --header="Global Protect VPN")"'
+alias conn-ssh='cd $HOME/ssh; eval "$(find $HOME/ssh/*.ssh | fzf -m --header="SSH")"; cd -'
 # Run with Nvidia GPU
 alias unityhub='prime-run unityhub'
 alias run_emulator='prime-run /opt/android-sdk/emulator/emulator -avd Pixel_XL_API_29 -netdelay none -netspeed full'
