@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo iptables -t nat -A OUTPUT -p tcp --dport 9090 -j DNAT --to-destination 127.0.0.1:9090
+sudo iptables -t nat -A OUTPUT -p udp --dport 9090 -j DNAT --to-destination 127.0.0.1:9090
