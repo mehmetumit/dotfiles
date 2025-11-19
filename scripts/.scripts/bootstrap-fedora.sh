@@ -80,7 +80,7 @@ gcc \
 g++ \
 neofetch \
 vlc \
-yt-dlp \
+yt-dlp+secretstorage \
 pip \
 nitrogen \
 zathura \
@@ -139,6 +139,9 @@ easyeffects \
 pandoc \
 nbfc-linux \
 texlive \
+texlive-scheme-medium \
+texinfo-tex \
+texlive-ocgx2 \
 biber \
 bat \
 ripgrep \
@@ -200,12 +203,15 @@ qalculate-qt \
 cinnamon \ # has useful utilities
 \ cronie \
 strace \
-iftop \
 visidata \ # csv
 \ iftop \
 wol \
 poetry \
 clean-rpm-gpg-pubkey \
+proxychains-ng \
+wsmancli \
+gem \
+kde-connect \
 ibus \
 ibus-mozc
 
@@ -213,6 +219,7 @@ ibus-mozc
 pip install pulsemixer
 pip install python3-xlib
 pip install iredis
+sudo pip install "vpn-slice[dnspython,setproctitle]" # for openconnect split tunnel connection
 #pip install ueberzug
 
 # flatpak installations
@@ -232,6 +239,9 @@ go install github.com/kopecmaciej/vi-mongo@latest
 # rust installations
 cargo install trippy --locked
 cargo install git-cliff
+
+# ruby gem installations
+gem install evil-winrm
 
 # install custom packages
 # dragon
@@ -283,6 +293,9 @@ echo "Run :PlugInstall inside of vim"
 # necessary operations
 sudo mkdir -p /etc/X11/xorg.conf.d
 sudo cp -rf ~/dotfiles/X11/xorg.conf.d/. /etc/X11/xorg.conf.d/
+
+## create folders
+mkdir -p ~/vpn ~/vimwiki ~/Books ~/KeePass ~/Projects ~/Workspace ~/Wallpapers
 
 sudo ln -s /usr/bin/nsxiv /usr/bin/sxiv
 
