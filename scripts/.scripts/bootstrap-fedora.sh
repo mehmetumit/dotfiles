@@ -228,6 +228,7 @@ flatpak -y install anki
 flatpak -y install com.stremio.Stremio
 flatpak -y install flathub org.localsend.localsend_app
 flatpak -y install com.mongodb.Compass
+flatpak -y install flathub com.github.skylot.jadx
 
 # go installations
 go install github.com/rakyll/hey@latest
@@ -244,6 +245,11 @@ cargo install git-cliff
 gem install evil-winrm
 
 # install custom packages
+# apktool
+wget -O apktool 'https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool'
+chmod +x apktool
+wget -O apktool.jar 'https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.12.1.jar'
+sudo mv apktool apktool.jar /usr/local/bin/
 # dragon
 git clone https://github.com/mwh/dragon.git
 cd dragon
