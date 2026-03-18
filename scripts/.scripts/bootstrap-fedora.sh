@@ -215,7 +215,11 @@ wsmancli \
 gem \
 kde-connect \
 ibus \
-ibus-mozc
+ibus-mozc \
+tesseract-devel \
+tesseract \
+tesseract-langpack-tur \
+tesseract-langpack-en
 
 # pip installations
 pip install pulsemixer
