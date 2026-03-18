@@ -1,0 +1,8 @@
+#!/bin/sh
+OPERATION=$(printf "English\nTurkish" | rofi -dmenu -i)
+
+case $OPERATION in
+    'English') flameshot gui --raw | convert -resize 400% png:- png:- | tesseract -l eng stdin stdout | xclip -selection clipboard;;
+    'Turkish') flameshot gui --raw | convert -resize 400% png:- png:- | tesseract -l tur stdin stdout | xclip -selection clipboard;;
+    *) exit;;
+esac
