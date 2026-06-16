@@ -219,7 +219,10 @@ ibus-mozc \
 tesseract-devel \
 tesseract \
 tesseract-langpack-tur \
-tesseract-langpack-en
+tesseract-langpack-en \
+weston \
+cadaver \ # webdav client
+\ waydroid
 
 # pip installations
 pip install pulsemixer
@@ -334,6 +337,9 @@ distrobox-create -i ubuntu:latest -n ubuntu -H ~/distrobox/ubuntu/
 # Edit here for configuration /etc/default/earlyoom
 sudo systemctl enable --now earlyoom
 
+# waydroid
+sudo systemctl enable --now waydroid-container
+
 ## increase file descriptor limit
 # sudo printf "$USER\tsoft\tnofile\t4096\nroot\tsoft\tnofile\t4096" | sudo tee -a /etc/security/limits.conf
 
@@ -355,6 +361,14 @@ rfkill block bluetooth
 
 # setup keyboard
 PYTHON=/usr/bin/python3 ibus-setup
+
+# ufw
+## allow waydroid to connect internet
+sudo ufw route allow in on waydroid0 comment Waydroid
+sudo ufw allow out on waydroid0 to any port 67 comment waydroid
+sudo ufw allow out on waydroid0 to any port 53 comment waydroid
+sudo ufw allow in on waydroid0 to any port 53 comment waydroid
+sudo ufw allow in on waydroid0 to any port 67 comment waydroid
 
 #sudo pacman -S minikube
 #sudo pacman -S skaffold

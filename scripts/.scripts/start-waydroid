@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sudo systemctl start waydroid-container
+weston --socket=wayland-0 &
+sleep 2
+waydroid show-full-ui
