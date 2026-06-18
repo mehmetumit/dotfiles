@@ -253,6 +253,9 @@ cargo install git-cliff
 # ruby gem installations
 gem install evil-winrm
 
+# npm installations
+npm i -g @openai/codex
+
 # install custom packages
 # apktool
 wget -O apktool 'https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool'
