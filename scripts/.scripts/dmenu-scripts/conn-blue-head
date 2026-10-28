@@ -1,4 +1,5 @@
 #!/bin/sh
 bluetoothctl power on
 sudo bluetooth on
-bluetoothctl connect "E8:07:BF:BD:EC:B5"
+bluetoothctl connect "26:60:61:1A:2A:13"
+# bluetoothctl connect "E8:07:BF:BD:EC:B5"

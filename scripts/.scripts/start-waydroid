@@ -2,5 +2,6 @@
 
 sudo systemctl start waydroid-container
 weston --socket=wayland-0 &
+# weston --xwayland &
 sleep 2
 waydroid show-full-ui

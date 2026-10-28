@@ -25,6 +25,14 @@ HISTSIZE=99999999
 SAVEHIST=99999999
 export KEYTIMEOUT=1
 setopt autocd beep extendedglob PROMPT_SUBST share_history
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_SAVE_BY_COPY
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
 unsetopt nomatch notify
 # Disable freeze
 stty stop undef

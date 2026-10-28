@@ -13,8 +13,15 @@ else
  	prx=0
 	ptx=0
 fi
-rx=$(cat /sys/class/net/w*/statistics/rx_bytes | awk '{printf "%d", $1/(1024)}')
-tx=$(cat /sys/class/net/w*/statistics/tx_bytes | awk '{printf "%d", $1/(1024)}')
+rx_wifi=$(cat /sys/class/net/w*/statistics/rx_bytes | awk '{printf "%d", $1/(1024)}')
+rx_wired=$(cat /sys/class/net/e*/statistics/rx_bytes | awk '{printf "%d", $1/(1024)}')
+
+tx_wifi=$(cat /sys/class/net/w*/statistics/tx_bytes | awk '{printf "%d", $1/(1024)}')
+tx_wired=$(cat /sys/class/net/e*/statistics/tx_bytes | awk '{printf "%d", $1/(1024)}')
+
+tx=$((tx_wired + tx_wifi))
+rx=$((rx_wired + rx_wifi))
+
 t_rx=$((rx - prx))
 t_tx=$((tx - ptx))
 echo $rx > $cache_path

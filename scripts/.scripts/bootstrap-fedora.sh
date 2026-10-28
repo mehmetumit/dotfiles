@@ -105,6 +105,7 @@ scrot \
 shellcheck \
 screenkey \
 mpv \
+mpv-libs \
 android-tools \
 clipmenu \
 scrcpy \
@@ -222,7 +223,11 @@ tesseract-langpack-tur \
 tesseract-langpack-en \
 weston \
 cadaver \ # webdav client
-\ waydroid
+\ waydroid \
+pv \
+iperf3 \
+boost-devel \
+blueman \
 
 # pip installations
 pip install pulsemixer
