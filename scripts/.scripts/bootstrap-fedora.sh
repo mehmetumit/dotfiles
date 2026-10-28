@@ -228,6 +228,14 @@ pv \
 iperf3 \
 boost-devel \
 blueman \
+libsecret gnome-keyring # pam
+
+# setup master key
+echo 'Setup keepass master key'
+secret-tool store \
+  --label="KeePassXC Vault Master Password" \
+  application keepassxc \
+  database "$HOME/Vault.kdbx"
 
 # pip installations
 pip install pulsemixer

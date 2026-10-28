@@ -1,0 +1,18 @@
+#!/bin/sh
+
+cmd="$1"
+
+if [ -z "$cmd" ]; then
+    echo "Usage: keepass <command> [options] [args]" >&2
+    return 1
+fi
+
+shift
+
+(
+    set -o pipefail
+    secret-tool lookup \
+        application keepassxc \
+        database "$KEEPASS_DB_PATH" |
+        keepassxc-cli "$cmd" -q "$KEEPASS_DB_PATH" "$@"
+)

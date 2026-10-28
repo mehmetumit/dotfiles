@@ -55,3 +55,537 @@ search_command() {
     sh_name=$(ps -ocomm= -q $$)
     [ "$sh_name" = "zsh" ] && print -z "$(cat "$HOME/.bash_history" "$HOME/.zsh_history" | fzf --header='search_command')" || echo "$sh_name not supported!"
 }
+
+conn-vpn() {
+    local vpn_dir="$HOME/vpn"
+    local group="VPN"
+    local relative profile filename ext client file
+
+    local entry_path record remaining
+    local username password totp credentials use_keepass
+    local rc started elapsed failures=0
+    local retry_delay=5
+    local max_fast_failures=3
+
+    # 1. Select VPN configuration once
+    [ -d "$vpn_dir" ] || {
+        printf 'VPN directory not found: %s\n' "$vpn_dir" >&2
+        return 1
+    }
+
+    relative=$(
+        find "$vpn_dir" -type f \( \
+            -name '*.conf' -o \
+            -name '*.ovpn' \
+        \) |
+        while IFS= read -r file; do
+            printf '%s\n' "${file#"$vpn_dir"/}"
+        done |
+        sort |
+        fzf --header="Select VPN Configuration"
+    ) || return 1
+
+    [ -n "$relative" ] || return 1
+
+    profile="$vpn_dir/$relative"
+    filename="${relative##*/}"
+    ext="${filename##*.}"
+
+    case "$ext" in
+        conf) client="openconnect" ;;
+        ovpn) client="openvpn" ;;
+        *) return 1 ;;
+    esac
+
+    command -v "$client" >/dev/null 2>&1 || {
+        printf '%s is not installed\n' "$client" >&2
+        return 1
+    }
+
+    entry_path="$group/${filename%.*}"
+
+    printf 'Selected VPN: %s\n' "$relative"
+
+    # 2. Reconnection supervisor
+    # Subshell isolates traps from the interactive shell
+    (
+        trap 'exit 130' INT
+        trap 'exit 143' TERM
+
+        while :; do
+            username=""
+            password=""
+            totp=""
+            credentials=""
+            record=""
+            use_keepass=0
+
+            printf 'Looking for KeePass entry: %s\n' "$entry_path"
+            # 3. Retrieve fresh KeePass credentials
+            if command -v keepass >/dev/null 2>&1; then
+                # Try retrieving username, password and TOTP
+                if ! record=$(keepass show \
+                    -a username \
+                    -a password \
+                    -t \
+                    "$entry_path" </dev/tty 2>/dev/null); then
+
+                    # TOTP may not be configured; retry without it
+                    record=$(keepass show \
+                        -a username \
+                        -a password \
+                        "$entry_path" </dev/tty 2>/dev/null) || record=""
+                fi
+
+                # Parse username, password, optional TOTP
+                case "$record" in
+                    *$'\n'*)
+                        username="${record%%$'\n'*}"
+                        remaining="${record#*$'\n'}"
+
+                        case "$remaining" in
+                            *$'\n'*)
+                                password="${remaining%%$'\n'*}"
+                                totp="${remaining#*$'\n'}"
+                                ;;
+                            *)
+                                password="$remaining"
+                                ;;
+                        esac
+
+                        if [ -n "$username" ] && [ -n "$password" ]; then
+                            use_keepass=1
+                            printf 'Using KeePass: %s\n' "$entry_path"
+                        fi
+                        ;;
+                esac
+            fi
+
+            # Ignore malformed TOTP output
+            case "$totp" in
+                ''|*[!0-9]*) totp="" ;;
+            esac
+
+            if [ "$use_keepass" -eq 0 ]; then
+                printf 'KeePass credentials unavailable. Connecting directly.\n'
+            fi
+
+            printf '\nConnecting to %s...\n' "$relative"
+
+            started=$(date +%s)
+
+            # 4. Establish connection
+            (
+                cd "$(dirname "$profile")" || exit 1
+
+                case "$client" in
+                    openvpn)
+                        if [ "$use_keepass" -eq 1 ]; then
+                            printf '%s\n%s\n' "$username" "$password" |
+                                sudo -n openvpn \
+                                    --config "$(basename "$profile")" \
+                                    --auth-user-pass /dev/stdin
+                        else
+                            sudo -n openvpn \
+                                --config "$(basename "$profile")" \
+                                --auth-user-pass
+                        fi
+                        ;;
+
+
+                    openconnect)
+                        if [ "$use_keepass" -eq 1 ]; then
+                            (
+                                exec {input_fd}< <(
+                                    printf '%s\n' "$password"
+                                    [ -z "$totp" ] || printf '%s\n' "$totp"
+                                    exec cat /dev/tty
+                                )
+
+                                feeder_pid=$!
+
+                                trap '
+                                    kill "$feeder_pid" 2>/dev/null
+                                    wait "$feeder_pid" 2>/dev/null
+                                    exec {input_fd}<&-
+                                ' EXIT
+
+                                sudo -n openconnect \
+                                    --config "$(basename "$profile")" \
+                                    --user="$username" \
+                                    --passwd-on-stdin <&"$input_fd"
+                            )
+                        else
+                            sudo -n openconnect \
+                                --config "$(basename "$profile")"
+                        fi
+                        ;;
+                esac
+            )
+
+            rc=$?
+            elapsed=$(( $(date +%s) - started ))
+
+            # Clear authentication variables
+            unset password totp credentials record remaining
+
+            # 5. Stop on normal or intentional termination
+            case "$rc" in
+                0)
+                    printf 'VPN disconnected normally.\n'
+                    exit 0
+                    ;;
+                130|143)
+                    printf 'VPN connection interrupted.\n'
+                    exit "$rc"
+                    ;;
+            esac
+
+            # 6. Prevent rapid authentication retry loops
+            if [ "$elapsed" -lt 60 ]; then
+                failures=$((failures + 1))
+            else
+                failures=0
+            fi
+
+            if [ "$failures" -ge "$max_fast_failures" ]; then
+                printf 'Too many rapid connection failures. Stopping.\n' >&2
+                exit "$rc"
+            fi
+
+            # 7. Reauthenticate with fresh credentials
+            printf '\nVPN disconnected (exit code: %s).\n' "$rc"
+            printf 'Reconnecting in %s seconds...\n' "$retry_delay"
+
+            sleep "$retry_delay" || exit 130
+        done
+    )
+}
+
+tun() {
+    local ssh_config="$HOME/.ssh/config"
+    local type selection server alias address ssh_settings has_key
+    local group entries entry_count selected_entry entry_path fields
+    local username password default_user auth_source
+    local local_port="" remote_port="" local_host="" remote_host=""
+    local local_bind="" remote_bind="" option="" forward="" port
+    local exit_code menu entry entry_username
+
+    # 1. Select connection type
+    type=$(printf '%s\n' \
+        "SSH Connection" \
+        "Local (-L)" \
+        "Reverse (-R)" \
+        "SOCKS5 (-D)" |
+        fzf --header="Select Connection Type") || return 1
+
+    [ -n "$type" ] || return 1
+
+    # Check SSH configuration
+    if [ ! -r "$ssh_config" ]; then
+        printf 'SSH config not found: %s\n' "$ssh_config" >&2
+        return 1
+    fi
+
+    # 2. Select host from SSH config
+    # Only aliases containing "/" are included
+    selection=$(
+        awk '
+            tolower($1) == "host" {
+                for (i = 2; i <= NF; i++) {
+                    if ($i ~ /^#/) break
+                    if ($i !~ /\// || $i ~ /[*?!]/ || $i ~ /^-/) continue
+                    print $i
+                }
+            }
+        ' "$ssh_config" |
+        sort -u |
+        while IFS= read -r alias; do
+            address=$(ssh -G "$alias" 2>/dev/null |
+                awk 'tolower($1) == "hostname" {
+                    print $2
+                    exit
+                }')
+
+            printf '%-32s %s\n' "$alias" "${address:-N/A}"
+        done |
+        fzf --header="Select SSH Host"
+    ) || return 1
+
+    [ -n "$selection" ] || return 1
+    server=${selection%% *}
+
+    # 3. Detect explicitly configured SSH identity
+    # Ignore implicit default identity files
+    ssh_settings=$(ssh -G -o IdentityFile=none "$server" 2>/dev/null) || {
+        printf 'Unable to inspect SSH config: %s\n' "$server" >&2
+        return 1
+    }
+
+    has_key=$(printf '%s\n' "$ssh_settings" |
+        awk '
+            tolower($1) == "identityfile" && tolower($2) != "none" {
+                print "yes"
+                exit
+            }
+        ')
+
+    default_user=$(printf '%s\n' "$ssh_settings" |
+        awk 'tolower($1) == "user" {print $2; exit}')
+
+    # 4. Handle password authentication
+    if [ "$has_key" != "yes" ]; then
+        command -v sshpass >/dev/null 2>&1 || {
+            printf 'sshpass is required\n' >&2
+            return 1
+        }
+
+        # KeePass group for ssh credentials
+        group="SSH/$server"
+        entries=""
+        selected_entry=""
+        username=""
+        password=""
+        auth_source="manual password"
+
+        printf 'Looking for KeePass entries: %s\n' "$group"
+        # Retrieve available KeePass entries
+        if command -v keepass >/dev/null 2>&1; then
+            if ! entries=$(keepass ls -R -f "$group"); then
+                printf 'KeePass lookup failed for %s; using manual credentials.\n' \
+                    "$group" >&2
+                entries=""
+            fi
+        else
+            printf 'keepass command unavailable; using manual credentials.\n' >&2
+        fi
+
+        # Filter empty lines, groups and empty-group markers
+        entries=$(printf '%s\n' "$entries" |
+            awk '
+                NF &&
+                $0 !~ /\/$/ &&
+                $0 !~ /(^|\/)\[empty\]$/ {
+                    print
+                }
+            ')
+
+        # Count credentials
+        entry_count=$(printf '%s\n' "$entries" |
+            awk 'NF {count++} END {print count+0}')
+
+        case "$entry_count" in
+            0)
+                printf 'No KeePass credentials found for %s\n' "$server"
+                ;;
+
+            1)
+                selected_entry="$entries"
+                printf 'Using KeePass entry: %s\n' "$selected_entry"
+                ;;
+
+            *)
+                menu=""
+
+                while IFS= read -r entry; do
+                    [ -n "$entry" ] || continue
+
+                    entry_username=$(keepass show \
+                        -a username \
+                        "$group/$entry" </dev/tty) || return 1
+
+                    entry_username="${entry_username%%$'\n'*}"
+
+                    # Aligned display + original entry in hidden field
+                    menu="${menu}$(printf '%-32s %s\t%s' \
+                        "$entry" "$entry_username" "$entry")"$'\n'
+                done <<< "$entries"
+
+                selection=$(printf '%s' "$menu" |
+                    fzf \
+                        --delimiter=$'\t' \
+                        --with-nth=1 \
+                        --header="Select SSH Credential") || return 1
+
+                [ -n "$selection" ] || return 1
+
+                # Extract original entry name
+                selected_entry="${selection##*$'\t'}"
+                ;;
+        esac
+
+        # Retrieve selected entry's username/password
+        if [ -n "$selected_entry" ]; then
+            entry_path="$group/$selected_entry"
+
+            fields=$(keepass show \
+                -a username \
+                -a password \
+                "$entry_path") || return 1
+
+            case "$fields" in
+                *$'\n'*)
+                    username=${fields%%$'\n'*}
+                    password=${fields#*$'\n'}
+                    ;;
+                *)
+                    printf 'Unexpected KeePass credential output\n' >&2
+                    return 1
+                    ;;
+            esac
+
+            auth_source="KeePass"
+        fi
+
+        # Ask username when missing
+        if [ -z "$username" ]; then
+            printf 'SSH Username [%s]: ' "$default_user"
+            IFS= read -r username || return 1
+            username="${username:-$default_user}"
+        fi
+
+        [ -n "$username" ] || {
+            printf 'SSH username cannot be empty\n' >&2
+            return 1
+        }
+
+        # Ask password when missing
+        if [ -z "$password" ]; then
+            printf 'SSH Password for %s@%s: ' "$username" "$server"
+            IFS= read -rs password || return 1
+            printf '\n'
+            auth_source="manual password"
+        fi
+
+        [ -n "$password" ] || {
+            printf 'SSH password cannot be empty\n' >&2
+            return 1
+        }
+    fi
+
+    # 5. Configure tunnel
+    case "$type" in
+        "SSH Connection")
+            ;;
+
+        "Local (-L)")
+            printf 'Local Bind Address [127.0.0.1]: '
+            IFS= read -r local_bind || return 1
+            local_bind="${local_bind:-127.0.0.1}"
+
+            printf 'Local Port: '
+            IFS= read -r local_port || return 1
+
+            printf 'Destination Host [127.0.0.1]: '
+            IFS= read -r remote_host || return 1
+            remote_host="${remote_host:-127.0.0.1}"
+
+            printf 'Destination Port: '
+            IFS= read -r remote_port || return 1
+
+            option="-L"
+            forward="$local_bind:$local_port:$remote_host:$remote_port"
+            ;;
+
+        "Reverse (-R)")
+            printf 'Remote Bind Address [127.0.0.1]: '
+            IFS= read -r remote_bind || return 1
+            remote_bind="${remote_bind:-127.0.0.1}"
+
+            printf 'Remote Port: '
+            IFS= read -r remote_port || return 1
+
+            printf 'Local Destination Host [127.0.0.1]: '
+            IFS= read -r local_host || return 1
+            local_host="${local_host:-127.0.0.1}"
+
+            printf 'Local Port: '
+            IFS= read -r local_port || return 1
+
+            option="-R"
+            forward="$remote_bind:$remote_port:$local_host:$local_port"
+            ;;
+
+        "SOCKS5 (-D)")
+            printf 'Local SOCKS Port [9090]: '
+            IFS= read -r local_port || return 1
+            local_port="${local_port:-9090}"
+
+            option="-D"
+            forward="127.0.0.1:$local_port"
+            ;;
+
+        *) return 1 ;;
+    esac
+
+    # 6. Validate forwarding ports
+    if [ "$type" != "SSH Connection" ]; then
+        for port in "$local_port" "$remote_port"; do
+            [ -n "$port" ] || {
+                if [ "$type" = "SOCKS5 (-D)" ] &&
+                   [ -n "$local_port" ]; then
+                    continue
+                fi
+                printf 'Port cannot be empty\n' >&2
+                return 1
+            }
+
+            case "$port" in
+                *[!0-9]*)
+                    printf 'Invalid port: %s\n' "$port" >&2
+                    return 1
+                    ;;
+            esac
+
+            if [ "${#port}" -gt 5 ] ||
+               [ "$port" -lt 1 ] ||
+               [ "$port" -gt 65535 ]; then
+                printf 'Invalid port: %s\n' "$port" >&2
+                return 1
+            fi
+        done
+    fi
+
+    # 7. Establish connection
+    printf '\nConnecting to %s...\n' "$server"
+
+    if [ -n "$forward" ]; then
+        printf 'Tunnel: %s %s\n' "$option" "$forward"
+    fi
+
+    if [ "$has_key" = "yes" ]; then
+        # SSH key authentication
+        if [ "$type" = "SSH Connection" ]; then
+            ssh "$server"
+        else
+            ssh -N -T \
+                -o ExitOnForwardFailure=yes \
+                "$option" "$forward" \
+                "$server"
+        fi
+    else
+        # Password authentication through file descriptor 3
+        printf 'Authenticating as %s (%s)\n' \
+            "$username" "$auth_source"
+
+        if [ "$type" = "SSH Connection" ]; then
+            sshpass -d 3 ssh \
+                -o PubkeyAuthentication=no \
+                -o PreferredAuthentications=password,keyboard-interactive \
+                -l "$username" \
+                "$server" 3<<< "$password"
+        else
+            sshpass -d 3 ssh -N -T \
+                -o ExitOnForwardFailure=yes \
+                -o PubkeyAuthentication=no \
+                -o PreferredAuthentications=password,keyboard-interactive \
+                -l "$username" \
+                "$option" "$forward" \
+                "$server" 3<<< "$password"
+        fi
+    fi
+
+    exit_code=$?
+    unset password fields
+    return "$exit_code"
+}
